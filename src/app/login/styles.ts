@@ -44,34 +44,44 @@ export const LoginBox = styled('div', {
 })
 
 export const InputLabel = styled('a', {
-    color: 'rgba(0, 0, 0, 0.5)',
+    color: 'white',
 })
 
 export const LoginForm = styled('form', {
     display: 'flex',
+    width: 'fit-content',
+    height: 'fit-content',
     flexDirection: 'column',
     justifyContent: 'center',
     justifyItems: 'center',
     padding: '25px',
     borderRadius: '5px',
-    backgroundColor: 'White',
+    backgroundColor: '#231f20',
 
     animation: `${scaleUp} 700ms`,
 
 })
 
+export const IconForm = styled('img', {
+    width: '80px',
+    height: '100px'
+})
+
 export const InputCustom = styled('input', {
+    width: '100%',
     borderBottom: '2px solid rgba(0, 0, 0, 0.2)',
     padding: '5px',
     paddingLeft: '3px',
 
     '&:focus': {
         borderBottom: '2px solid #007bff',
-        animation: `${colorUp} 500ms`,
+        animation: `${colorUp} 900ms`,
     },
 })
 
 export const InputButton = styled('input', {
+    width: '30%',
+    height: 'fit-content',
     marginTop: '10px',
     padding: '8px',
     color: 'White',

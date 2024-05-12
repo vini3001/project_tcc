@@ -13,15 +13,15 @@ export default function Document({
   children: React.ReactNode
 }) {
   globalStyles()
-  return (
-    <html lang="pt-BR">
-      <head>
-      <style
-          id="stitches"
-          dangerouslySetInnerHTML={{ __html: getCssText() }}
-        ></style>
-      </head>
-      <body>{children}</body>
-    </html>
-  )
+    return (
+      <html lang="pt-BR">
+        <head>
+        <style
+            id="stitches"
+            dangerouslySetInnerHTML={{ __html: getCssText() }}
+          ></style>
+        </head>
+        <body>{children}</body>
+      </html>
+    )
 }

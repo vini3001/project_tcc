@@ -1,0 +1,6 @@
+export default function Register() {
+    console.log('kjsdfjsdlkfjspd')
+    return (
+        <div className="card-body"> <div className="card-title text-center fw-500 mb-3">LOGIN</div> <div className="form-group"> <input type="email" className="form-control" placeholder="Email"/> </div> <div className="form-group"> <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/> </div> <div className="form-group"> <label className="custom-control custom-checkbox"> <a href="forgot-password.html" className="float-end small text-info">Forgot password?</a> </label> </div> <div> <a href="index.html" role="button" className="btn btn-success btn-block">SignIn</a> </div> <div className="text-center fs-15 mt-4"> Dont have account yet? <a href="register.html" className="text-primary">Login</a> </div> <hr className="divider"/> <div className="mt-2"> <div className="btn-list"> <a href="javascript:void(0);" role="button" className="btn btn-facebook btn-block">SignIn via Facebook</a> <a href="javascript:void(0);" role="button" className="btn btn-google btn-block">SignIn via Google</a> </div> </div> </div>
+    )
+}
