@@ -1,19 +1,9 @@
 'use client'
-import Header from "./components/header/header"
 import { InputButton, LoginBox, LoginContainer, LoginForm, InputCustom, InputLabel, IconForm } from "./styles"
 import styles from './styles.module.css'
 import policeIcon from '../../../public/assets/Emblema novo PCSP_1573140723106.png'
-import { testeApi } from "@/backend/login"
-import axios from "axios"
-import { Router } from "next/router"
-import Link from "next/link"
-import Test from "../register.page"
 
 export default function Login() {
-
-    async function handleSearchCli() {
-        // const response = await testeApi.request({})
-    }
 
     return (
         <>
