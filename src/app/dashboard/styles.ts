@@ -1,14 +1,31 @@
-import { styled } from "@stitches/react";
-import { Image } from "../components/Image";
+import { keyframes, styled } from "@stitches/react";
+
+const colorUp = keyframes({
+    '0%': {
+        backgroundColor: 'blue'
+    },
+
+    '100%': {
+        backgroundColor: 'red'
+    }
+})
 
 export const DashboardSideMenu = styled('section', {
     overflow: 'hidden',
-    width: '20vw',
+    width: 'fit-content',
     height: '100vh',
-    backgroundColor: '#1b2430'
+    backgroundColor: '#1b2430',
 })
 
-export const DashboardText = styled('a', {
+export const DashboardMainText = styled('a', {
+    all: 'unset',
+    fontSize: 'large',
+    lineHeight: '20px',
+    color: 'White',
+    
+})
+
+export const DashboardMenuText = styled('a', {
     all: 'unset',
     fontSize: 'medium',
     lineHeight: '20px',
@@ -17,12 +34,17 @@ export const DashboardText = styled('a', {
 })
 
 export const DashboardTextContainer = styled('div', {
-    marginLeft: '80px',
     display: 'flex',
-    width: '100%',
+    width: 'fit-content',
+    padding: '5px',
+    borderRadius: '14px',
     gap: '10px',
     alignItems: 'center',
     cursor: 'pointer',
+
+    '&:hover': {
+        backgroundColor: 'rgba(128, 128, 128, 0.6)'
+    }
 })
 
 export const MainIconForm = styled('img', {
@@ -32,7 +54,13 @@ export const MainIconForm = styled('img', {
 
 export const MenuIconForm = styled('img', {
     width: '23px',
-    height: '23px'
+    height: '23px',
+    borderRadius: '5px',
+    
+    '&:hover': {
+        color: 'red',
+        backgroundColor: 'rgba(128, 128, 128, 0.2)'
+    }
 })
 
 export const DashboardHeader = styled('div', {
