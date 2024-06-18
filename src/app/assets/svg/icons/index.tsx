@@ -56,7 +56,6 @@ export default function SvgIcon({type, variant, onClick}: SvgIconProps) {
     }
 
     const source = getSvgSource()
-    console.log(source)
 
     return <SvgIconImg src={source} onClick={onClick}/>
 }

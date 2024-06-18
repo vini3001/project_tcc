@@ -1,7 +1,10 @@
+'use client'
+
 import {getCssText} from '../../stitches.config'
 import { globalStyles } from './global/styles/style'
 import '../app/global/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthProvider } from './contexts/AuthContext';
 
 export const metadata = {
   title: 'Next.js',
@@ -25,7 +28,11 @@ export default function Document({
             dangerouslySetInnerHTML={{ __html: getCssText() }}
           ></style>
         </head>
-        <body>{children}</body>
+        <body>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </body>
       </html>
     )
 }

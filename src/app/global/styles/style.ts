@@ -1,4 +1,4 @@
-import { globalCss } from "@stitches/react";
+import { globalCss, keyframes, styled } from "@stitches/react";
 
 
 export const globalStyles = globalCss({
@@ -9,4 +9,71 @@ export const globalStyles = globalCss({
         fontWeight: 400,
         fontStyle: 'normal'
     },
+})
+
+const colorUp = keyframes({
+    '0%': {
+        borderBottom: '2px solid rgba(0, 0, 0, 0.2)'
+    },
+
+    '100%': {
+        borderBottom: '2px solid #007bff'
+    }
+})
+
+export const HeaderText = styled('h2', {
+    all: 'unset',
+    fontWeight: 'lighter',
+    fontStyle: 'normal'
+})
+
+export const InputLabel = styled('a', {
+    all: 'unset',
+    color: 'white',
+    marginLeft: '5px'
+})
+
+export const InputButton = styled('input', {
+    height: 'fit-content',
+    marginTop: '20px',
+    padding: '8px',
+    color: 'White',
+    borderRadius: '5px',
+    backgroundColor: '#007bff'
+})
+
+export const InputCustom = styled('input', {
+    width: '100%',
+    borderBottom: '2px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: '10px',
+    padding: '5px',
+    paddingLeft: '3px',
+
+    '&:focus': {
+        borderBottom: '2px solid #007bff',
+        animation: `${colorUp} 900ms`,
+    },
+})
+
+export const SelectStyle = styled('select', {
+    width: '100%',
+    borderBottom: '2px solid rgba(0, 0, 0, 0.2)',
+    borderRadius: '10px',
+    padding: '5px',
+    paddingLeft: '3px',
+
+    '&:focus': {
+        borderBottom: '2px solid #007bff',
+        animation: `${colorUp} 900ms`,
+    },
+})
+
+export const RegisterButton = styled('button', {
+    backgroundColor: '#28a745',
+    height: 'fit-content',
+    padding: '8px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    borderRadius: '10px',
+    color: 'white'
 })

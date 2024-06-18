@@ -1,5 +1,4 @@
-import { HeaderText } from "./styles";
-
+import { HeaderText } from "@/app/global/styles/style";
 
 
 export default function Home() {

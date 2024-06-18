@@ -1,4 +1,3 @@
-import axios, { Axios } from "axios"
 import { api } from "./baseURL"
 
 export type RouteMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE'
@@ -23,6 +22,8 @@ export class Route<Req = {}, Res = {}> {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             },
-        }).then((err) => {console.log(err)}).catch((err) => {console.log(err)})
+        }).then((res) => {return res}).catch((err) => {console.log(err); throw err})
+
+        return response
     }
 }

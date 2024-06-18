@@ -1,14 +1,4 @@
-import { keyframes, styled } from "@stitches/react";
-
-const colorUp = keyframes({
-    '0%': {
-        backgroundColor: 'blue'
-    },
-
-    '100%': {
-        backgroundColor: 'red'
-    }
-})
+import { styled } from "@stitches/react";
 
 export const DashboardSideMenu = styled('section', {
     overflow: 'hidden',

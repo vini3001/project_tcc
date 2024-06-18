@@ -12,30 +12,30 @@ const scaleUp = keyframes({
     }
 })
 
-export const LoginContainer = styled('section', {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundImage: 'url(/assets/DDMRibeirao-1-1280x720.jpg)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center top',
-    backgroundRepeat: 'no-repeat',
-    backgroundAttachment: 'fixed'
+const colorUp = keyframes({
+    '0%': {
+        borderBottom: '2px solid rgba(0, 0, 0, 0.2)'
+    },
+
+    '100%': {
+        borderBottom: '2px solid #007bff'
+    }
 })
 
-export const LoginBox = styled('div', {
+export const RegisterBox = styled('div', {
     display: 'flex',
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    inset: '0',
+    zIndex: '1'
 })
 
-export const LoginForm = styled('form', {
+export const RegisterForm = styled('form', {
     display: 'flex',
-    width: '25vw',
+    position: 'relative',
+    width: '55vw',
     height: 'fit-content',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -48,7 +48,12 @@ export const LoginForm = styled('form', {
 
 })
 
-export const IconForm = styled('img', {
-    width: '80px',
-    height: '100px'
+export const CloseButton = styled('img', {
+    width: '25px',
+    height: '25px',
+    cursor: 'pointer',
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    margin: '10px'
 })

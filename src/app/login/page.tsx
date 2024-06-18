@@ -1,7 +1,9 @@
 'use client'
-import { InputButton, LoginBox, LoginContainer, LoginForm, InputCustom, InputLabel, IconForm } from "./styles"
+
+import { LoginBox, LoginContainer, LoginForm, IconForm } from "./styles"
 import styles from './styles.module.css'
 import policeIcon from '../../../public/assets/Emblema novo PCSP_1573140723106.png'
+import { InputButton, InputCustom, InputLabel } from "../global/styles/style"
 
 export default function Login() {
 
@@ -14,18 +16,18 @@ export default function Login() {
                             <div className="flex justify-center m-2">
                                 <IconForm src={policeIcon.src} />
                             </div>
-                            <div className="flex w-full justify-center items-center gap-x-2">
+                            <div className="flex flex-col w-full justify-center items-start gap-y-2">
                                 <InputLabel>Usuário</InputLabel>
                                 <InputCustom type="text"/>
                             </div>
                         
-                            <div className="flex w-full justify-center items-center gap-x-4">
+                            <div className="flex flex-col w-full justify-center items-start gap-y-2">
                                 <InputLabel>Senha</InputLabel>
                                 <InputCustom className="grow" type="password" />
                             </div>                            
 
                             <div className="flex w-full justify-center">
-                                <InputButton value={'Log In'} type="submit" />
+                                <InputButton style={{width: '30%'}} value={'Login'} type="submit" />
                             </div>
                     </LoginForm>
                 </LoginBox>

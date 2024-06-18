@@ -2,7 +2,6 @@ import { DashboardHeader, MenuIconForm } from "../styles"
 import menuIconClosed from '../../assets/svg/icons/menuIconClosed.svg'
 import menuIconOpened from '../../assets/svg/icons/menuIconOpen.svg'
 import user from '../../assets/svg/icons/user.svg'
-import SvgIcon from "@/app/assets/svg/icons/indext"
 
 interface DashboardHeaderProps {
     closeModal: () => void,
