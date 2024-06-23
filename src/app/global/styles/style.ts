@@ -1,4 +1,5 @@
-import { globalCss, keyframes, styled } from "@stitches/react";
+import { globalCss, keyframes } from "@stitches/react";
+import { styled } from "../../../../stitches.config";
 
 
 export const globalStyles = globalCss({
@@ -76,4 +77,16 @@ export const RegisterButton = styled('button', {
     paddingRight: '16px',
     borderRadius: '10px',
     color: 'white'
+})
+
+export const GoBackIcon = styled('img', {
+    width: '40px',
+    height: '40px',
+    cursor: 'pointer',
+    padding: '2px',
+    borderRadius: '9999px',
+    
+    '&:hover': {
+        backgroundColor: 'rgba(128, 128, 128, 0.2)'
+    }
 })

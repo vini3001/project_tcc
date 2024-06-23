@@ -1,4 +1,5 @@
-import { keyframes, styled } from "@stitches/react";
+import { keyframes } from "@stitches/react";
+import { styled } from "../../../stitches.config";
 
 const scaleUp = keyframes({
     '0%': {

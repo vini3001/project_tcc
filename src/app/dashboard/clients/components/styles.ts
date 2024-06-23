@@ -57,3 +57,13 @@ export const CloseButton = styled('img', {
     right: '0',
     margin: '10px'
 })
+
+export const DetailsButton = styled('button', {
+    width: '20%',
+    height: 'fit-content',
+    marginTop: '20px',
+    padding: '8px',
+    color: 'White',
+    borderRadius: '5px',
+    backgroundColor: '#007bff'
+})

@@ -2,60 +2,56 @@
 
 import { useState } from "react"
 import ClientModalCreate from "./components/modalCreate"
-import ClientModalEdit from "./components/modalEdit"
-import { ClientContainer, ClientHeader, EditIcon, Table } from "./styles"
+import { ClientContainer, ClientHeader, EditIcon, Table, TableContainer } from "./styles"
 import { RegisterButton } from "@/app/global/styles/style"
 import editIcon from '../../assets/svg/icons/edit.svg'
+import Link from "next/link"
 
 export default function Clients() {
     const [isOpenCreate, setIsOpenCreate] = useState(false)
-    const [isOpenEdit, setIsOpenEdit] = useState(false)
 
     function handleOpenModalCreate(){
         setIsOpenCreate(!isOpenCreate)
     }
 
-    function handleOpenModalEdit() {
-        setIsOpenEdit(!isOpenEdit)
-    }
-
     return (
-        <ClientContainer>
+        <ClientContainer className="grid-rows-2">
             <ClientHeader>
                 <h2>Cadastro de clientes</h2>
                 <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
             </ClientHeader>
 
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Documento</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Tipo de pessoa</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>meu pinto</td>
-                        <td>4455883233423423423</td>
-                        <td>234235232342342342355</td>
-                        <td>2342354234234233235</td>
-                        <td>234235235</td>
-                        <td><EditIcon onClick={handleOpenModalEdit} src={editIcon.src} /></td>
-                    </tr>
-                </tbody>
-            </Table>
+            <TableContainer>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>EMAIL</th>
+                            <th>PLANO</th>
+                            <th>DATA DE CADASTRO</th>
+                            <th style={{borderRight: 'none'}}>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vinícius Donizeti dos Santos Ataliba</td>
+                            <td>donizetevinicius250@gmail.com</td>
+                            <td>Anual</td>
+                            <td>30/01/2004</td>
+                            <td style={{borderRight: 'none'}}>
+                                <Link href={'/dashboard/clients/details'}>
+                                    <EditIcon src={editIcon.src} />
+                                </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </TableContainer>
 
             {isOpenCreate && (
                 <ClientModalCreate closeModal={handleOpenModalCreate} />
             )}
 
-            {isOpenEdit && (
-                <ClientModalEdit closeModal={handleOpenModalEdit} />
-            )}
         </ClientContainer>
     )
 }

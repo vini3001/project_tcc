@@ -1,10 +1,22 @@
-import { styled } from "@stitches/react";
+import { styled } from "../../../stitches.config";
+import Link from "next/link";
 
 export const DashboardSideMenu = styled('section', {
-    overflow: 'hidden',
+    overflowY: 'hidden',
     width: 'fit-content',
     height: '100vh',
     backgroundColor: '#1b2430',
+
+    variants: {
+        menu: {
+            closed: {
+                width: 'fit-content'
+            },
+            opened: {
+                width: 'fit-content'
+            }
+        }
+    }
 })
 
 export const DashboardMainText = styled('a', {
@@ -23,8 +35,10 @@ export const DashboardMenuText = styled('a', {
     
 })
 
-export const DashboardTextContainer = styled('div', {
+export const DashboardTextContainer = styled(Link, {
     display: 'flex',
+    textDecorationLine: 'unset',
+    color: 'White',
     width: 'fit-content',
     padding: '5px',
     borderRadius: '14px',
@@ -33,7 +47,7 @@ export const DashboardTextContainer = styled('div', {
     cursor: 'pointer',
 
     '&:hover': {
-        backgroundColor: 'rgba(128, 128, 128, 0.6)'
+        color: '#4a77f0'
     }
 })
 
@@ -48,7 +62,6 @@ export const MenuIconForm = styled('img', {
     borderRadius: '5px',
     
     '&:hover': {
-        color: 'red',
         backgroundColor: 'rgba(128, 128, 128, 0.2)'
     }
 })

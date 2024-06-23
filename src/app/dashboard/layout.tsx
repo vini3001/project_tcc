@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardSideMenu, DashboardMenuText, DashboardTextContainer, MenuIconForm, MainIconForm, DashboardHeader, DashboardMainText } from "./styles"
+import { DashboardSideMenu, DashboardMenuText, DashboardTextContainer, MenuIconForm, MainIconForm } from "./styles"
 import house from '../assets/svg/icons/house.svg'
 import contact from '../assets/svg/icons/contact.svg'
 import mail from '../assets/svg/icons/mail.svg'
@@ -10,7 +10,6 @@ import people from '../assets/svg/icons/people.svg'
 import logo from '../assets/pngwing.com (1).png'
 import Dashboardheader from "./components/DashboardHeader"
 import { useState } from "react"
-import Link from "next/link"
 
 export default function Register({
     children,
@@ -24,7 +23,7 @@ export default function Register({
     }
 
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row w-full">
                 <DashboardSideMenu>
                     <div className="flex space-x-4 items-center justify-center m-2 p-2">
                         <MainIconForm src={logo.src} alt=""/>
@@ -33,27 +32,23 @@ export default function Register({
                     <hr className="text-white"/>
                     {/*items-center*/}
                     <div className="flex flex-col h-[100%] space-y-10 p-2 mx-10">
-                        <Link href={"/dashboard/home"} style={{ textDecorationLine: 'unset' }}>
-                            <DashboardTextContainer>
-                                <MenuIconForm src={house.src} alt={""} /> {isOpen && (<DashboardMenuText>Dashboard</DashboardMenuText>)}
-                            </DashboardTextContainer>
-                        </Link>
-                        <Link href={"/dashboard/clients"} style={{ textDecorationLine: 'unset' }}>
-                            <DashboardTextContainer>
-                                    <MenuIconForm src={people.src} alt={""} /> {isOpen && <DashboardMenuText>Clientes</DashboardMenuText>}
-                            </DashboardTextContainer>
-                        </Link>
-                        <DashboardTextContainer>
-                            <MenuIconForm src={contact.src} alt={""} />{isOpen && (<DashboardMenuText>Contatos</DashboardMenuText>)}
+                        <DashboardTextContainer href={"/dashboard/home"}>
+                            <MenuIconForm src={house.src} alt={""} /> {isOpen && <>Dashboard</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer>
-                            <MenuIconForm src={mail.src} alt={""} />{isOpen && (<DashboardMenuText>Mensagens</DashboardMenuText>)}
+                        <DashboardTextContainer href={"/dashboard/clients"}>
+                                <MenuIconForm src={people.src} alt={""} /> {isOpen && <>Clientes</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer>
-                            <MenuIconForm src={send.src} alt={""} />{isOpen && <DashboardMenuText>Mensagens</DashboardMenuText>}
+                        <DashboardTextContainer href={"/dashboard/home"}>
+                            <MenuIconForm src={contact.src} alt={""} />{isOpen && <>Contatos</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer>
-                            <MenuIconForm src={settings.src} alt={""} />{isOpen && <DashboardMenuText>Configurações</DashboardMenuText>}
+                        <DashboardTextContainer href={"/dashboard/home"}>
+                            <MenuIconForm src={mail.src} alt={""} />{isOpen && <>Mensagens</>}
+                        </DashboardTextContainer>
+                        <DashboardTextContainer href={"/dashboard/home"}>
+                            <MenuIconForm src={send.src} alt={""} />{isOpen && <>Envios</>}
+                        </DashboardTextContainer>
+                        <DashboardTextContainer href={"/dashboard/home"}>
+                            <MenuIconForm src={settings.src} alt={""} />{isOpen && <>Configurações</>}
                         </DashboardTextContainer>
                     </div>
                 </DashboardSideMenu>

@@ -1,9 +1,11 @@
-import { styled } from "@stitches/react";
+import { styled } from "../../../../stitches.config"
 
 
 export const ClientContainer = styled('section', {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'start',
     width: '100%',
 })
 
@@ -14,28 +16,33 @@ export const ClientHeader = styled('div', {
     justifyContent: 'space-between'
 })
 
-export const Table = styled('table', {
-    width: '100%',
-    borderCollapse: 'collapse',
+export const TableContainer = styled('div', {
+    maxWidth: '80vw',
+    maxHeight: '77vh',
+    overflow: 'auto',
+    border: '2px solid rgba(0, 0, 0, 0.1)',
+    borderRadius: '5px',
+    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
+})
 
-    'thead': {
-        backgroundColor: '#dddddd',
-    },
+export const Table = styled('table', {
+    borderCollapse: 'separate',
 
     'th': {
-        fontWeight: 'bold',
-        borderCollapse: 'separate'
+        fontWeight: 600,
+        fontSize: '0.8rem',
+        borderBottom: '1px solid #dddddd',
+    },
+
+    'td': {
+        whiteSpace: 'nowrap',
     },
 
     'td, th': {
-        border: '1px solid #dddddd',
+        borderRight: '1px solid #dddddd',
         textAlign: 'left',
         padding: '8px'
     },
-
-    'tr:nth-child(even)': {
-        backgroundColor: '#dddddd'
-    }
 })
 
 export const EditIcon = styled('img', {
@@ -45,7 +52,6 @@ export const EditIcon = styled('img', {
     borderRadius: '5px',
     
     '&:hover': {
-        color: 'red',
         backgroundColor: 'rgba(128, 128, 128, 0.2)'
     }
 })
