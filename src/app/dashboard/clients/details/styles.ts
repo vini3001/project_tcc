@@ -8,9 +8,8 @@ export const DetailsHeader = styled('div', {
 })
 
 export const DetailsContainer = styled('div', {
-    display: 'grid',
+    //display: 'grid',
     flexDirection: 'column',
-    maxWidth: '80vw',
     maxHeight: '77vh',
     gap: '20px',
     padding: '10px',

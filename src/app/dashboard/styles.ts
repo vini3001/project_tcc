@@ -6,17 +6,6 @@ export const DashboardSideMenu = styled('section', {
     width: 'fit-content',
     height: '100vh',
     backgroundColor: '#1b2430',
-
-    variants: {
-        menu: {
-            closed: {
-                width: 'fit-content'
-            },
-            opened: {
-                width: 'fit-content'
-            }
-        }
-    }
 })
 
 export const DashboardMainText = styled('a', {

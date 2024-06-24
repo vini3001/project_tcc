@@ -28,6 +28,7 @@ export const RegisterBox = styled('div', {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    backdropFilter: 'blur(2px)',
     inset: '0',
     zIndex: '1'
 })
@@ -35,7 +36,7 @@ export const RegisterBox = styled('div', {
 export const RegisterForm = styled('form', {
     display: 'flex',
     position: 'relative',
-    width: '55vw',
+    // width: '55vw',
     height: 'fit-content',
     flexDirection: 'column',
     justifyContent: 'center',

@@ -1,8 +1,6 @@
 'use client'
 
 import { CloseButton, RegisterBox, RegisterForm } from "./styles";
-import styles from './styles.module.css'
-import { useAuth } from "@/app/contexts/AuthContext";
 import { RegisterRequestData } from "../../../entities/Auth";
 import { User } from "../../../entities/User";
 import { useForm } from "react-hook-form";
@@ -25,8 +23,8 @@ export default function ClientModal({closeModal}: ClientProps) {
     }
 
     return (
-            <RegisterBox className={styles.form_custom}>
-                    <RegisterForm className="gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+            <RegisterBox className="h-fit md:h-auto">
+                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>

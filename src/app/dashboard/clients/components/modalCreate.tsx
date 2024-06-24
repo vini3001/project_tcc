@@ -1,7 +1,6 @@
 'use client'
 
 import { CloseButton, RegisterBox, RegisterForm } from "./styles";
-import styles from './styles.module.css'
 import { useAuth } from "@/app/contexts/AuthContext";
 import { RegisterRequestData } from "../../../entities/Auth";
 import { User } from "../../../entities/User";
@@ -25,7 +24,7 @@ export default function ClientModal({closeModal}: ClientProps) {
     }
 
     return (
-            <RegisterBox className={styles.form_custom}>
+            <RegisterBox>
                     <RegisterForm className="gap-y-2" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
