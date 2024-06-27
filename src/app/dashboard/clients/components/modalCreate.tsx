@@ -24,7 +24,7 @@ export default function ClientModal({closeModal}: ClientProps) {
     }
 
     return (
-            <RegisterBox>
+            <RegisterBox className="h-fit md:h-auto">
                     <RegisterForm className="gap-y-2" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
@@ -117,7 +117,7 @@ export default function ClientModal({closeModal}: ClientProps) {
                             <InputCustom type="text" {...register("personType")} hidden={true}/>
 
                             <div className="flex flex-col w-full justify-center">
-                                <InputButton className="w-[50%] md:w-[30%]" value={'Registrar'} type="submit" />
+                                <InputButton className="w-[50%] md:w-[30%]" type="submit">Registrar</InputButton>
                             </div>
                     </RegisterForm>
             </RegisterBox>

@@ -4,11 +4,14 @@ import { styled } from "../../../../../stitches.config";
 export const DetailsHeader = styled('div', {
     display: 'flex',
     width: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+
+    'h2': {
+        fontWeight: 400
+    }
 })
 
 export const DetailsContainer = styled('div', {
-    //display: 'grid',
     flexDirection: 'column',
     maxHeight: '77vh',
     gap: '20px',

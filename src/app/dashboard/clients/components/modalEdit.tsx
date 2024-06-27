@@ -116,7 +116,7 @@ export default function ClientModal({closeModal}: ClientProps) {
                             <InputCustom type="text" {...register("personType")} hidden={true}/>
 
                             <div className="flex flex-col w-full justify-center">
-                                <InputButton className="w-[50%] md:w-[30%]" value={'Registrar'} type="submit" />
+                                <InputButton className="w-[50%] md:w-[30%]" type="submit">Editar</InputButton>
                             </div>
                     </RegisterForm>
             </RegisterBox>

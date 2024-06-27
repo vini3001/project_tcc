@@ -39,7 +39,7 @@ export default function SideMenu({isOpen, closeSideMenu}: SideMenuProps) {
                             <DashboardTextContainer href={"/dashboard/clients"}>
                                     <MenuIconForm src={people.src} alt={""} /> <>Clientes</>
                             </DashboardTextContainer>
-                            <DashboardTextContainer href={"/dashboard/home"}>
+                            <DashboardTextContainer href={"/dashboard/contacts"}>
                                 <MenuIconForm src={contact.src} alt={""} /><>Contatos</>
                             </DashboardTextContainer>
                             <DashboardTextContainer href={"/dashboard/home"}>
@@ -70,7 +70,7 @@ export default function SideMenu({isOpen, closeSideMenu}: SideMenuProps) {
                         <DashboardTextContainer href={"/dashboard/clients"}>
                                 <MenuIconForm src={people.src} alt={""} /> {isOpen && <>Clientes</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer href={"/dashboard/home"}>
+                        <DashboardTextContainer href={"/dashboard/contacts"}>
                             <MenuIconForm src={contact.src} alt={""} />{isOpen && <>Contatos</>}
                         </DashboardTextContainer>
                         <DashboardTextContainer href={"/dashboard/home"}>

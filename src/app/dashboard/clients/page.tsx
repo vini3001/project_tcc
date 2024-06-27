@@ -1,14 +1,25 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ClientModalCreate from "./components/modalCreate"
 import { ClientContainer, ClientHeader, EditIcon, Table, TableContainer } from "./styles"
 import { RegisterButton } from "@/app/global/styles/style"
 import editIcon from '../../assets/svg/icons/edit.svg'
 import Link from "next/link"
+import { routeListClient } from "@/backend/client"
 
 export default function Clients() {
     const [isOpenCreate, setIsOpenCreate] = useState(false)
+
+    useEffect(() => {
+        async function fetchData() {
+            const clients = await routeListClient.request({})
+
+            console.log(clients)
+        }
+
+        fetchData()
+    }, [])
 
     function handleOpenModalCreate(){
         setIsOpenCreate(!isOpenCreate)
@@ -17,7 +28,7 @@ export default function Clients() {
     return (
         <ClientContainer className="grid-rows-2">
             <ClientHeader>
-                <h2>Cadastro de clientes</h2>
+                <h2>Listagem de clientes</h2>
                 <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
             </ClientHeader>
 

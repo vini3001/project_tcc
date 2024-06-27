@@ -23,7 +23,7 @@ export default function ClientDetails() {
                         <GoBackIcon src={goBackIcon.src} />
                         </Link>
                         <DetailsHeader>
-                        <h2 className="m-0">Detalhes do cliente</h2>
+                                <h2 className="m-0">Detalhes do cliente</h2>
                         </DetailsHeader>
                 </div>
                  

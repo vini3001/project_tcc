@@ -34,7 +34,7 @@ export const InputLabel = styled('a', {
     marginLeft: '5px'
 })
 
-export const InputButton = styled('input', {
+export const InputButton = styled('button', {
     height: 'fit-content',
     marginTop: '20px',
     padding: '8px',

@@ -13,7 +13,11 @@ export const ClientHeader = styled('div', {
     display: 'flex',
     width: '100%',
     marginBottom: '20px',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+
+    'h2': {
+        fontWeight: 400
+    }
 })
 
 export const TableContainer = styled('div', {
