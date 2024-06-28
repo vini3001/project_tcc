@@ -21,6 +21,7 @@ export const ContactHeader = styled('div', {
 
 export const ContactContent = styled('section', {
     display: 'flex',
+    overflow: 'auto',
     gap: '20px'
 })
 
@@ -29,7 +30,7 @@ export const ContactCard = styled('div', {
     gap: '10px',
     padding: '10px',
     cursor: 'pointer',
-    width: 'fit-content',
+    minWidth: '200px',
     flexDirection: 'column',
     borderRadius: '10px',
     border: '2px solid rgba(0, 0, 0, 0.1)',

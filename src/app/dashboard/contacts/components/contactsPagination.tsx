@@ -17,7 +17,7 @@ interface PaginatedItems {
 function Items({currentItems}: ItemsProps) {
   return (
     <>
-    <ContactContent className="col-span-3 row-span-3">
+    <ContactContent className='w-[100vw] md:w-[80vw]'>
       {currentItems &&
         currentItems.map((item) => (
                 <ContactCard key={item}>

@@ -10,7 +10,7 @@ export default function Contacts() {
     return (
         <ContactContainer>
             <ContactHeader><h2>Contatos</h2></ContactHeader>
-            <PaginatedItems itemsPerPage={6}/>
+            <PaginatedItems itemsPerPage={9}/>
         </ContactContainer>
     )
 }
