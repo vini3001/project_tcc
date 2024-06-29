@@ -1,3 +1,5 @@
+'use client'
+
 import { HeaderText } from "@/app/global/styles/style";
 
 

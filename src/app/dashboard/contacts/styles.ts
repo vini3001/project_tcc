@@ -21,6 +21,7 @@ export const ContactHeader = styled('div', {
 
 export const ContactContent = styled('section', {
     display: 'flex',
+    width: '100%',
     overflow: 'auto',
     gap: '20px'
 })

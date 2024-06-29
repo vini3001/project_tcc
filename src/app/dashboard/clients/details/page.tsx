@@ -27,7 +27,7 @@ export default function ClientDetails() {
                         </DetailsHeader>
                 </div>
                  
-                <DetailsContainer className="flex flex-col max-w-[90vw] md:max-w-[80vw] md:grid md:grid-cols-3 md:grid-rows-3">
+                <DetailsContainer className="flex flex-col md:grid md:grid-cols-3 md:grid-rows-3">
                         <DetailsContent>
                                 <h6>Nome Completo</h6>
                                 <a>Vinícius Donizeti dos Santos Ataliba</a>

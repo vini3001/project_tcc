@@ -10,15 +10,17 @@ export default function Register({
     children: React.ReactNode
   }) {
     const [isOpen, setModalIsOpen] = useState(false)
+    const [screenMin, setScreenMin] = useState(false)
 
     function handleCloseModal() {
         setModalIsOpen(!isOpen)
+        setScreenMin(!screenMin)
     }
 
     return (
         <div className="flex flex-row h-full w-full">
-            <SideMenu isOpen={isOpen} closeSideMenu={handleCloseModal}/>
-            <section className="max-h-[100vh] overflow-y-auto overflow-x-hidden grow p-3">
+            <SideMenu isOpen={isOpen} minSize={screenMin} closeSideMenu={handleCloseModal}/>
+            <section className="max-h-[100vh] overflow-y-auto grow p-3">
                 <Dashboardheader closeModal={handleCloseModal} isOpen={isOpen}/>
                 <hr />
                 {children}

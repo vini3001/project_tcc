@@ -3,9 +3,19 @@ import Link from "next/link";
 
 export const DashboardSideMenu = styled('section', {
     overflowY: 'hidden',
-    width: 'fit-content',
     height: '100vh',
     backgroundColor: '#1b2430',
+
+    variants: {
+        minSize: {
+            minimize: {
+                minWidth: 'fit-content'
+            },
+            maximize: {
+                minWidth: '220px'
+            }
+        }
+    }
 })
 
 export const DashboardMainText = styled('a', {

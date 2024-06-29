@@ -23,9 +23,7 @@ const colorUp = keyframes({
 })
 
 export const HeaderText = styled('h2', {
-    all: 'unset',
-    fontWeight: 'lighter',
-    fontStyle: 'normal'
+    fontWeight: 400,
 })
 
 export const InputLabel = styled('a', {

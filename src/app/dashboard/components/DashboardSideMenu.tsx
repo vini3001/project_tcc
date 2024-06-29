@@ -12,10 +12,11 @@ import menuIconOpened from '../../assets/svg/icons/menuIconOpen.svg'
 
 interface SideMenuProps {
     isOpen: boolean
+    minSize: boolean
     closeSideMenu: () => void
 }
 
-export default function SideMenu({isOpen, closeSideMenu}: SideMenuProps) {
+export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps) {
 
     function handleCloseSideMenuMobile() {
         closeSideMenu()
@@ -56,7 +57,7 @@ export default function SideMenu({isOpen, closeSideMenu}: SideMenuProps) {
                 )}
                 <MenuIconForm className="block md:hidden" onClick={handleCloseSideMenuMobile} src={isOpen ? menuIconOpened.src : menuIconClosed.src} style={{width: '40px', height: '40px', padding: '2px', cursor: 'pointer', borderRadius: '100%', top: '0', marginTop: '20px'}} />
             </div>
-            <DashboardSideMenu className="hidden md:block">
+            <DashboardSideMenu minSize={minSize ? 'maximize' : 'minimize'} className="hidden md:block">
                     <div className="flex space-x-4 items-center justify-center m-2 p-2">
                         <MainIconForm src={logo.src} alt=""/>
                         {isOpen && <DashboardMenuText>Vortex</DashboardMenuText>}
