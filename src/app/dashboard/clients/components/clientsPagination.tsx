@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ContactContent, EditIcon, Table, TableContainer } from '../styles';
+import { ClientContainer, EditIcon, Table, TableContainer } from '../styles';
 import { CustomLabelPaginate } from './styles';
 import Link from 'next/link';
 import editIcon from '../../../assets/svg/icons/edit.svg'
@@ -21,48 +21,53 @@ export default function Items({currentItems}: ItemsProps) {
 
   return (
     <>
-    <ContactContent>
+    <ClientContainer>
       <TableContainer>
         <Table>
-          <thead>
-            <tr>
-                  <th>NOME</th>
-                  <th>EMAIL</th>
-                  <th>WHATSAPP</th>
-                  <th>DATA DE CADASTRO</th>
-                  <th style={{borderRight: 'none'}}>AÇÕES</th>
-              </tr>
-          </thead>
+            <thead>
+                <tr>
+                    <th>NOME</th>
+                    <th>EMAIL</th>
+                    <th>PLANO</th>
+                    <th>DATA DE CADASTRO</th>
+                    <th style={{borderRight: 'none'}}>AÇÕES</th>
+                </tr>
+            </thead>
           {currentItems &&
             currentItems.map((item) => (
-                  <tbody key={item}>
+                <tbody key={item}>
                     <tr>
                         <td>Vinícius Donizeti dos Santos Ataliba</td>
                         <td>donizetevinicius250@gmail.com</td>
-                        <td>(16) 994270955</td>
+                        <td>Anual</td>
                         <td>30/01/2004</td>
                         <td style={{borderRight: 'none'}}>
-                            <Link className='block w-fit' href={'/dashboard/contacts/details?id=' + item}>
+                            <Link href={'/dashboard/clients/details'}>
                                 <EditIcon src={editIcon.src} />
                             </Link>
                         </td>
                     </tr>
-                  </tbody>
+                </tbody>
             ))}
           </Table>
         </TableContainer>
-      </ContactContent>
+      </ClientContainer>
     </>
   );
 }
 
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
+  const [changeColor, setChangeColor] = useState(false)
 
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
+
+  function handleChangeColor() {
+    setChangeColor(!changeColor)
+  }
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: { selected: number; }) => {

@@ -21,8 +21,9 @@ export const ClientHeader = styled('div', {
 })
 
 export const TableContainer = styled('div', {
-    maxWidth: '80vw',
+    width: '100%',
     maxHeight: '77vh',
+    tableLayout: 'fixed',
     overflow: 'auto',
     border: '2px solid rgba(0, 0, 0, 0.1)',
     borderRadius: '5px',
@@ -30,7 +31,12 @@ export const TableContainer = styled('div', {
 })
 
 export const Table = styled('table', {
-    borderCollapse: 'separate',
+    borderCollapse: 'collapse',
+    width: '100%',
+
+    'tbody': {
+        borderBottom: '1px solid #dddddd'
+    },
 
     'th': {
         fontWeight: 600,

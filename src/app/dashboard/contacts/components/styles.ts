@@ -13,13 +13,33 @@ const scaleUp = keyframes({
     }
 })
 
-const colorUp = keyframes({
-    '0%': {
-        borderBottom: '2px solid rgba(0, 0, 0, 0.2)'
+export const CustomLabelPaginate = styled(ReactPaginate, {
+    display: 'flex',
+    borderRadius: '10px',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    padding: '0',
+    margin: '0',
+
+    'a': {
+        color: 'black',
+        fontSize: '20px',
+        fontWeight: '400px',
+        textDecoration: 'unset'
     },
 
-    '100%': {
-        borderBottom: '2px solid #007bff'
+    'li': {
+        display: 'flex',
+        border: '2px solid rgba(0, 0, 0, 0.1)',
+        cursor: 'pointer',
+        justifyContent: 'center',
+        borderRadius: '5px',
+        width: '40px',
+
+        '&:hover': {
+            backgroundColor: 'rgba(128, 128, 128, 0.2)'
+        },
     }
 })
 
@@ -57,44 +77,4 @@ export const CloseButton = styled('img', {
     top: '0',
     right: '0',
     margin: '10px'
-})
-
-export const DetailsButton = styled('button', {
-    width: '20%',
-    height: 'fit-content',
-    marginTop: '20px',
-    padding: '8px',
-    color: 'White',
-    borderRadius: '5px',
-    backgroundColor: '#007bff'
-})
-
-export const CustomLabelPaginate = styled(ReactPaginate, {
-    display: 'flex',
-    borderRadius: '10px',
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center',
-    padding: '0',
-    margin: '0',
-
-    'a': {
-        color: 'black',
-        fontSize: '20px',
-        fontWeight: '400px',
-        textDecoration: 'unset'
-    },
-
-    'li': {
-        display: 'flex',
-        border: '2px solid rgba(0, 0, 0, 0.1)',
-        cursor: 'pointer',
-        justifyContent: 'center',
-        borderRadius: '5px',
-        width: '40px',
-
-        '&:hover': {
-            backgroundColor: 'rgba(128, 128, 128, 0.2)'
-        },
-    }
 })

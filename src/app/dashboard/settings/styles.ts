@@ -1,6 +1,7 @@
 import { styled } from "@stitches/react";
 
-export const ContactContainer = styled('section', {
+
+export const SettingsContainer = styled('section', {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -8,7 +9,7 @@ export const ContactContainer = styled('section', {
     width: '100%',
 })
 
-export const ContactHeader = styled('div', {
+export const SettingsHeader = styled('div', {
     display: 'flex',
     width: '100%',
     marginBottom: '20px',
@@ -17,13 +18,6 @@ export const ContactHeader = styled('div', {
     'h2': {
         fontWeight: 400
     }
-})
-
-export const ContactContent = styled('section', {
-    display: 'flex',
-    width: '100%',
-    overflow: 'auto',
-    gap: '20px'
 })
 
 export const TableContainer = styled('div', {
@@ -51,7 +45,7 @@ export const Table = styled('table', {
     },
 
     'td': {
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
     },
 
     'td, th': {

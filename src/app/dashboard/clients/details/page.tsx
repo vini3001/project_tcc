@@ -2,7 +2,7 @@
 
 import { GoBackIcon } from "@/app/global/styles/style";
 import { ClientContainer } from "../styles";
-import ClientModal from "../components/modalEdit";
+import ClientModal from "../components/modalEditCli";
 import goBackIcon from '../../../assets/svg/goBack.svg'
 import { DetailsContainer, DetailsContent, DetailsHeader } from "./styles";
 import Link from "next/link";

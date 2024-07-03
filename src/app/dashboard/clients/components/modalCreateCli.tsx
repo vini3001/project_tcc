@@ -25,7 +25,7 @@ export default function ClientModal({closeModal}: ClientProps) {
 
     return (
             <RegisterBox className="h-fit md:h-auto">
-                    <RegisterForm className="gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>

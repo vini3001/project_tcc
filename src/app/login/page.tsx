@@ -18,12 +18,16 @@ export default function Login() {
 
     const {signIn} = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm<LoginRequestData>();
+
     async function onSubmit(data: LoginRequestData) {
         setIsLoading(true)
-        const loginResponse = await signIn(data)
+        const user = await signIn(data)
 
-        if(loginResponse) {
+        if(user) {
             router.push('/dashboard/home')
+            setIsLoading(false)
+        } else {
+            router.push('/')
             setIsLoading(false)
         }
     }

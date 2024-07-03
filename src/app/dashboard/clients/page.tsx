@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import ClientModalCreate from "./components/modalCreate"
+import ClientModalCreate from "./components/modalCreateCli"
 import { ClientContainer, ClientHeader, EditIcon, Table, TableContainer } from "./styles"
 import { RegisterButton } from "@/app/global/styles/style"
 import editIcon from '../../assets/svg/icons/edit.svg'
 import Link from "next/link"
 import { routeListClient } from "@/backend/client"
+import { PaginatedItems } from "./components/clientsPagination"
 
 export default function Clients() {
     const [isOpenCreate, setIsOpenCreate] = useState(false)
@@ -26,38 +27,13 @@ export default function Clients() {
     }
 
     return (
-        <ClientContainer className="grid-rows-2">
+        <ClientContainer>
             <ClientHeader>
-                <h2>Listagem de clientes</h2>
+                <h2>Clientes</h2>
                 <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
             </ClientHeader>
 
-            <TableContainer>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>NOME</th>
-                            <th>EMAIL</th>
-                            <th>PLANO</th>
-                            <th>DATA DE CADASTRO</th>
-                            <th style={{borderRight: 'none'}}>AÇÕES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Vinícius Donizeti dos Santos Ataliba</td>
-                            <td>donizetevinicius250@gmail.com</td>
-                            <td>Anual</td>
-                            <td>30/01/2004</td>
-                            <td style={{borderRight: 'none'}}>
-                                <Link href={'/dashboard/clients/details'}>
-                                    <EditIcon src={editIcon.src} />
-                                </Link>
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
-            </TableContainer>
+            <PaginatedItems itemsPerPage={9}/>
 
             {isOpenCreate && (
                 <ClientModalCreate closeModal={handleOpenModalCreate} />

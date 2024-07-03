@@ -27,7 +27,7 @@ export default function Document({
             id="stitches"
           />
         </head>
-        <body>
+        <body className='h-[100vh]'>
           <AuthProvider>
             {children}
           </AuthProvider>

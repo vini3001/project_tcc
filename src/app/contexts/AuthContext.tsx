@@ -2,7 +2,7 @@ import { Dispatch, EffectCallback, ReactNode, SetStateAction, createContext, use
 import { User } from "../entities/User"
 import { LoginRequestData, RecoverPasswordRequestData, RegisterRequestData } from "../entities/Auth"
 import { destroyCookie, parseCookies, setCookie } from "nookies"
-import Router from "next/router"
+import {useRouter} from "next/navigation"
 import { api } from "@/backend/baseURL"
 import storage from "@/utils/localStorage"
 import { useEffectOnce } from "@/utils"
@@ -38,8 +38,10 @@ export type SignOutOptions = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [ready, setReady] = useState(false)
-    const [token, setToken] = useState('d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9')
+    const [token, setToken] = useState('')
     const [user, setUser] = useState<User>()
+
+    const router = useRouter()
 
     /* Register States */
     const [registerData, setRegisterData] = useState({} as RegisterRequestData)
@@ -59,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setUser(undefined)
           setToken('')
           if (options.redirectToLogin) {
-            await Router.push('/login/')
+            router.push('/login/')
           }
         } catch (error) { }
     }
@@ -118,6 +120,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
         loadCacheData()
       }, [ready])
+
+      useEffect(() => {
+        setToken('d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9')
+        api.defaults.headers.Authorization = `Bearer ${token}`
+
+        function verifyAuth() {
+          const cookies = parseCookies(undefined)
+          const token = cookies[vortexTokenPath]
+          token === undefined && router.push('/')
+        }
+
+        try {
+          verifyAuth()
+        }catch(err) {
+          console.log(err)
+          destroyCookie(undefined, vortexTokenPath)
+          router.push('/')
+        }
+      }, [token])
 
       return (
         <AuthContext.Provider

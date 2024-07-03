@@ -6,7 +6,7 @@ export const routeLogin = new Route<{
     email: string,
     password: string
 }, LoginResponse>({
-    path: "/cliente/login",
+    path: "/login",
     method: "POST",
 })
 

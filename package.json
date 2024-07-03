@@ -21,7 +21,8 @@
     "react-hook-form": "^7.51.5",
     "react-loader-spinner": "^6.1.6",
     "react-paginate": "^8.2.0",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "victory-chart": "^37.0.2"
   },
   "devDependencies": {
     "@types/node": "^20",
