@@ -18,7 +18,7 @@ export function ContactModal({closeModal}: ContactProps) {
     
     return (
         <RegisterBox className="h-fit md:h-auto">
-                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
+                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[30%]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
@@ -26,19 +26,19 @@ export function ContactModal({closeModal}: ContactProps) {
                                 </div>
 
                                 {errors.nome && <span>This field is required</span>}
-                            
+
+                                <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Email</InputLabel>
                                     <InputCustom type="email" {...register("email")}/>
                                 </div>
 
-                                <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
-
                                 {errors.email && <span>This field is required</span>}
-                            </div>
 
-                            <div className="flex flex-col md:flex-row gap-2">
-                                <div className="flex flex-col md:w-[30%] justify-between items-start">
+                                <div className="flex flex-col justify-between items-start">
                                     <InputLabel>Celular</InputLabel>
                                     <InputCustom type="tel" {...register("celular")}/>
                                 </div>  
@@ -47,7 +47,7 @@ export function ContactModal({closeModal}: ContactProps) {
                             </div>
 
                             <div className="flex flex-col w-full justify-center">
-                                <InputButton className="w-[50%] md:w-[30%]" type="submit">Registrar</InputButton>
+                                <InputButton className="w-[50%] md:w-[30%]" type="submit">Editar</InputButton>
                             </div>
                     </RegisterForm>
             </RegisterBox>

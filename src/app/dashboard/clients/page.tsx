@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import ClientModalCreate from "./components/modalCreateCli"
-import { ClientContainer, ClientHeader, EditIcon, Table, TableContainer } from "./styles"
+import { ClientContainer, ClientHeader } from "./styles"
 import { RegisterButton } from "@/app/global/styles/style"
 import editIcon from '../../assets/svg/icons/edit.svg'
 import Link from "next/link"

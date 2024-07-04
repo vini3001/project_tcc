@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ClientContainer, EditIcon, Table, TableContainer, ThreeDots } from '../styles';
+import { ClientContainer, Table, TableContainer, ThreeDots } from '../styles';
 import { CustomLabelPaginate } from '@/app/global/styles/style';
 import Link from 'next/link';
 import threeDots from '../../../assets/svg/icons/threeDots.svg'
@@ -41,7 +41,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>donizetevinicius250@gmail.com</td>
                         <td>Anual</td>
                         <td>30/01/2004</td>
-                        <td style={{borderRight: 'none'}}>
+                        <td style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', borderRight: 'none'}}>
                             <Link href={'/dashboard/clients/details?id=' + item}>
                                 <ThreeDots src={threeDots.src} />
                             </Link>

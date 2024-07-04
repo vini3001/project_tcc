@@ -5,9 +5,10 @@ import closeButton from '../../../assets/svg/closeButton.svg'
 
 interface ClientProps {
     closeModal: () => void
+    clientId: number | undefined
 }
 
-export default function ContactModal({closeModal}: ClientProps){
+export default function ContactModal({closeModal, clientId}: ClientProps){
     const { register, handleSubmit, formState: { errors } } = useForm<Contact>();
     function onSubmit(data: Contact) {}
 
@@ -17,7 +18,7 @@ export default function ContactModal({closeModal}: ClientProps){
 
     return (
         <RegisterBox className="h-fit md:h-auto">
-                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
+                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[30%]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
@@ -25,19 +26,19 @@ export default function ContactModal({closeModal}: ClientProps){
                                 </div>
 
                                 {errors.nome && <span>This field is required</span>}
-                            
+
+                                <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Email</InputLabel>
                                     <InputCustom type="email" {...register("email")}/>
                                 </div>
 
-                                <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
-
                                 {errors.email && <span>This field is required</span>}
-                            </div>
 
-                            <div className="flex flex-col md:flex-row gap-2">
-                                <div className="flex flex-col md:w-[30%] justify-between items-start">
+                                <div className="flex flex-col justify-between items-start">
                                     <InputLabel>Celular</InputLabel>
                                     <InputCustom type="tel" {...register("celular")}/>
                                 </div>  

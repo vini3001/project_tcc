@@ -5,6 +5,7 @@ import { ConnectionsContainer, EditIcon, DeleteIcon, Table, TableContainer } fro
 import { CustomLabelPaginate } from '@/app/global/styles/style'
 import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
+import { ConnectionModal } from './modalEditConnection';
 
 // Example items, to simulate fetching from another resources.
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -18,6 +19,13 @@ interface PaginatedItems {
 }
 
 export default function Items({currentItems}: ItemsProps) {
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [connectionId, setConnectionId] = useState<number | undefined>(0)
+
+    function handleOpenModalEdit(connectionId?: number) {
+        setConnectionId(connectionId)
+        setIsOpenEdit(!isOpenEdit)
+    }
 
   return (
     <ConnectionsContainer>
@@ -43,7 +51,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>30/01/2004</td>
                         <td>Friboi</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                              <EditIcon src={editIcon.src} />
+                              <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}} />
                               <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
@@ -51,6 +59,9 @@ export default function Items({currentItems}: ItemsProps) {
             ))}
           </Table>
         </TableContainer>
+        {isOpenEdit && (
+            <ConnectionModal closeModal={handleOpenModalEdit} connectionId={connectionId}/>
+        )}
       </ConnectionsContainer>
   );
 }

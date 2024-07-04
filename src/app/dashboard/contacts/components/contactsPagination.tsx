@@ -5,6 +5,7 @@ import { ContactContent, EditIcon, DeleteIcon, Table, TableContainer } from '../
 import { CustomLabelPaginate } from '@/app/global/styles/style';
 import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
+import ContactModal from './modalEditContact';
 
 // Example items, to simulate fetching from another resources.
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -18,6 +19,13 @@ interface PaginatedItems {
 }
 
 export default function Items({currentItems}: ItemsProps) {
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [clientId, setClientId] = useState<number | undefined>(0)
+
+    function handleOpenModalEdit(clientId?: number) {
+        setClientId(clientId)
+        setIsOpenEdit(!isOpenEdit)
+    }
 
   return (
     <>
@@ -42,7 +50,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>(16) 994270955</td>
                         <td>30/01/2004</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                            <EditIcon src={editIcon.src} />
+                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
                             <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
@@ -50,6 +58,9 @@ export default function Items({currentItems}: ItemsProps) {
             ))}
           </Table>
         </TableContainer>
+        {isOpenEdit && (
+            <ContactModal closeModal={handleOpenModalEdit} clientId={clientId}/>
+        )}
       </ContactContent>
     </>
   );

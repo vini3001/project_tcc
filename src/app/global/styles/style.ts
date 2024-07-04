@@ -93,10 +93,10 @@ export const RegisterButton = styled('button', {
 })
 
 export const GoBackIcon = styled('img', {
-    width: '40px',
+    width: '45px',
     height: '40px',
     cursor: 'pointer',
-    padding: '2px',
+    padding: '5px',
     borderRadius: '9999px',
     
     '&:hover': {

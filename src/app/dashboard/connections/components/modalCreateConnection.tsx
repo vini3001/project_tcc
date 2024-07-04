@@ -19,7 +19,7 @@ export default function ConnectionModal({closeModal}: ConnectionProps) {
 
     return (
         <RegisterBox className="h-fit md:h-auto">
-                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
+                    <RegisterForm className="w-[80vw] gap-y-2 md:w-[30%]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
@@ -27,19 +27,19 @@ export default function ConnectionModal({closeModal}: ConnectionProps) {
                                 </div>
 
                                 {errors.nome && <span>This field is required</span>}
-                            
-                                <div className="flex flex-col w-full justify-between items-start">
-                                    <InputLabel>Status</InputLabel>
-                                    <InputCustom type="text" {...register("status")}/>
-                                </div>
 
                                 <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
 
                                 {errors.status && <span>This field is required</span>}
                             </div>
 
-                            <div className="flex flex-col md:flex-row gap-2">
-                                <div className="flex flex-col md:w-[30%] justify-between items-start">
+                            <div className="flex flex-col gap-2">
+                                <div className="flex flex-col w-full justify-between items-start">
+                                    <InputLabel>Status</InputLabel>
+                                    <InputCustom type="text" {...register("status")}/>
+                                </div>
+
+                                <div className="flex flex-col justify-between items-start">
                                     <InputLabel>Sessão</InputLabel>
                                     <InputCustom type="text" {...register("sessao")}/>
                                 </div>  
