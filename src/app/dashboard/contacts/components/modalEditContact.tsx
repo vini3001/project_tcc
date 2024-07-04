@@ -1,7 +1,6 @@
-import { InputButton, InputCustom, InputLabel } from "@/app/global/styles/style";
+import { InputButton, InputCustom, InputLabel, CloseButton, RegisterBox, RegisterForm } from "@/app/global/styles/style";
 import { Contact } from "@/app/entities/Contact";
 import { useForm } from "react-hook-form";
-import { CloseButton, RegisterBox, RegisterForm } from "./styles";
 import closeButton from '../../../assets/svg/closeButton.svg'
 
 interface ClientProps {

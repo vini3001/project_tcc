@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ContactContent, EditIcon, Table, TableContainer } from '../styles';
-import { CustomLabelPaginate } from './styles';
-import Link from 'next/link';
+import { ContactContent, EditIcon, DeleteIcon, Table, TableContainer } from '../styles';
+import { CustomLabelPaginate } from '@/app/global/styles/style';
+import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
 
 // Example items, to simulate fetching from another resources.
@@ -41,10 +41,9 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>donizetevinicius250@gmail.com</td>
                         <td>(16) 994270955</td>
                         <td>30/01/2004</td>
-                        <td style={{borderRight: 'none'}}>
-                            <Link className='block w-fit' href={'/dashboard/contacts/details?id=' + item}>
-                                <EditIcon src={editIcon.src} />
-                            </Link>
+                        <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
+                            <EditIcon src={editIcon.src} />
+                            <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
                   </tbody>

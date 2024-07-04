@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ClientContainer, EditIcon, Table, TableContainer } from '../styles';
-import { CustomLabelPaginate } from './styles';
+import { ClientContainer, EditIcon, Table, TableContainer, ThreeDots } from '../styles';
+import { CustomLabelPaginate } from '@/app/global/styles/style';
 import Link from 'next/link';
-import editIcon from '../../../assets/svg/icons/edit.svg'
+import threeDots from '../../../assets/svg/icons/threeDots.svg'
 
 // Example items, to simulate fetching from another resources.
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -42,8 +42,8 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>Anual</td>
                         <td>30/01/2004</td>
                         <td style={{borderRight: 'none'}}>
-                            <Link href={'/dashboard/clients/details'}>
-                                <EditIcon src={editIcon.src} />
+                            <Link href={'/dashboard/clients/details?id=' + item}>
+                                <ThreeDots src={threeDots.src} />
                             </Link>
                         </td>
                     </tr>

@@ -11,6 +11,7 @@ export type RouteResponse<T> = {
 export class Route<Req = {}, Res = {}> {
     path = ''
     method: RouteMethod = 'GET'
+    upload: boolean = false
 
     constructor(options: Partial<Route<Req, Res>>) {
         Object.assign(this, options)
@@ -25,9 +26,14 @@ export class Route<Req = {}, Res = {}> {
                 url: routePath,
                 data: req,
                 params: this.method === 'GET' ? req : {},
-                headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                headers: this.upload ? {
+                    Accept: 'multipart/form-data',
+                    'Content-Type': 'multipart/form-data',
+    
+                } : {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+    
                 },
             })
 

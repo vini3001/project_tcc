@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react';
-import { SettingsContainer, EditIcon, Table, TableContainer } from '../styles';
-import { CustomLabelPaginate } from './styles'
-import Link from 'next/link';
+import { ConnectionsContainer, EditIcon, DeleteIcon, Table, TableContainer } from '../styles';
+import { CustomLabelPaginate } from '@/app/global/styles/style'
+import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
 
 // Example items, to simulate fetching from another resources.
@@ -20,8 +20,7 @@ interface PaginatedItems {
 export default function Items({currentItems}: ItemsProps) {
 
   return (
-    <>
-    <SettingsContainer>
+    <ConnectionsContainer>
       <TableContainer>
         <Table>
             <thead>
@@ -43,18 +42,16 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>Ativa</td>
                         <td>30/01/2004</td>
                         <td>Friboi</td>
-                        <td style={{borderRight: 'none'}}>
-                            <Link href={'/dashboard/settings/details'}>
-                                <EditIcon src={editIcon.src} />
-                            </Link>
+                        <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
+                              <EditIcon src={editIcon.src} />
+                              <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
                 </tbody>
             ))}
           </Table>
         </TableContainer>
-      </SettingsContainer>
-    </>
+      </ConnectionsContainer>
   );
 }
 

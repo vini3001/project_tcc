@@ -3,7 +3,6 @@
 import Dashboardheader from "./components/DashboardHeader"
 import { useState } from "react"
 import SideMenu from "./components/DashboardSideMenu"
-import { withSSRAuth } from "@/utils/withSSRAuth"
 
 export default function Register({
     children,

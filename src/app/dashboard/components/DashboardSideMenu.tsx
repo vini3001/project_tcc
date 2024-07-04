@@ -4,7 +4,7 @@ import house from '../../assets/svg/icons/house.svg'
 import contact from '../../assets/svg/icons/contact.svg'
 import mail from '../../assets/svg/icons/mail.svg'
 import send from '../../assets/svg/icons/send.svg'
-import settings from '../../assets/svg/icons/settings.svg'
+import connections from '../../assets/svg/icons/globe.svg'
 import people from '../../assets/svg/icons/people.svg'
 import logo from '../../assets/pngwing.com (1).png'
 import menuIconClosed from '../../assets/svg/icons/menuIconClosed.svg'
@@ -49,8 +49,8 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                             <DashboardTextContainer href={"/dashboard/home"}>
                                 <MenuIconForm src={send.src} alt={""} /><>Envios</>
                             </DashboardTextContainer>
-                            <DashboardTextContainer href={"/dashboard/settings"}>
-                                <MenuIconForm src={settings.src} alt={""} /><>Configurações</>
+                            <DashboardTextContainer href={"/dashboard/connections"}>
+                                <MenuIconForm src={connections.src} alt={""} /><>Conexões</>
                             </DashboardTextContainer>
                         </div>
                     </DashboardSideMenu>
@@ -80,8 +80,8 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                         <DashboardTextContainer href={"/dashboard/home"}>
                             <MenuIconForm src={send.src} alt={""} />{isOpen && <>Envios</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer href={"/dashboard/settings"}>
-                            <MenuIconForm src={settings.src} alt={""} />{isOpen && <>Configurações</>}
+                        <DashboardTextContainer href={"/dashboard/connections"}>
+                            <MenuIconForm src={connections.src} alt={""} />{isOpen && <>Conexões</>}
                         </DashboardTextContainer>
                     </div>
             </DashboardSideMenu>

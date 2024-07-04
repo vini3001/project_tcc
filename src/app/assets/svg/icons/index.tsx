@@ -2,26 +2,26 @@ import contact from './contact.svg'
 import contactSelected from './contactSelected.svg'
 
 import house from './house.svg'
-import houseSelected from './house.svg'
+import houseSelected from './houseSelected.svg'
 
 import mailSend from './send.svg'
-import mailSendSelected from './send.svg'
+import mailSendSelected from './sendSelected.svg'
 
 import mailReceive from './mail.svg'
-import mailReceiveSelected from './mail.svg'
+import mailReceiveSelected from './mailSelected.svg'
 
 import people from './people.svg'
-import peopleSelected from './people.svg'
+import peopleSelected from './peopleSelected.svg'
 
-import settings from './settings.svg'
-import settingsSelected from './settings.svg'
+import connections from './globe.svg'
+import connectionsSelected from './globeSelected.svg'
 
 import user from './user.svg'
-import userSelected from './user.svg'
+import userSelected from './userSelected.svg'
 import { SvgIconImg } from './svgIconStyle'
 
 export type HiconType = 'contact' | 'house' | 'mailSend' |
-        'mailReceive' | 'people' | 'settings' |
+        'mailReceive' | 'people' | 'connections' |
         'user'
 
 export type SvgIconProps = React.HTMLAttributes<HTMLOrSVGElement> & {
@@ -50,8 +50,8 @@ export default function SvgIcon({type, variant, onClick}: SvgIconProps) {
         if(type === 'mailSend') {
             return variant === 'notSelected' ? mailSend.src : mailSendSelected.src
         }
-        if(type === 'settings') {
-            return variant === 'notSelected' ? settings.src : settingsSelected.src
+        if(type === 'connections') {
+            return variant === 'notSelected' ? connections.src : connectionsSelected.src
         }
     }
 

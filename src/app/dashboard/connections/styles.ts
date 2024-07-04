@@ -1,7 +1,7 @@
 import { styled } from "@stitches/react";
 
 
-export const SettingsContainer = styled('section', {
+export const ConnectionsContainer = styled('section', {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -9,7 +9,7 @@ export const SettingsContainer = styled('section', {
     width: '100%',
 })
 
-export const SettingsHeader = styled('div', {
+export const ConnectionsHeader = styled('div', {
     display: 'flex',
     width: '100%',
     marginBottom: '20px',
@@ -56,6 +56,17 @@ export const Table = styled('table', {
 })
 
 export const EditIcon = styled('img', {
+    width: '23px',
+    height: '23px',
+    cursor: 'pointer',
+    borderRadius: '5px',
+    
+    '&:hover': {
+        backgroundColor: 'rgba(128, 128, 128, 0.2)'
+    }
+})
+
+export const DeleteIcon = styled('img', {
     width: '23px',
     height: '23px',
     cursor: 'pointer',

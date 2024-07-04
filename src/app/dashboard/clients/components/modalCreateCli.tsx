@@ -1,6 +1,6 @@
 'use client'
 
-import { CloseButton, RegisterBox, RegisterForm } from "./styles";
+import { CloseButton, RegisterBox, RegisterForm } from '@/app/global/styles/style';
 import { useAuth } from "@/app/contexts/AuthContext";
 import { RegisterRequestData } from "../../../entities/Auth";
 import { User } from "../../../entities/User";
