@@ -1,12 +1,13 @@
 export type User = {
-    id: string
-    name: string
+    id: number
+    nome: string
     email: string
-    phone?: string
+    tipo: string
+    nivel: string
     password: string
-    cpf?: string
-    status: string
-    rg?: string
-    avatarUrl?: string
-    createdAt?: Date
+    status: number
+    id_cliente: number
+    id_by: number
+    data_registro?: Date
+    data_alteracao?: Date
 }

@@ -67,5 +67,6 @@ export const MenuIconForm = styled('img', {
 
 export const DashboardHeader = styled('div', {
     display: 'grid',
+    position: 'relative',
     alignItems: 'center'
 })

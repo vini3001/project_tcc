@@ -1,6 +1,6 @@
 import { Dispatch, EffectCallback, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from "react"
 import { User } from "../entities/User"
-import { LoginRequestData, RecoverPasswordRequestData, RegisterRequestData } from "../entities/Auth"
+import { LoginRequestData, RegisterRequestData } from "../entities/Auth"
 import { destroyCookie, parseCookies, setCookie } from "nookies"
 import {useRouter} from "next/navigation"
 import { api } from "@/backend/baseURL"
@@ -11,11 +11,17 @@ import { routeLogin, routeRegister } from "@/backend/auth"
 export type SignOutOptions = {
     redirectToLogin: boolean
   }
+
+  interface sessionData {
+    token: string,
+    id: number
+  }
   
   interface AuthContextData {
     registerData: RegisterRequestData
     setRegisterData: Dispatch<SetStateAction<RegisterRequestData>>
     user?: User
+    userId?: number
     token?: string
     ready: boolean
     signIn(credentials: LoginRequestData): Promise<User | undefined>
@@ -26,9 +32,9 @@ export type SignOutOptions = {
   interface AuthProviderProps {
     children: ReactNode
   }
-  
-  const createAccountPath = 'create-account'
+
   const vortexTokenPath = 'vortex.token'
+  const vortexIdPath = 'vortex.Id'
   
   const AuthContext = createContext({} as AuthContextData)
   
@@ -39,25 +45,38 @@ export type SignOutOptions = {
 export function AuthProvider({ children }: AuthProviderProps) {
     const [ready, setReady] = useState(false)
     const [token, setToken] = useState('')
+    const [userId, setUserId] = useState<number>(0)
     const [user, setUser] = useState<User>()
 
     const router = useRouter()
 
     /* Register States */
     const [registerData, setRegisterData] = useState({} as RegisterRequestData)
-    const [recoverPassword, setRecoverPassword] = useState({} as RecoverPasswordRequestData)
 
-    function saveToken(newToken: string) {
-        setCookie(undefined, vortexTokenPath, newToken, {
+    function saveUserInfo({token, id}: sessionData) {
+        setCookie(undefined, vortexTokenPath, token, {
+          maxAge: 60 * 60 * 16, // 16 horas
+          path: '/',
+        })
+
+        setCookie(undefined, vortexIdPath, id.toString(), {
           maxAge: 60 * 60 * 16, // 16 horas
           path: '/',
         })
     }
 
+    function destroyCookieInfo() {
+      //Destroy token
+      destroyCookie(undefined, vortexTokenPath)
+      setCookie(undefined, vortexTokenPath, '', { maxAge: -1, path: '/' })
+      //Destroy id
+      destroyCookie(undefined, vortexTokenPath)
+      setCookie(undefined, vortexIdPath, '', { maxAge: -1, path: '/' })
+    }
+
     async function signOut(options: SignOutOptions = { redirectToLogin: false }) {
         try {
-          destroyCookie(undefined, vortexTokenPath)
-          setCookie(undefined, vortexTokenPath, '', { maxAge: -1, path: '/' })
+          destroyCookieInfo()
           setUser(undefined)
           setToken('')
           if (options.redirectToLogin) {
@@ -73,9 +92,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const { user } = response.data
     
           setUser(user)
-          api.defaults.headers.Authorization = `Bearer ${token}`
-          saveToken(token)
           setToken(token)
+          api.defaults.headers.Authorization = `Bearer ${token}`
+          saveUserInfo({token, id: user.id})
     
           return user
         }
@@ -92,30 +111,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setUser(user)
           api.defaults.headers.Authorization = `Bearer ${token}`
           setToken(token)
-          saveToken(token)
+          saveUserInfo({token, id: user.id})
           return user
         }
     }
-
-    useEffect(() => {
-        if (!ready) {
-          return
-        }
-        async function saveLocalStorage() {
-          await storage.setItem(createAccountPath, registerData)
-        }
-        saveLocalStorage()
-    }, [ready, registerData])
 
     useEffectOnce(() => {
         if (ready) return
         async function loadCacheData() {
           if (ready) return;
-          const content: RegisterRequestData | null = await storage.getItem(createAccountPath)
-          if (content) setRegisterData(content)
           const cookies = parseCookies(undefined)
           const newToken = cookies[vortexTokenPath]
-          setToken(newToken)
+          const newSessionId = cookies[vortexIdPath]
+          const convertedId = parseInt(newSessionId, 10)
+
+          setToken(newToken)  
+          setUserId(convertedId)
           setReady(true)
         }
         loadCacheData()
@@ -145,6 +156,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           value={{
             signUp,
             user,
+            userId,
             registerData,
             setRegisterData,
             signIn,

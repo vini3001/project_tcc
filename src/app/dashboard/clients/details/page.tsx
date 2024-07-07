@@ -8,9 +8,13 @@ import { DetailsContainer, DetailsContent, DetailsHeader } from "./styles";
 import Link from "next/link";
 import CustomButton from "../components/buttons";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function ClientDetails() {
         const [isOpenEdit, setIsOpenEdit] = useState(false)
+        const searchParams = useSearchParams()
+
+        const clientId = searchParams.get('id')
 
         function handleOpenModalEdit() {
                 setIsOpenEdit(!isOpenEdit)
@@ -71,6 +75,11 @@ export default function ClientDetails() {
                                 <CustomButton onClick={handleOpenModalEdit} color="red">
                                         Deletar
                                 </CustomButton>
+                                <Link href={"/dashboard/clients/users?id=" + clientId}>
+                                        <CustomButton color="#163780">
+                                                Usuários
+                                        </CustomButton>
+                                </Link>
                         </div>
 
                         {isOpenEdit && (

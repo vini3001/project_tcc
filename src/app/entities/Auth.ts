@@ -10,11 +10,6 @@ export interface LoginResponse {
     user: User
 }
 
-export type RecoverPasswordRequestData = {
-    password: string
-    email: string
-}
-
 export interface RegisterRequestData {
     name: string
     email: string
@@ -28,4 +23,8 @@ export interface RegisterRequestData {
     neighborhood: string
     city: string
     uf: string
+}
+
+export interface SessionId {
+    id: number
 }

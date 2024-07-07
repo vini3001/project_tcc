@@ -24,7 +24,7 @@ export function ConnectionModal({closeModal, connectionId}: ConnectionProps) {
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
-                                    <InputCustom value={connectionId} type="text" {...register("nome")}/>
+                                    <InputCustom type="text" {...register("nome")}/>
                                 </div>
 
                                 {errors.nome && <span>This field is required</span>}

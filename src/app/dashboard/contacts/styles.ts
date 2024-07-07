@@ -21,9 +21,10 @@ export const ContactHeader = styled('div', {
 
 export const ContactContent = styled('section', {
     display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'start',
     width: '100%',
-    overflow: 'auto',
-    gap: '20px'
 })
 
 export const TableContainer = styled('div', {

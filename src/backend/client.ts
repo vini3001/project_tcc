@@ -5,7 +5,7 @@ export const routeEditClient = new Route<{
     email: string,
     password: string
 }, {}>({
-    path: "/cliente/edit/",
+    path: "/cliente/edit",
     method: "POST",
 })
 
@@ -14,7 +14,7 @@ export const routeListClient = new Route<{}, Client>({
     method: 'GET'
 })
 
-export const routeCreateClient = new Route<{}, {}>({
+export const routeCreateClient = new Route<Client, {}>({
     path: '/cliente',
     method: 'POST'
 })

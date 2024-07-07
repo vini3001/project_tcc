@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { DashboardSideMenu, DashboardMenuText, DashboardTextContainer, MenuIconForm, MainIconForm } from "../styles"
 import house from '../../assets/svg/icons/house.svg'
 import contact from '../../assets/svg/icons/contact.svg'
@@ -17,6 +17,10 @@ interface SideMenuProps {
 }
 
 export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps) {
+
+    // useEffect(() => {
+    //     const user = 
+    // }, [])
 
     function handleCloseSideMenuMobile() {
         closeSideMenu()
