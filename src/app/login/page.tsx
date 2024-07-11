@@ -37,7 +37,7 @@ export default function Login() {
             {/* <Header /> */}
             <LoginContainer>
                 <LoginBox className={styles.form_custom}>
-                    <LoginForm className="gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+                    <LoginForm className="w-[80vw] md:w-[25vw] gap-y-2" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex justify-center m-2">
                                 <IconForm src={policeIcon.src} />
                             </div>

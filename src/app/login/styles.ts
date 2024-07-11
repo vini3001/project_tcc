@@ -36,7 +36,7 @@ export const LoginBox = styled('div', {
 
 export const LoginForm = styled('form', {
     display: 'flex',
-    width: '25vw',
+    //width: '25vw',
     height: 'fit-content',
     flexDirection: 'column',
     justifyContent: 'center',
