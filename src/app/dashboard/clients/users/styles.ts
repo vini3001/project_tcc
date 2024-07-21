@@ -12,7 +12,6 @@ export const UserContainer = styled('section', {
 export const UserHeader = styled('div', {
     display: 'flex',
     width: '100%',
-    marginBottom: '20px',
     justifyContent: 'space-between',
 
     'h2': {

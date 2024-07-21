@@ -58,6 +58,11 @@ export default function ClientModal({closeModal}: ClientProps) {
                                     <InputCustom type="text" {...register("documento")}/>
                                 </div>  
 
+                                <div className="flex flex-col md:w-[40%] justify-between items-start">
+                                    <InputLabel>Telefone</InputLabel>
+                                    <InputCustom type="text" {...register("telefone")}/>
+                                </div>  
+
                                 <div className="flex flex-col md:w-[30%] justify-between items-start">
                                     <InputLabel>Tipo pessoa</InputLabel>
                                     <SelectStyle id="typePerson" {...register("tipo_pessoa")}>
@@ -69,27 +74,22 @@ export default function ClientModal({closeModal}: ClientProps) {
 
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col md:w-[40%] justify-between items-start">
-                                    <InputLabel>Telefone</InputLabel>
-                                    <InputCustom type="text" {...register("telefone")}/>
-                                </div>  
-
-                                <div className="flex flex-col md:w-[40%] justify-between items-start">
                                     <InputLabel>Cidade</InputLabel>
                                     <InputCustom type="text" {...register("cidade")}/>
                                 </div>  
 
-                                <div className="flex flex-col md:w-[40%] justify-between items-start">
+                                <div className="flex flex-col md:w-[30%] justify-between items-start">
                                     <InputLabel>Bairro</InputLabel>
                                     <InputCustom type="text" {...register("bairro")}/>
                                 </div>  
-                            </div>
 
-                            <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col md:w-[30%] justify-between items-start">
                                     <InputLabel>Logradouro</InputLabel>
                                     <InputCustom type="text" {...register("logradouro")}/>
                                 </div>
+                            </div>
 
+                            <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col md:w-[10%] justify-between items-start">
                                     <InputLabel>N°</InputLabel>
                                     <InputCustom type="text" {...register("numero")}/>

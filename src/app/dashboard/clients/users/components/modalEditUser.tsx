@@ -1,18 +1,17 @@
 import { User } from "@/app/entities/User";
-import { CloseButton, InputButton, InputCustom, InputLabel, RegisterBox, RegisterForm } from "@/app/global/styles/style";
+import { CloseButton, InputButton, InputCustom, InputLabel, RegisterBox, RegisterForm, SelectStyle } from "@/app/global/styles/style";
 import { useForm } from "react-hook-form";
 import closeButton from '@/app/assets/svg/closeButton.svg'
 import { useSearchParams } from "next/navigation";
-import { useAuth } from "@/app/contexts/AuthContext";
 
 interface UserProps {
     closeModal: () => void
+    userId: number | undefined
 }
 
-export default function ModalUser({closeModal}: UserProps) {
+export default function ModalUser({closeModal, userId}: UserProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
     const searchParams = useSearchParams()
-    const {userId} = useAuth()
 
     const clientId = parseInt(searchParams.get('id') as string)
 
@@ -43,9 +42,14 @@ export default function ModalUser({closeModal}: UserProps) {
                                 <CloseButton onClick={handleCloseModal} src={closeButton.src}></CloseButton>
 
                                 {errors.email && <span>This field is required</span>}
-                            </div>
 
-                            <div className="flex flex-col md:flex-row gap-2">
+                                <div className="flex flex-col w-full justify-between items-start">
+                                    <InputLabel>Nível</InputLabel>
+                                    <SelectStyle {...register("nivel")}>
+                                        <option value={'adm'}>Administrador</option>
+                                        <option value={'user'}>Usuário</option>
+                                    </SelectStyle>
+                                </div>  
 
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Senha</InputLabel>

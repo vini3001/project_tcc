@@ -8,7 +8,7 @@ export type RouteResponse<T> = {
     httpCode: string
 }
 
-export class Route<Req = {}, Res = {}> {
+export class Route<Req = {id?: string}, Res = {}> {
     path = ''
     method: RouteMethod = 'GET'
     upload: boolean = false
@@ -25,7 +25,7 @@ export class Route<Req = {}, Res = {}> {
                 method: this.method,
                 url: routePath,
                 data: req,
-                params: this.method === 'GET' ? req : {},
+                params: this.method !== 'POST' ? { id: (req as { id?: string }).id } : {},
                 headers: this.upload ? {
                     Accept: 'multipart/form-data',
                     'Content-Type': 'multipart/form-data',

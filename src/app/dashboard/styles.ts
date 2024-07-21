@@ -5,6 +5,7 @@ export const DashboardSideMenu = styled('section', {
     overflowY: 'hidden',
     height: '100vh',
     backgroundColor: '#1b2430',
+    zIndex: '10',
 
     variants: {
         minSize: {
@@ -59,6 +60,7 @@ export const MenuIconForm = styled('img', {
     width: '23px',
     height: '23px',
     borderRadius: '5px',
+    zIndex: '20',
     
     '&:hover': {
         backgroundColor: 'rgba(128, 128, 128, 0.2)'

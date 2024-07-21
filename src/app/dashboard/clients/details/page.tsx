@@ -9,22 +9,29 @@ import Link from "next/link";
 import CustomButton from "../components/buttons";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { routeDeleteClient } from "@/backend/client";
 
 export default function ClientDetails() {
         const [isOpenEdit, setIsOpenEdit] = useState(false)
         const searchParams = useSearchParams()
 
-        const clientId = searchParams.get('id')
-
+        const clientId = searchParams.get('id') as string
+        console.log(clientId)
+ 
         function handleOpenModalEdit() {
                 setIsOpenEdit(!isOpenEdit)
+        }
+
+        async function handleDeleteClient(id: string) {
+                const clientId = parseInt(id)
+                const request = await routeDeleteClient.request({id: clientId})
         }
 
         return (
                 <ClientContainer>
                 <div className="flex flex-row items-center gap-4 mb-4">
                         <Link href={"/dashboard/clients"}>
-                        <GoBackIcon src={goBackIcon.src} />
+                                <GoBackIcon src={goBackIcon.src} />
                         </Link>
                         <DetailsHeader>
                                 <h2 className="m-0">Detalhes do cliente</h2>
@@ -72,7 +79,7 @@ export default function ClientDetails() {
                                 <CustomButton onClick={handleOpenModalEdit} color="#007bff">
                                         Editar
                                 </CustomButton>
-                                <CustomButton onClick={handleOpenModalEdit} color="red">
+                                <CustomButton onClick={() => {handleDeleteClient(clientId)}} color="red">
                                         Deletar
                                 </CustomButton>
                                 <Link href={"/dashboard/clients/users?id=" + clientId}>
