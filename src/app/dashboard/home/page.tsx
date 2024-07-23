@@ -18,8 +18,8 @@ export default function Home() {
         <div>
             <HeaderText>Highlights</HeaderText>
 
-            <div className="flex flex-col md:grid md:grid-cols-2 md:grid-rows-2 gap-[1px]">
-            <VictoryChart theme={VictoryTheme.material} height={300} containerComponent={
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-[1px]">
+            <VictoryChart theme={VictoryTheme.material} height={200} containerComponent={
             <VictoryVoronoiContainer
             labels={({datum}) => `${datum.x}, ${datum.y}`}
             />}>
@@ -38,27 +38,13 @@ export default function Home() {
                 <VictoryScatter
                 name="line"
                 style={{data: {strokeWidth: 1, fill: 'black', stroke: 'black', strokeLinecap: 'round', cursor: 'pointer', position: 'absolute'}, labels: {fontSize: 7}}} data={sampleData}
-                events={[{
-                    target: 'data',
-                    eventHandlers: {
-                        onMouseOver: () => {
-                            return [{
-                                eventKey: 'all',
-                                mutation: (props) => {
-                                    const fill = props.style && props.style.fill
-                                    return fill === 'orange' ? null : {style: {fill: 'orange', cursor: 'pointer'}}
-                                }
-                            }]
-                        }
-                    }
-                }]}
                 />
             </VictoryChart>
 
             <VictoryChart polar
             domain={{ y: [0, 7]}}
             theme={VictoryTheme.material}
-            height={300}
+            height={200}
             >
             <VictoryPie
             name="pie"
@@ -70,7 +56,57 @@ export default function Home() {
                 style={{ grid: {stroke: 'transparent'}}}
             />
             </VictoryChart>
-            </div>    
-        </div>
+
+            <svg className="col-span-2" viewBox="-60 0 650 350">
+            <VictorySharedEvents
+                events={[{
+                    childName: ["pie", "bar"],
+                    target: "data",
+                    eventHandlers: {
+                      onMouseOver: () => {
+                        return [{
+                          childName: ["pie", "bar"],
+                          mutation: (props) => {
+                            return {
+                              style: Object.assign({}, props.style, {fill: "blue", stroke: 'white'})
+                            };
+                          }
+                        }];
+                      },
+                      onMouseOut: () => {
+                        return [{
+                          childName: ["pie", "bar"],
+                          mutation: () => {
+                            return null;
+                          }
+                        }];
+                      }
+                    }
+                  }]}
+                >
+                
+                <g transform={"translate(250, -20)"}>
+                  <VictoryBar
+                  name="bar"
+                  standalone={false}
+                  theme={VictoryTheme.material}
+                  height={200}
+                  data={sampleData}
+                  />
+                </g>
+
+                <g transform={"translate(-110, -20)"}>
+                    <VictoryPie
+                    name="pie"
+                    standalone={false}
+                    theme={VictoryTheme.grayscale}
+                    height={200}
+                    data={sampleData}
+                    />
+                </g>
+                </VictorySharedEvents>
+            </svg>
+            </div>
+        </div>    
     )
 }
