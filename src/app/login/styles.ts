@@ -18,7 +18,7 @@ export const LoginContainer = styled('section', {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(/assets/DDMRibeirao-1-1280x720.jpg)',
+    backgroundImage: 'url(/assets/v617batch2-bb-01-technology.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center top',
     backgroundRepeat: 'no-repeat',
@@ -50,6 +50,6 @@ export const LoginForm = styled('form', {
 })
 
 export const IconForm = styled('img', {
-    width: '80px',
+    width: '100px',
     height: '100px'
 })

@@ -2,7 +2,7 @@
 
 import { LoginBox, LoginContainer, LoginForm, IconForm } from "./styles"
 import styles from './styles.module.css'
-import policeIcon from '../../../public/assets/Emblema novo PCSP_1573140723106.png'
+import vortexIcon from '../../../public/assets/pngwing.com (1).png'
 import { InputButton, InputCustom, InputLabel } from "../global/styles/style"
 import { useForm } from "react-hook-form"
 import { LoginRequestData } from "../entities/Auth"
@@ -39,7 +39,7 @@ export default function Login() {
                 <LoginBox className={styles.form_custom}>
                     <LoginForm className="w-[80vw] md:w-[25vw] gap-y-2" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex justify-center m-2">
-                                <IconForm src={policeIcon.src} />
+                                <IconForm src={vortexIcon.src} />
                             </div>
                             <div className="flex flex-col w-full justify-center items-start gap-y-2">
                                 <InputLabel>Usuário</InputLabel>
