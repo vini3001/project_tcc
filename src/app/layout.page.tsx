@@ -8,6 +8,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.min.css'
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export const metadata = {
   title: 'Next.js',
@@ -31,10 +32,12 @@ export default function Document({
           />
         </head>
         <body className='h-[100vh]'>
-          <AuthProvider>
-            {children}
-            <ToastContainer />
-          </AuthProvider>
+          <QueryClientProvider client={new QueryClient}>
+            <AuthProvider>
+              {children}
+              <ToastContainer />
+            </AuthProvider>
+          </QueryClientProvider>
         </body>
       </html>
     )

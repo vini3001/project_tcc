@@ -89,6 +89,8 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
       <CustomLabelPaginate
         activeClassName='bg-[#2a71be] text-white'
         className='mt-2'
+        previousLinkClassName='flex justify-center w-full'
+        nextLinkClassName='flex justify-center w-full'
         breakLabel="..."
         nextLabel=">"
         onPageChange={handlePageClick}

@@ -95,6 +95,8 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
         activeClassName='bg-[#2a71be] text-white'
         className='mt-2'
         breakLabel="..."
+        previousLinkClassName='flex justify-center w-full'
+        nextLinkClassName='flex justify-center w-full'
         nextLabel=">"
         onPageChange={handlePageClick}
         pageCount={pageCount}

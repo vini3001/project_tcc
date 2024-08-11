@@ -149,7 +149,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           destroyCookie(undefined, vortexTokenPath)
           router.push('/')
         }
-      }, [token])
+      }, [router, token])
 
       return (
         <AuthContext.Provider

@@ -7,9 +7,8 @@ import Link from 'next/link';
 import threeDots from '../../../assets/svg/icons/threeDots.svg'
 import { Client } from '@/app/entities/Client';
 import { routeListClient } from '@/backend/client';
-
-// Example items, to simulate fetching from another resources.
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+import { useQuery, useQueryClient } from 'react-query';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 interface ItemsProps {
   currentItems: Client[];
@@ -20,7 +19,6 @@ interface PaginatedItems {
 }
 
 export default function Items({currentItems}: ItemsProps) {
-
   return (
     <>
     <ClientContainer>
@@ -30,7 +28,7 @@ export default function Items({currentItems}: ItemsProps) {
                 <tr>
                     <th>NOME</th>
                     <th>EMAIL</th>
-                    <th>PLANO</th>
+                    <th>DOCUMENTO</th>
                     <th>DATA DE CADASTRO</th>
                     <th style={{borderRight: 'none'}}>AÇÕES</th>
                 </tr>
@@ -42,7 +40,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>{item.nome}</td>
                         <td>{item.email}</td>
                         <td>{item.documento}</td>
-                        <td>{item.telefone}</td>
+                        <td>{String(new Date(item.data_reg).toLocaleDateString())}</td>
                         <td style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', borderRight: 'none'}}>
                             <Link href={'/dashboard/clients/details?id=' + item.id}>
                                 <ThreeDots src={threeDots.src} />
@@ -61,25 +59,41 @@ export default function Items({currentItems}: ItemsProps) {
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
   const [clients, setClients] = useState<Client[]>([])
+  const {userId} = useAuth()
+
+  const queryClient = useQueryClient()
+
+  const {data} = useQuery({
+    queryKey: 'clientList',
+    queryFn: async () => {
+        const result = await routeListClient.request({}).then((clients) => {return clients.data})
+
+        if(result !== undefined) {
+          return result
+        }
+    },
+    enabled: userId != undefined
+  })
 
 
-  useEffect(() => {
-    async function fetchData() {
-        const {data} = await routeListClient.request({})
-        data !== undefined && setClients(data)
-    }
 
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //       const {data} = await routeListClient.request({})
+  //       data !== undefined && setClients(data)
+  //   }
+
+  //   fetchData()
+  // }, [])
 
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = clients.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(clients.length / itemsPerPage);
+  const currentItems = data !== undefined ? data.slice(itemOffset, endOffset) : [];
+  const pageCount = data !== undefined ? Math.ceil(data.length / itemsPerPage) : 0;
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: { selected: number; }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = data !== undefined ? (event.selected * itemsPerPage) % data.length : 0;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
@@ -92,6 +106,8 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
       <CustomLabelPaginate
         activeClassName='bg-[#2a71be] text-white'
         className='mt-2'
+        previousLinkClassName='flex justify-center w-full'
+        nextLinkClassName='flex justify-center w-full'
         breakLabel="..."
         nextLabel=">"
         onPageChange={handlePageClick}
