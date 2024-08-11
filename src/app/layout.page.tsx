@@ -5,6 +5,9 @@ import { globalStyles } from './global/styles/style'
 import '../app/global/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './contexts/AuthContext';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.min.css'
 
 export const metadata = {
   title: 'Next.js',
@@ -30,6 +33,7 @@ export default function Document({
         <body className='h-[100vh]'>
           <AuthProvider>
             {children}
+            <ToastContainer />
           </AuthProvider>
         </body>
       </html>

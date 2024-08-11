@@ -2,6 +2,8 @@ import { globalCss, keyframes } from "@stitches/react";
 import { styled } from "../../../../stitches.config";
 import ReactPaginate from "react-paginate";
 
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const globalStyles = globalCss({
     '*': {

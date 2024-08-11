@@ -10,6 +10,7 @@ import { useAuth } from "../contexts/AuthContext"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { LoadingButton } from "../components/Loading"
+import { toastError } from "@/utils/toastify"
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -22,13 +23,14 @@ export default function Login() {
     async function onSubmit(data: LoginRequestData) {
         setIsLoading(true)
         const user = await signIn(data)
-
+        console.log(user)
         if(user) {
             router.push('/dashboard/home')
             setIsLoading(false)
         } else {
-            router.push('/')
+            toastError('Erro ao realizar o login')
             setIsLoading(false)
+            
         }
     }
 
