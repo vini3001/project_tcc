@@ -8,9 +8,8 @@ import trashIcon from '@/app/assets/svg/icons/trash.svg'
 import UserModal from './modalEditUser'
 import { routeListUser } from '@/backend/user';
 import { User } from '@/app/entities/User';
-
-// Example items, to simulate fetching from another resources.
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+import { useQuery, useQueryClient } from 'react-query';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 interface ItemsProps {
   currentItems: User[];
@@ -43,21 +42,21 @@ export default function Items({currentItems}: ItemsProps) {
                     <th style={{borderRight: 'none'}}>AÇÕES</th>
                 </tr>
             </thead>
-          {currentItems &&
-            currentItems.map((item) => (
-                <tbody key={item.id}>
-                    <tr>
-                        <td>Vinícius Donizeti dos Santos Ataliba</td>
-                        <td>donizetevinicius250@gmail.com</td>
-                        <td>Anual</td>
-                        <td>30/01/2004</td>
+            <tbody>
+              {currentItems &&
+                currentItems.map((item) => (
+                    <tr key={item.id}>
+                        <td>{item.nome}</td>
+                        <td>{item.email}</td>
+                        <td>{item.nivel}</td>
+                        <td>sdsdsd</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
                             <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item.id)}}/>
                             <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
-                </tbody>
-            ))}
+                ))}
+            </tbody>
           </Table>
         </TableContainer>
         {isOpenEdit && (
@@ -71,32 +70,47 @@ export default function Items({currentItems}: ItemsProps) {
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
   const [users, setUsers] = useState<User[]>([])
+  const {userId} = useAuth()
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const usersList = await routeListUser.request({})
+  useQueryClient()
 
-        if(usersList.success && usersList.data !== undefined) {
-          setUsers(usersList.data)
+  const {data} = useQuery({
+    queryKey: 'usersList',
+    queryFn: async () => {
+        const result = await routeListUser.request({}).then((users) => {return users.data})
+
+        if(result !== undefined) {
+          return result
         }
-      } catch {
-    
-      }
-    }
+    },
+    enabled: userId != undefined
+  })
 
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const usersList = await routeListUser.request({})
+
+  //       if(usersList.success && usersList.data !== undefined) {
+  //         setUsers(usersList.data)
+  //       }
+  //     } catch {
+    
+  //     }
+  //   }
+
+  //   fetchData()
+  // }, [])
   
 
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = users.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(users.length / itemsPerPage);
+  const currentItems = data !== undefined ? data.slice(itemOffset, endOffset) : [];
+  const pageCount = data !== undefined ? Math.ceil(data.length / itemsPerPage) : 0;
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: { selected: number; }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = data !== undefined ? (event.selected * itemsPerPage) % data.length : 0;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );

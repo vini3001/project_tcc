@@ -23,7 +23,6 @@ export default function Login() {
     async function onSubmit(data: LoginRequestData) {
         setIsLoading(true)
         const user = await signIn(data)
-        console.log(user)
         if(user) {
             router.push('/dashboard/home')
             setIsLoading(false)

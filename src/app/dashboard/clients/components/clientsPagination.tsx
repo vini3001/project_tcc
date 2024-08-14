@@ -33,10 +33,10 @@ export default function Items({currentItems}: ItemsProps) {
                     <th style={{borderRight: 'none'}}>AÇÕES</th>
                 </tr>
             </thead>
-          {currentItems &&
-            currentItems.map((item) => (
-                <tbody key={item.id}>
-                    <tr>
+            <tbody>
+              {currentItems &&
+                currentItems.map((item) => (
+                    <tr key={item.id}>
                         <td>{item.nome}</td>
                         <td>{item.email}</td>
                         <td>{item.documento}</td>
@@ -47,8 +47,8 @@ export default function Items({currentItems}: ItemsProps) {
                             </Link>
                         </td>
                     </tr>
-                </tbody>
-            ))}
+                ))}
+            </tbody>
           </Table>
         </TableContainer>
       </ClientContainer>
@@ -61,7 +61,7 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [clients, setClients] = useState<Client[]>([])
   const {userId} = useAuth()
 
-  const queryClient = useQueryClient()
+  useQueryClient()
 
   const {data} = useQuery({
     queryKey: 'clientList',
