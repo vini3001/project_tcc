@@ -1,8 +1,8 @@
 'use client'
 
-import Dashboardheader from "./components/dashboardHeader"
+import Dashboardheader from "./components/DashboardHeader"
 import { useState } from "react"
-import SideMenu from './components/dashboardSideMenu'
+import SideMenu from "./components/DashboardSideMenu"
 
 export default function Register({
     children,
@@ -18,13 +18,13 @@ export default function Register({
     }
 
     return (
-        <div className="flex flex-row h-full w-full">
+        <section className="flex flex-row h-full w-full">
             <SideMenu isOpen={isOpen} minSize={screenMin} closeSideMenu={handleCloseModal}/>
             <section className="max-h-[100vh] overflow-y-auto grow p-3">
                 <Dashboardheader closeModal={handleCloseModal} isOpen={isOpen}/>
                 <hr />
                 {children}
             </section>
-        </div>
+        </section>
     )
 }

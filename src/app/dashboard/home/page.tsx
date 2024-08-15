@@ -89,6 +89,7 @@ export default function Home() {
                   <VictoryBar
                   name="bar"
                   standalone={false}
+                  labels={(item) => {return item}}
                   theme={VictoryTheme.material}
                   height={200}
                   data={sampleData}

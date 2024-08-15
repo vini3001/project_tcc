@@ -8,6 +8,7 @@ export type User = {
     status: number
     id_cliente: number
     id_by: number
+    data_nascimento: Date
     data_registro?: Date
     data_alteracao?: Date
 }

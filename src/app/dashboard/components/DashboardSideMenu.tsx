@@ -28,7 +28,7 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
     
     return (
         <>
-            <div className="flex flex-row absolute h-fit md:hidden">
+            <section className="flex flex-row absolute h-fit md:hidden">
                 {isOpen && (
                     <DashboardSideMenu>
                         <div className="flex space-x-4 items-center justify-center m-2 p-2">
@@ -60,7 +60,7 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                     </DashboardSideMenu>
                 )}
                 <MenuIconForm className="block md:hidden" onClick={handleCloseSideMenuMobile} src={isOpen ? menuIconOpened.src : menuIconClosed.src} style={{width: '40px', height: '40px', padding: '2px', cursor: 'pointer', borderRadius: '100%', top: '0', marginTop: '20px'}} />
-            </div>
+            </section>
             <DashboardSideMenu minSize={minSize ? 'maximize' : 'minimize'} className="hidden md:block">
                     <div className="flex space-x-4 items-center justify-center m-2 p-2">
                         <MainIconForm src={logo.src} alt=""/>
