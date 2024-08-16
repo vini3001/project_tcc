@@ -3,15 +3,16 @@
 import { HeaderText } from "@/app/global/styles/style";
 import { VictoryArea, VictoryAxis, VictoryBar, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryPie, VictoryPolarAxis, VictoryScatter, VictorySharedEvents, VictoryStack, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { VictoryChart } from "victory-chart";
+import { CustomLabelPaginate } from '../../global/styles/style';
 
 
 export default function Home() {
     const sampleData = [
-        { x: 1, y: 2},
-        { x: 2, y: 3},
-        { x: 3, y: 5},
-        { x: 4, y: 4},
-        { x: 5, y: 6}
+        { x: 1, y: 2, label: '1'},
+        { x: 2, y: 3, label: '2'},
+        { x: 3, y: 5, label: '3'},
+        { x: 4, y: 4, label: '4'},
+        { x: 5, y: 6, label: '5'}
       ]
 
     return (
@@ -57,7 +58,7 @@ export default function Home() {
             />
             </VictoryChart>
 
-            <svg className="col-span-2" viewBox="-60 0 650 350">
+            <svg className="col-span-2" viewBox="-60 0 900 350">
             <VictorySharedEvents
                 events={[{
                     childName: ["pie", "bar"],
@@ -85,23 +86,25 @@ export default function Home() {
                   }]}
                 >
                 
-                <g transform={"translate(250, -20)"}>
+                <g transform={"translate(450, -20)"}>
                   <VictoryBar
                   name="bar"
                   standalone={false}
-                  labels={(item) => {return item}}
+                  style={{labels: { fontSize: 18 }}}
+                  labels={() => {return sampleData.map((item) => {return item.label})}}
                   theme={VictoryTheme.material}
-                  height={200}
+                  height={350}
                   data={sampleData}
                   />
                 </g>
 
-                <g transform={"translate(-110, -20)"}>
+                <g transform={"translate(-70, -20)"}>
                     <VictoryPie
                     name="pie"
                     standalone={false}
+                    style={{labels: { fontSize: 18 }, data: {fontSize: 10}}}
                     theme={VictoryTheme.grayscale}
-                    height={200}
+                    height={350}
                     data={sampleData}
                     />
                 </g>
