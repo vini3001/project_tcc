@@ -24,7 +24,7 @@ export default function Dashboardheader({closeModal, isOpen}: DashboardHeaderPro
     }
 
     return (
-        <DashboardHeader className="grid-cols-2 grid-rows-1">
+        <DashboardHeader className="top-0 grid-cols-2 grid-rows-1">
             <MenuIconForm className="hidden md:block" onClick={handleCloseSideMenu} src={isOpen ? menuIconOpened.src : menuIconClosed.src} style={{width: '40px', height: '40px', padding: '2px', cursor: 'pointer', borderRadius: '100%'}} />
             <MenuIconForm className="col-span-2 md:col-span-1 justify-self-end" onClick={handleShowMenu} color="black" style={{width: '40px', height: '40px', cursor: 'pointer', borderRadius: '100%'}} src={user.src} />
             {isOpenMenu && (

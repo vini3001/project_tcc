@@ -4,6 +4,7 @@ import { HeaderText } from "@/app/global/styles/style";
 import { VictoryArea, VictoryAxis, VictoryBar, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryPie, VictoryPolarAxis, VictoryScatter, VictorySharedEvents, VictoryStack, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { VictoryChart } from "victory-chart";
 import { CustomLabelPaginate } from '../../global/styles/style';
+import { HomeContainer, HomeHeader } from "./styles";
 
 
 export default function Home() {
@@ -17,10 +18,11 @@ export default function Home() {
 
     return (
         <div>
-            <HeaderText>Highlights</HeaderText>
+          <HeaderText className="ml-5">Highlights</HeaderText>
 
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-[1px]">
-            <VictoryChart theme={VictoryTheme.material} height={200} containerComponent={
+          <div className="flex flex-col gap-3">
+          <HomeContainer className="flex flex-col md:flex-row">
+          <VictoryChart theme={VictoryTheme.material} height={200} containerComponent={
             <VictoryVoronoiContainer
             labels={({datum}) => `${datum.x}, ${datum.y}`}
             />}>
@@ -42,7 +44,7 @@ export default function Home() {
                 />
             </VictoryChart>
 
-            <VictoryChart polar
+            {/* <VictoryChart polar
             domain={{ y: [0, 7]}}
             theme={VictoryTheme.material}
             height={200}
@@ -56,9 +58,39 @@ export default function Home() {
             <VictoryPolarAxis
                 style={{ grid: {stroke: 'transparent'}}}
             />
+            </VictoryChart> */}
+            <VictoryChart polar
+              theme={VictoryTheme.material}
+              height={250}
+            >
+              {
+                sampleData.map((d, i) => {
+                  return (
+                    <VictoryPolarAxis dependentAxis
+                      key={i}
+                      label={d.label}
+                      standalone={false}
+                      labelPlacement="perpendicular"
+                      style={{ tickLabels: { fill: "none" } }}
+                      axisValue={d.label}
+                    />
+                  );
+                })
+              }
+              <VictoryBar
+                style={{ data: { fill: "tomato", width: 25 } }}
+                data={sampleData.map((item) => {
+                  return {x: item.label, y: item.y}
+                })}
+              />
+              
             </VictoryChart>
+          </HomeContainer>
 
-            <svg className="col-span-2" viewBox="-60 0 900 350">
+          <HeaderText className="ml-5">Estatísticas</HeaderText>
+          <HomeContainer className="w-full">
+
+            <svg viewBox="-60 0 1200 350">
             <VictorySharedEvents
                 events={[{
                     childName: ["pie", "bar"],
@@ -86,11 +118,12 @@ export default function Home() {
                   }]}
                 >
                 
-                <g transform={"translate(450, -20)"}>
+                <g transform={"translate(650, 10)"}>
                   <VictoryBar
                   name="bar"
                   standalone={false}
-                  style={{labels: { fontSize: 18 }}}
+                  style={{labels: { fontSize: 18 }, data: {fontSize: 20}}}
+                  barRatio={0.7}
                   labels={() => {return sampleData.map((item) => {return item.label})}}
                   theme={VictoryTheme.material}
                   height={350}
@@ -98,18 +131,20 @@ export default function Home() {
                   />
                 </g>
 
-                <g transform={"translate(-70, -20)"}>
+                <g transform={"translate(10, 10)"}>
                     <VictoryPie
                     name="pie"
+                    colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
                     standalone={false}
                     style={{labels: { fontSize: 18 }, data: {fontSize: 10}}}
-                    theme={VictoryTheme.grayscale}
+                    theme={VictoryTheme.material}
                     height={350}
                     data={sampleData}
                     />
                 </g>
                 </VictorySharedEvents>
             </svg>
+          </HomeContainer>
             </div>
         </div>    
     )

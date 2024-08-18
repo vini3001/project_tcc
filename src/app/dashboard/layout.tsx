@@ -1,6 +1,6 @@
 'use client'
 
-import Dashboardheader from "./components/DashboardHeader"
+import Dashboardheader from "./components/dashboardHeader"
 import { useState } from "react"
 import SideMenu from "./components/DashboardSideMenu"
 
