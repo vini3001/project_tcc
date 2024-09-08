@@ -18,12 +18,8 @@ export default function ClientModal({closeModal}: ClientProps) {
     const { userId, token } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm<Client>();
 
-    console.log(token)
-
     async function onSubmit(data: Inputs) {
         const response = await routeCreateClient.request(data)
-
-        console.log(response.data)
     }
 
     function handleCloseModal() {

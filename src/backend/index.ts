@@ -1,4 +1,7 @@
+import { cookies } from "next/headers"
 import { api } from "./baseURL"
+import { parseCookies } from "nookies"
+import router from "next/router"
 
 export type RouteMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE'
 
@@ -20,6 +23,8 @@ export class Route<Req = {id?: string}, Res = {}> {
     async request(req: Req): Promise<RouteResponse<Res>> {
         try {
             const routePath = process.env.NEXT_PUBLIC_API_URL + this.path
+            const cookies = parseCookies(undefined)
+            const vortexTokenPath = 'vortex.token'
 
             const { data } = await api.request<Res>({
                 method: this.method,
@@ -29,12 +34,19 @@ export class Route<Req = {id?: string}, Res = {}> {
                 headers: this.upload ? {
                     Accept: 'multipart/form-data',
                     'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${cookies[vortexTokenPath]}`
     
                 } : {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-    
+                    Authorization: `Bearer ${cookies[vortexTokenPath]}`
                 },
+            })
+
+            api.interceptors.response.use((response: any)=>response, (error:any)=>{
+                if(error?.response?.status === 401 || error?.response?.status === 500){
+                    router.push('/')
+                }
             })
 
             console.log('Request succeed with status code 200')

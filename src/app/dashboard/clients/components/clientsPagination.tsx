@@ -2,13 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { ClientContainer, Table, TableContainer, ThreeDots } from '../styles';
-import { CustomLabelPaginate } from '@/app/global/styles/style';
+import { CustomLabelPaginate, InputButton } from '@/app/global/styles/style';
 import Link from 'next/link';
 import threeDots from '../../../assets/svg/icons/threeDots.svg'
 import { Client } from '@/app/entities/Client';
 import { routeListClient } from '@/backend/client';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '@/app/contexts/AuthContext';
+import { Loading } from '@/app/components/Loading';
 
 interface ItemsProps {
   currentItems: Client[];
@@ -58,21 +59,24 @@ export default function Items({currentItems}: ItemsProps) {
 
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
-  const [clients, setClients] = useState<Client[]>([])
-  const {userId} = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
+  const {userId, token} = useAuth()
 
   useQueryClient()
 
   const {data} = useQuery({
     queryKey: 'clientList',
     queryFn: async () => {
-        const result = await routeListClient.request({}).then((clients) => {return clients.data})
+        setIsLoading(true)
 
+        const result = await routeListClient.request({}).then((clients) => {return clients.data})
         if(result !== undefined) {
+          setIsLoading(false)
           return result
         }
     },
-    enabled: userId != undefined
+    enabled: token != '' && userId != 0,
+    refetchOnWindowFocus:false
   })
 
 
@@ -102,19 +106,23 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
 
   return (
     <>
-      <Items currentItems={currentItems} />
-      <CustomLabelPaginate
-        activeClassName='bg-[#2a71be] text-white'
-        className='mt-2'
-        previousLinkClassName='flex justify-center w-full'
-        nextLinkClassName='flex justify-center w-full'
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
+      {isLoading ? (
+            <Loading isLoading={true} />
+        ) : (
+        <><Items currentItems={currentItems} />
+        <CustomLabelPaginate
+          activeClassName='bg-[#2a71be] text-white'
+          className='mt-2'
+          previousLinkClassName='flex justify-center w-full'
+          nextLinkClassName='flex justify-center w-full'
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null} />
+        </>
+      )}
     </>
   );
 }

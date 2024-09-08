@@ -26,7 +26,7 @@ export type SignOutOptions = {
     ready: boolean
     signIn(credentials: LoginRequestData): Promise<User | undefined>
     signUp(credentials: RegisterRequestData): Promise<User | void>
-    signOut(options?: SignOutOptions): Promise<void>
+    signOut(): Promise<void>
   }
   
   interface AuthProviderProps {
@@ -74,14 +74,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setCookie(undefined, vortexIdPath, '', { maxAge: -1, path: '/' })
     }
 
-    async function signOut(options: SignOutOptions = { redirectToLogin: false }) {
+    async function signOut() {
         try {
           destroyCookieInfo()
           setUser(undefined)
           setToken('')
-          if (options.redirectToLogin) {
-            router.push('/login/')
-          }
+          router.push('/login')
         } catch (error) { }
     }
 
@@ -92,8 +90,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const { user } = response.data
     
           setUser(user)
-          setToken(token)
-          api.defaults.headers.Authorization = `Bearer ${token}`
+          // setToken(token)
+          // api.defaults.headers.Authorization = `Bearer ${token}`
           saveUserInfo({token, id: user.id})
     
           return user
@@ -101,6 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     async function signIn(data: LoginRequestData) {
+        api.defaults.headers.Authorization = `Bearer d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9`
         const response = await routeLogin.request(data)
         if (response.success && response.data) {
           const { user, token } = response.data
@@ -109,47 +108,44 @@ export function AuthProvider({ children }: AuthProviderProps) {
           }
 
           setUser(user)
-          api.defaults.headers.Authorization = `Bearer ${token}`
-          setToken(token)
+          // setToken(token)
           saveUserInfo({token, id: user.id})
           return user
         }
     }
 
-    useEffectOnce(() => {
-        if (ready) return
-        async function loadCacheData() {
-          if (ready) return;
-          const cookies = parseCookies(undefined)
-          const newToken = cookies[vortexTokenPath]
-          const newSessionId = cookies[vortexIdPath]
-          const convertedId = parseInt(newSessionId, 10)
+    useEffect(() => {
+      async function loadCacheData() {
+        const cookies = parseCookies(undefined)
+        const newToken = cookies[vortexTokenPath]
+        const newSessionId = cookies[vortexIdPath]
+        const convertedId = parseInt(newSessionId, 10)
 
-          setToken(newToken)  
-          setUserId(convertedId)
-          setReady(true)
-        }
-        loadCacheData()
-      }, [ready])
+        setToken(newToken)  
+        setUserId(convertedId)
+        setReady(true)
+      }
+      loadCacheData()
+    }, [])
 
-      useEffect(() => {
-        setToken('d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9')
-        api.defaults.headers.Authorization = `Bearer ${token}`
+      //useEffect(() => {
+      //     setToken('d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9')
+      //     api.defaults.headers.Authorization = `Bearer ${token}`
 
-        function verifyAuth() {
-          const cookies = parseCookies(undefined)
-          const token = cookies[vortexTokenPath]
-          token === undefined && router.push('/')
-        }
+      //   function verifyAuth() {
+      //     const cookies = parseCookies(undefined)
+      //     const token = cookies[vortexTokenPath]
+      //     token === undefined && router.push('/')
+      //   }
 
-        try {
-          verifyAuth()
-        }catch(err) {
-          console.log(err)
-          destroyCookie(undefined, vortexTokenPath)
-          router.push('/')
-        }
-      }, [router, token])
+      //   try {
+      //     verifyAuth()
+      //   }catch(err) {
+      //     console.log(err)
+      //     destroyCookie(undefined, vortexTokenPath)
+      //     router.push('/')
+      //   }
+      // }, [router, token])
 
       return (
         <AuthContext.Provider

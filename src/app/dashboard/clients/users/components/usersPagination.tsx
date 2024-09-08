@@ -10,6 +10,7 @@ import { routeListUser } from '@/backend/user';
 import { User } from '@/app/entities/User';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '@/app/contexts/AuthContext';
+import { Loading } from '@/app/components/Loading';
 
 interface ItemsProps {
   currentItems: User[];
@@ -69,7 +70,7 @@ export default function Items({currentItems}: ItemsProps) {
 
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
-  const [users, setUsers] = useState<User[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const {userId} = useAuth()
 
   useQueryClient()
@@ -77,9 +78,11 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const {data} = useQuery({
     queryKey: 'usersList',
     queryFn: async () => {
+        setIsLoading(true)
         const result = await routeListUser.request({}).then((users) => {return users.data})
 
         if(result !== undefined) {
+          setIsLoading(false)
           return result
         }
     },
@@ -119,19 +122,23 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
 
   return (
     <>
-      <Items currentItems={currentItems} />
-      <CustomLabelPaginate
-        activeClassName='bg-[#2a71be] text-white'
-        className='mt-2'
-        breakLabel="..."
-        previousLinkClassName='flex justify-center w-full'
-        nextLinkClassName='flex justify-center w-full'
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
+      {isLoading ? (
+            <Loading isLoading={true} />
+        ) : (
+        <><Items currentItems={currentItems} />
+        <CustomLabelPaginate
+          activeClassName='bg-[#2a71be] text-white'
+          className='mt-2'
+          previousLinkClassName='flex justify-center w-full'
+          nextLinkClassName='flex justify-center w-full'
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null} />
+        </>
+      )}
     </>
   );
 }

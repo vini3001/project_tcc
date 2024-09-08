@@ -9,6 +9,9 @@ import people from '../../assets/svg/icons/people.svg'
 import logo from '../../assets/pngwing.com (1).png'
 import menuIconClosed from '../../assets/svg/icons/menuIconClosed.svg'
 import menuIconOpened from '../../assets/svg/icons/menuIconOpen.svg'
+import { useAuth } from "@/app/contexts/AuthContext"
+import { routeGetUser } from "@/backend/user"
+import { useQuery } from "react-query"
 
 interface SideMenuProps {
     isOpen: boolean
@@ -17,10 +20,12 @@ interface SideMenuProps {
 }
 
 export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps) {
+    const [userAccess, setUserAccess] = useState<string | undefined>()
+    const {userId} = useAuth()
 
-    // useEffect(() => {
-    //     const user = 
-    // }, [])
+    useQuery({queryKey: ['userLogin'], queryFn: () => {
+        userId !== undefined && routeGetUser.request({id: userId}).then((response) => { setUserAccess(response.data?.nivel)})
+    }, enabled: userId !== 0})
 
     function handleCloseSideMenuMobile() {
         closeSideMenu()

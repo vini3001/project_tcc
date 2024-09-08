@@ -16,7 +16,6 @@ export default function ClientDetails() {
         const searchParams = useSearchParams()
 
         const clientId = searchParams.get('id') as string
-        console.log(clientId)
  
         function handleOpenModalEdit() {
                 setIsOpenEdit(!isOpenEdit)

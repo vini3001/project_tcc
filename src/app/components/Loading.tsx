@@ -13,12 +13,12 @@ type LoadingComponentProps = {
 
 function LoadingComponent({color}: LoadingComponentProps) {
   return (
-    <div style={{ margin: '25vh 0', width: 'full'}}>
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
       <ThreeCircles
-        height="120"
-        width="120"
+        height="200"
+        width="200"
         color={color}
-        wrapperStyle={{}}
+        wrapperStyle={{backgroundColor: 'white'}}
         wrapperClass=""
         visible={true}
         ariaLabel="three-circles-rotating"

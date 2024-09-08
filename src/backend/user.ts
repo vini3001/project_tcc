@@ -12,7 +12,12 @@ export const routeListUser = new Route<{}, User[]>({
     method: 'GET'
 })
 
-export const routeDeleteUser = new Route<{id: string}, {}>({
+export const routeGetUser = new Route<{id: number}, User>({
+    path: '/usuarios',
+    method: 'GET'
+})
+
+export const routeDeleteUser = new Route<{id: number}, {}>({
     path: '/usuarios',
     method: 'DELETE'
 })

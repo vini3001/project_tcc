@@ -49,7 +49,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>Inativo</td>
                         <td>Ativa</td>
                         <td>30/01/2004</td>
-                        <td>Friboi</td>
+                        <td>Disponível</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
                               <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}} />
                               <DeleteIcon src={trashIcon.src} />
