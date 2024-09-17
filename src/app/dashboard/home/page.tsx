@@ -1,10 +1,9 @@
 'use client'
 
-import { HeaderText } from "@/app/global/styles/style";
 import { VictoryArea, VictoryAxis, VictoryBar, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryPie, VictoryPolarAxis, VictoryScatter, VictorySharedEvents, VictoryStack, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { VictoryChart } from "victory-chart";
 import { CustomLabelPaginate } from '../../global/styles/style';
-import { HomeContainer, HomeHeader } from "./styles";
+import { HeaderDashboard, HomeContainer, HomeHeader } from "./styles";
 
 
 export default function Home() {
@@ -18,10 +17,12 @@ export default function Home() {
 
     return (
         <div>
-          <HeaderText className="ml-5">Highlights</HeaderText>
-
           <div className="flex flex-col gap-3">
-          <HomeContainer className="flex flex-col md:flex-row">
+          <HomeContainer className="flex flex-col">
+          <HeaderDashboard>
+            <h3>Número de acessos</h3>
+          </HeaderDashboard>
+          <div className="flex flex-col items-center md:flex-row">
           <VictoryChart theme={VictoryTheme.material} height={200} containerComponent={
             <VictoryVoronoiContainer
             labels={({datum}) => `${datum.x}, ${datum.y}`}
@@ -85,11 +86,13 @@ export default function Home() {
               />
               
             </VictoryChart>
+          </div>
           </HomeContainer>
 
-          <HeaderText className="ml-5">Estatísticas</HeaderText>
           <HomeContainer className="w-full">
-
+          <HeaderDashboard>
+            <h3>Estatísticas</h3>
+          </HeaderDashboard>
             <svg viewBox="-60 0 1200 350">
             <VictorySharedEvents
                 events={[{
