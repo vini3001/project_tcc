@@ -47,5 +47,5 @@ export const HeaderDashboard = styled('div', {
         margin: 0,
         padding: '3px',
         fontWeight: 400,
-    }
+    },
 })

@@ -1,12 +1,20 @@
 'use client'
 
-import { VictoryArea, VictoryAxis, VictoryBar, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryPie, VictoryPolarAxis, VictoryScatter, VictorySharedEvents, VictoryStack, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer } from "victory";
+import { LabelHelpers, VictoryArea, VictoryAxis, VictoryBar, VictoryCursorContainer, VictoryLabel, VictoryLine, VictoryPie, VictoryPolarAxis, VictoryScatter, VictorySharedEvents, VictoryStack, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer } from "victory";
 import { VictoryChart } from "victory-chart";
-import { CustomLabelPaginate } from '../../global/styles/style';
+import { CustomLabelPaginate, HeaderText } from '../../global/styles/style';
 import { HeaderDashboard, HomeContainer, HomeHeader } from "./styles";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
+interface numberProps {
+  referencePoint: number
+}
 
 export default function Home() {
+    const [referenceNumber, setReference] = useState(0)
+    const { register, handleSubmit, formState: { errors } } = useForm<numberProps>();
+    function onSubmit(data: numberProps) {}
     const sampleData = [
         { x: 1, y: 2, label: '1'},
         { x: 2, y: 3, label: '2'},
@@ -14,6 +22,8 @@ export default function Home() {
         { x: 4, y: 4, label: '4'},
         { x: 5, y: 6, label: '5'}
       ]
+    
+    const colorScale = ["tomato", "orange", "gold", "cyan", "navy"]
 
     return (
         <div>
@@ -79,10 +89,27 @@ export default function Home() {
                 })
               }
               <VictoryBar
-                style={{ data: { fill: "tomato", width: 25 } }}
+                style={{ data: { fill: 'tomato', width: 25 } }}
                 data={sampleData.map((item) => {
                   return {x: item.label, y: item.y}
                 })}
+                events={[{
+                  target: "data",
+                  eventHandlers: {
+                    onClick: () => {
+                      return [
+                        {
+                          target: "data",
+                          mutation: (props) => {
+                            const fill = props.style && props.style.fill;
+                            const stroke = props.style && props.style.border
+                            return fill === "#c43a31" ? null : { style: { fill: "#c43a31", stroke: 'black' } };
+                          }
+                        }
+                      ];
+                    }
+                  }
+                }]}
               />
               
             </VictoryChart>
@@ -126,7 +153,7 @@ export default function Home() {
                   name="bar"
                   standalone={false}
                   style={{labels: { fontSize: 18 }, data: {fontSize: 20}}}
-                  barRatio={0.7}
+                  barRatio={0.9}
                   labels={() => {return sampleData.map((item) => {return item.label})}}
                   theme={VictoryTheme.material}
                   height={350}
@@ -137,6 +164,8 @@ export default function Home() {
                 <g transform={"translate(10, 10)"}>
                     <VictoryPie
                     name="pie"
+                    radius={({ datum }) => 20 + datum.y * 20}
+                    labelIndicator
                     colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
                     standalone={false}
                     style={{labels: { fontSize: 18 }, data: {fontSize: 10}}}
