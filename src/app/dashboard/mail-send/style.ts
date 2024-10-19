@@ -53,8 +53,25 @@ export const MailSendHeader = styled('div', {
 })
 
 export const MailSendChatBox = styled('div', {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'end',
+    gap: '2px',
     backgroundColor: 'white',
-    height: '50vh'
+    padding: '10px',
+    height: '50vh',
+    maxHeight: '50vh' 
+})
+
+export const MailSendChatMessage =styled('div', {
+    display: 'flex',
+    alignItems: 'end',
+    backgroundColor: 'green',
+    borderRadius: '15px',
+    overflowWrap: 'break-word',
+    maxWidth: '50%',
+    color: 'white',
+    padding: '5px'
 })
 
 export const MailSendChatSend = styled('div', {

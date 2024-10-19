@@ -2,6 +2,7 @@ import { InputButton, InputCustom, InputLabel, CloseButton, RegisterBox, Registe
 import { Contact } from "@/app/entities/Contact";
 import { useForm } from "react-hook-form";
 import closeButton from '../../../assets/svg/closeButton.svg'
+import { routeEditContact } from "@/backend/contact";
 
 interface ClientProps {
     closeModal: () => void
@@ -10,7 +11,7 @@ interface ClientProps {
 
 export default function ContactModal({closeModal, clientId}: ClientProps){
     const { register, handleSubmit, formState: { errors } } = useForm<Contact>();
-    function onSubmit(data: Contact) {}
+    function onSubmit(data: Contact) {routeEditContact.request(data)}
 
     function handleCloseModal() {
         closeModal()

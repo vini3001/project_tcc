@@ -61,7 +61,7 @@ export default function Items({currentItems}: ItemsProps) {
           </Table>
         </TableContainer>
         {isOpenEdit && (
-            <UserModal closeModal={handleOpenModalEdit} userId={userId}/>
+            <UserModal closeModal={handleOpenModalEdit} userIdInput={userId}/>
         )}
       </ClientContainer>
     </>
@@ -86,7 +86,8 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
           return result
         }
     },
-    enabled: userId != undefined
+    enabled: userId != undefined,
+    refetchOnWindowFocus: false
   })
 
   // useEffect(() => {

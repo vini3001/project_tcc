@@ -3,20 +3,27 @@ import { CloseButton, InputButton, InputCustom, InputLabel, RegisterBox, Registe
 import { useForm } from "react-hook-form";
 import closeButton from '@/app/assets/svg/closeButton.svg'
 import { useSearchParams } from "next/navigation";
+import { routeEditUser } from "@/backend/user";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface UserProps {
     closeModal: () => void
-    userId: number | undefined
+    userIdInput: number | undefined
 }
 
-export default function ModalUser({closeModal, userId}: UserProps) {
+export default function ModalUser({closeModal, userIdInput}: UserProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
+    const {userId} = useAuth()
     const searchParams = useSearchParams()
+
+    console.log(userId)
 
     const clientId = parseInt(searchParams.get('id') as string)
 
     async function onSubmit(data: User) {
-        //const response = await routeCreateClient.request(data)
+        const response = await routeEditUser.request(data)
+
+        console.log(response.httpCode)
     }
 
     function handleCloseModal() {
@@ -58,6 +65,7 @@ export default function ModalUser({closeModal, userId}: UserProps) {
                             </div>
 
                             {/* Inputs default*/}
+                            <InputCustom type="number" value={userIdInput} {...register("id")} hidden={true}/>
                             <InputCustom type="number" value={clientId} {...register("id_cliente")} hidden={true}/> 
                             <InputCustom type="number" value={userId} {...register("id_by")} hidden={true}/> 
                             <InputCustom type="text" value={'c'} {...register("tipo")} hidden={true}/>

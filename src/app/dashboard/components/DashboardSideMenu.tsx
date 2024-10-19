@@ -55,7 +55,7 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                             <DashboardTextContainer href={"/dashboard/home"}>
                                 <MenuIconForm src={mail.src} alt={""} /><>Mensagens</>
                             </DashboardTextContainer>
-                            <DashboardTextContainer href={"/dashboard/mailSend"}>
+                            <DashboardTextContainer href={"/dashboard/mail-send"}>
                                 <MenuIconForm src={send.src} alt={""} /><>Envios</>
                             </DashboardTextContainer>
                             <DashboardTextContainer href={"/dashboard/connections"}>

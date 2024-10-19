@@ -11,42 +11,30 @@ export type RouteResponse<T> = {
     httpCode: string
 }
 
-export class Route<Req = {id?: string}, Res = {}> {
+export class RouteWhatsapp<Req = {}, Res = {}> {
     path = ''
     method: RouteMethod = 'GET'
     upload: boolean = false
+    param: string = ''
 
-    constructor(options: Partial<Route<Req, Res>>) {
+    constructor(options: Partial<RouteWhatsapp<Req, Res>>) {
         Object.assign(this, options)
     }
 
     async request(req: Req): Promise<RouteResponse<Res>> {
         try {
-            const routePath = process.env.NEXT_PUBLIC_API_URL + this.path
-            const cookies = parseCookies(undefined)
-            const vortexTokenPath = 'vortex.token'
+            const routePath = process.env.NEXT_PUBLIC_WHATSAPP_URL + this.path
 
             const { data } = await api.request<Res>({
                 method: this.method,
                 url: routePath,
                 data: req,
-                params: this.method !== 'POST' ? { id: (req as { id?: string }).id } : {},
-                headers: this.upload ? {
-                    Accept: 'multipart/form-data',
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${cookies[vortexTokenPath]}`
-    
-                } : {
+                params: this.param,
+                headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${cookies[vortexTokenPath]}`
+                    apiKey: `1qnrazgkpeyxx4lrq1af8s`
                 },
-            })
-
-            api.interceptors.response.use((response: any)=>response, (error:any)=>{
-                if(error?.response?.status === 401 || error?.response?.status === 500 || error?.response?.status === 400){
-                    router.push('/')
-                }
             })
 
             console.log('Request succeed with status code 200')

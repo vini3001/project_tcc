@@ -7,6 +7,7 @@ import { InputButton, InputCustom, InputLabel, SelectStyle } from "@/app/global/
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { routeEditClient } from "@/backend/client";
 import { Client } from '@/app/entities/Client';
+import { useSearchParams } from 'next/navigation';
 
 type Inputs = Client
 
@@ -17,6 +18,9 @@ interface ClientProps {
 export default function ClientModal({closeModal}: ClientProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     function onSubmit(data: Inputs) {routeEditClient.request(data)}
+    const searchParams = useSearchParams()
+
+    const clientId = parseInt(searchParams.get('id') as string)
 
     function handleCloseModal() {
         closeModal()
@@ -26,6 +30,7 @@ export default function ClientModal({closeModal}: ClientProps) {
             <RegisterBox className="h-fit md:h-auto">
                     <RegisterForm className="w-[80vw] gap-y-2 md:w-[55vw]" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col md:flex-row gap-2">
+                                <InputCustom type="number" value={clientId} {...register("id")} hidden={true}></InputCustom>
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
                                     <InputCustom type="text" {...register("nome")}/>

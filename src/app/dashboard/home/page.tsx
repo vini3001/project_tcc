@@ -28,7 +28,7 @@ export default function Home() {
     return (
         <div>
           <div className="flex flex-col gap-3">
-          <HomeContainer className="flex flex-col">
+          <HomeContainer className="flex flex-col overflow-hidden">
           <HeaderDashboard>
             <h3>Número de acessos</h3>
           </HeaderDashboard>
@@ -55,21 +55,6 @@ export default function Home() {
                 />
             </VictoryChart>
 
-            {/* <VictoryChart polar
-            domain={{ y: [0, 7]}}
-            theme={VictoryTheme.material}
-            height={200}
-            >
-            <VictoryPie
-            name="pie"
-            data={sampleData}
-            colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
-            style={{labels: {opacity: 0}}}
-            />
-            <VictoryPolarAxis
-                style={{ grid: {stroke: 'transparent'}}}
-            />
-            </VictoryChart> */}
             <VictoryChart polar
               theme={VictoryTheme.material}
               height={250}
@@ -164,8 +149,6 @@ export default function Home() {
                 <g transform={"translate(10, 10)"}>
                     <VictoryPie
                     name="pie"
-                    radius={({ datum }) => 20 + datum.y * 20}
-                    labelIndicator
                     colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}
                     standalone={false}
                     style={{labels: { fontSize: 18 }, data: {fontSize: 10}}}
