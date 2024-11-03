@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { DashboardSideMenu, DashboardMenuText, DashboardTextContainer, MenuIconForm, MainIconForm } from "../styles"
 import house from '../../assets/svg/icons/house.svg'
 import contact from '../../assets/svg/icons/contact.svg'
-import mail from '../../assets/svg/icons/mail.svg'
+import tags from '../../assets/svg/icons/tags.svg'
 import send from '../../assets/svg/icons/send.svg'
 import connections from '../../assets/svg/icons/globe.svg'
 import people from '../../assets/svg/icons/people.svg'
@@ -52,8 +52,8 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                             <DashboardTextContainer href={"/dashboard/contacts"}>
                                 <MenuIconForm src={contact.src} alt={""} /><>Contatos</>
                             </DashboardTextContainer>
-                            <DashboardTextContainer href={"/dashboard/home"}>
-                                <MenuIconForm src={mail.src} alt={""} /><>Mensagens</>
+                            <DashboardTextContainer href={"/dashboard/tags"}>
+                                <MenuIconForm src={tags.src} alt={""} /><>Tags</>
                             </DashboardTextContainer>
                             <DashboardTextContainer href={"/dashboard/mail-send"}>
                                 <MenuIconForm src={send.src} alt={""} /><>Envios</>
@@ -83,8 +83,8 @@ export default function SideMenu({isOpen, minSize, closeSideMenu}: SideMenuProps
                         <DashboardTextContainer href={"/dashboard/contacts"}>
                             <MenuIconForm src={contact.src} alt={""} />{isOpen && <>Contatos</>}
                         </DashboardTextContainer>
-                        <DashboardTextContainer href={"/dashboard/home"}>
-                            <MenuIconForm src={mail.src} alt={""} />{isOpen && <>Mensagens</>}
+                        <DashboardTextContainer href={"/dashboard/tags"}>
+                            <MenuIconForm src={tags.src} alt={""} />{isOpen && <>Tags</>}
                         </DashboardTextContainer>
                         <DashboardTextContainer href={"/dashboard/mail-send"}>
                             <MenuIconForm src={send.src} alt={""} />{isOpen && <>Envios</>}

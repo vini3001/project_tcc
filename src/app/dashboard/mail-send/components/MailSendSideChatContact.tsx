@@ -8,22 +8,42 @@ import threeDots from '../../../assets/svg/icons/threeDots.svg'
 import { ThreeDots } from "../style";
 import OptionGroup from "./optionGroup";
 import { useEffect, useState } from "react";
-import { routeConnectInstance, routeSendMessage } from "@/backend/whatsapp";
+import { routeConnectInstance, routeGetMessages, routeSendMessage } from "@/backend/whatsapp";
 import { toastError } from "@/utils/toastify";
+import { Contact } from "@/app/entities/Contact";
+import { useQuery } from "react-query";
+import { Loading } from "@/app/components/Loading";
+import { GetGroupsResponse } from "@/app/entities/Whatsapp";
 
 interface MailSendSideChatProps {
-    contact: {nome: string} | undefined
+    contact: Contact | undefined
     close: () => void
 }
 
 export default function MailSendSideChat({contact, close}: MailSendSideChatProps) {
     const [isOpen, setIsOpen] = useState(false)
+    const [messages, setMessages] = useState<String[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [text, setText] = useState<string>('')
     const [status, setStatus] = useState<String>('')
     
-    useEffect(() => {
+    const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
         routeConnectInstance.request({})
         .then((response) => {setStatus(response.data!.instance.state)})
-    },[])
+
+        routeGetMessages.request({})
+        .then((response) => {
+            let messagesList: String[] = []
+            response.data?.map((item) => {
+                if (item.messageType === 'extendedTextMessage' && item.key.remoteJid.substring(0, 13) === '55' + contact!.celular) {
+                   messagesList.push(item.message.extendedTextMessage.text)
+                }
+            })
+            setIsLoading(false)
+            setMessages(messagesList) 
+        }) 
+    }
+})
 
     function handleCloseSideMenu() {
         close()
@@ -33,18 +53,23 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
         setIsOpen(!isOpen)
     }
 
+    const handleChange = (event: any) => {
+        setText(event.target.value);
+      };
+
     function handleSendMessage() {
         if (status !== 'open') {
             toastError('Erro ao iniciar instância')
         } else {
             routeSendMessage.request({
-                number: "5516994270955",
+                number: contact!.celular,
                 textMessage: {
-                    text: "teste"
+                    text
                 }
             })
+            setIsLoading(true)
 
-            return
+            refetch()
         }
     }
 
@@ -58,18 +83,17 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
                 <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
                 {isOpen && <OptionGroup />}
             </MailSendHeader>
-            <MailSendChatBox>
-                
-                    {/* {mensagens.map((mensagem) => {
+            <MailSendChatBox>             
+                    {isLoading === false ? messages.map((mensagem) => {
                         return (
-                            <MailSendChatMessage key={mensagem.id}>
-                               {mensagem.mensagem}
+                            <MailSendChatMessage key={Math.random()}>
+                               {mensagem}
                             </MailSendChatMessage>
                         )
-                    })} */}
+                    }) : <Loading isLoading={true} />}
             </MailSendChatBox>
             <MailSendChatSend>
-                <input placeholder="Digite sua mensagem" />
+                <input type="text" placeholder="Digite sua mensagem" value={text} onChange={handleChange} />
                 <button onClick={handleSendMessage} className="flex justify-center items-center">
                     <Image src={sendIcon.src} width={27} height={27} alt={""}/>
                 </button>

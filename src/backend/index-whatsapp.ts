@@ -1,7 +1,4 @@
-import { cookies } from "next/headers"
 import { api } from "./baseURL"
-import { parseCookies } from "nookies"
-import router from "next/router"
 
 export type RouteMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE'
 
@@ -15,7 +12,7 @@ export class RouteWhatsapp<Req = {}, Res = {}> {
     path = ''
     method: RouteMethod = 'GET'
     upload: boolean = false
-    param: string = ''
+    param: {} = {}
 
     constructor(options: Partial<RouteWhatsapp<Req, Res>>) {
         Object.assign(this, options)
@@ -29,11 +26,11 @@ export class RouteWhatsapp<Req = {}, Res = {}> {
                 method: this.method,
                 url: routePath,
                 data: req,
-                params: this.param,
+                params: Object.keys(this.param).length !== 0 && this.param,
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    apiKey: `1qnrazgkpeyxx4lrq1af8s`
+                    apiKey: `ST6vgy3KFQTdXAefmOWCfQCZR6LDPpLx`
                 },
             })
 

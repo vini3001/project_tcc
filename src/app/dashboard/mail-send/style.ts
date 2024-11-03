@@ -25,6 +25,9 @@ export const MailSendContent = styled('div', {
 
 export const MailSendChatSideContent = styled('div', {
     display: 'flex',
+    right: '100px',  
+    top: '50px',
+    position: 'absolute',   
     overflowX: 'hidden',
     maxHeight: '100vh',
     width: '45%',
@@ -54,6 +57,7 @@ export const MailSendHeader = styled('div', {
 
 export const MailSendChatBox = styled('div', {
     display: 'flex',
+    overflowY: 'scroll',
     flexDirection: 'column',
     alignItems: 'end',
     gap: '2px',
