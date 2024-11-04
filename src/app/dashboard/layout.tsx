@@ -1,8 +1,9 @@
 'use client'
 
-import Dashboardheader from "./components/dashboardHeader"
-import { useState } from "react"
+import Dashboardheader from "./components/DashboardHeader"
+import { Suspense, useState } from "react"
 import SideMenu from "./components/DashboardSideMenu"
+import { Loading } from "../components/Loading"
 
 export default function Register({
     children,
@@ -23,7 +24,9 @@ export default function Register({
             <section className="max-h-[100vh] overflow-y-auto grow p-3">
                 <Dashboardheader closeModal={handleCloseModal} isOpen={isOpen}/>
                 <hr />
-                {children}
+                <Suspense fallback={<Loading isLoading={true} />}>
+                    {children}
+                </Suspense>
             </section>
         </section>
     )
