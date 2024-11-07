@@ -1,5 +1,13 @@
 import { styled } from "@stitches/react";
 
+export const TagsBox = styled('section', {
+    display: 'flex',
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%'
+})
+
 export const TagsContainer = styled('section', {
     display: 'flex',
     flexDirection: 'column',

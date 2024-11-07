@@ -3,15 +3,17 @@ import { CloseButton, RegisterBox, RegisterForm } from "@/app/global/styles/styl
 import { InputButton, InputCustom, InputLabel } from "@/app/global/styles/style";
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { Tag } from "@/app/entities/Tag";
+import { routeEditTag } from "@/backend/tag";
 
 interface TagProps {
-    closeModal: () => void
+    closeModal: () => void,
+    tagId: number | undefined
 }
 
-export function TagModal({closeModal}: TagProps) {
+export function TagModal({closeModal, tagId}: TagProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Tag>();
     function onSubmit(data: Tag) {
-        
+        routeEditTag.request(data)
     }
 
     function handleCloseModal() {
@@ -22,6 +24,7 @@ export function TagModal({closeModal}: TagProps) {
         <RegisterBox className="h-fit md:h-auto">
             <RegisterForm className="w-[80vw] gap-y-2 md:w-[30%]" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col md:flex-row gap-2">
+                        <InputCustom type="number" value={tagId} {...register("id")} hidden></InputCustom>
                         <div className="flex flex-col w-full justify-between items-start">
                             <InputLabel>Nome</InputLabel>
                             <InputCustom type="text" {...register("tag")}/>

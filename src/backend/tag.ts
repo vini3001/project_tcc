@@ -6,7 +6,12 @@ export const routeListTags = new Route<{}, Tag[]>({
     method: 'GET'
 })
 
-export const routeCreateTag = new Route<{}, Tag>({
+export const routeCreateTag = new Route<Tag, Tag>({
     path: '/tags',
-    method: 'GET'
+    method: 'POST'
+})
+
+export const routeEditTag = new Route<Tag, Tag>({
+    path: '/tags',
+    method: 'PUT'
 })

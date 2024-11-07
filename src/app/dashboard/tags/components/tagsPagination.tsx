@@ -5,12 +5,10 @@ import { TagsContent, EditIcon, DeleteIcon, Table, TableContainer } from '../sty
 import { CustomLabelPaginate } from '@/app/global/styles/style';
 import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
-import { routeListContacts } from '@/backend/contact';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '@/app/contexts/AuthContext';
 import { Loading } from '@/app/components/Loading';
-import { Contact } from '@/app/entities/Contact';
-import { TagModal } from './modalCreateTag';
+import { TagModal } from './modalEditTag';
 import { routeListTags } from '@/backend/tag';
 import { Tag } from '@/app/entities/Tag';
 
@@ -24,10 +22,10 @@ interface PaginatedItems {
 
 export default function Items({currentItems}: ItemsProps) {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  const [clientId, setClientId] = useState<number | undefined>(0)
+  const [tagId, setTagId] = useState<number | undefined>(0)
 
-    function handleOpenModalEdit(clientId?: number) {
-        setClientId(clientId)
+    function handleOpenModalEdit(tagId?: number) {
+        setTagId(tagId)
         setIsOpenEdit(!isOpenEdit)
     }
 
@@ -57,7 +55,7 @@ export default function Items({currentItems}: ItemsProps) {
           </Table>
         </TableContainer>
         {isOpenEdit && (
-            <TagModal closeModal={handleOpenModalEdit}/>
+            <TagModal closeModal={handleOpenModalEdit} tagId={tagId}/>
         )}
       </TagsContent>
     </>
@@ -105,7 +103,7 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
       {isLoading ? (
             <Loading isLoading={true} />
         ) : (
-          <><Items currentItems={currentItems} /><CustomLabelPaginate
+          <div className='flex flex-col w-full'><Items currentItems={currentItems} /><CustomLabelPaginate
             activeClassName='bg-[#2a71be] text-white'
             className='mt-2'
             previousLinkClassName='flex justify-center w-full'
@@ -116,7 +114,7 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
             pageCount={pageCount}
             previousLabel="<"
             renderOnZeroPageCount={null} />
-          </>
+          </div>
         )}
     </>
   );

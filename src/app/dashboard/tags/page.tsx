@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { PaginatedItems } from "./components/tagsPagination";
-import { RegisterButton, TagsContainer, TagsHeader } from "./style";
+import { TagsContainer, TagsHeader } from "./style";
 import { TagModal } from "./components/modalCreateTag";
 
 
@@ -16,11 +16,12 @@ export default function Tags() {
     return (
         <TagsContainer>
             <TagsHeader>
-                <h2>Contatos</h2>
-                <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
+                <h2>Tags</h2>
             </TagsHeader>
-            <PaginatedItems itemsPerPage={9}/>
-            {isOpenCreate && <TagModal closeModal={handleOpenModalCreate} />}
+            <div className="flex flex-row w-full gap-5">
+                <PaginatedItems itemsPerPage={9}/>
+                <TagModal  />
+            </div>
         </TagsContainer>
     )
 }
