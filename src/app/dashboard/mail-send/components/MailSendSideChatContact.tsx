@@ -1,19 +1,15 @@
-import Link from "next/link";
 import { MailSendChatBox, MailSendChatMessage, MailSendChatSend, MailSendChatSideContent, MailSendHeader } from "../style";
 import { GoBackIcon } from "@/app/global/styles/style";
 import goBackIcon from '../../../assets/svg/goBack.svg'
 import sendIcon from '../../../assets/svg/icons8-avião-de-papel-32.png'
 import Image from "next/image";
-import threeDots from '../../../assets/svg/icons/threeDots.svg'
-import { ThreeDots } from "../style";
-import OptionGroup from "./optionGroup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { routeConnectInstance, routeGetMessages, routeSendMessage } from "@/backend/whatsapp";
 import { toastError } from "@/utils/toastify";
 import { Contact } from "@/app/entities/Contact";
 import { useQuery } from "react-query";
 import { Loading } from "@/app/components/Loading";
-import { GetGroupsResponse } from "@/app/entities/Whatsapp";
+import { routeSendMessageBackend } from "@/backend/message";
 
 interface MailSendSideChatProps {
     contact: Contact | undefined
@@ -21,19 +17,22 @@ interface MailSendSideChatProps {
 }
 
 export default function MailSendSideChat({contact, close}: MailSendSideChatProps) {
-    const [isOpen, setIsOpen] = useState(false)
-    const [messages, setMessages] = useState<String[]>([])
+    const [messages, setMessages] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [text, setText] = useState<string>('')
     const [status, setStatus] = useState<String>('')
-    
-    const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
+
+    useQuery({queryKey: 'connectInstance', queryFn: () => {
         routeConnectInstance.request({})
         .then((response) => {setStatus(response.data!.instance.state)})
-
+    }, 
+    enabled: status !== 'open'
+   })
+    
+    const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
         routeGetMessages.request({})
         .then((response) => {
-            let messagesList: String[] = []
+            let messagesList: string[] = []
             response.data?.map((item) => {
                 if (item.messageType === 'extendedTextMessage' && item.key.remoteJid.substring(0, 13) === '55' + contact!.celular) {
                    messagesList.push(item.message.extendedTextMessage.text)
@@ -49,10 +48,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
         close()
     }
 
-    function handleOpenModal() {
-        setIsOpen(!isOpen)
-    }
-
     const handleChange = (event: any) => {
         setText(event.target.value);
       };
@@ -61,6 +56,11 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
         if (status !== 'open') {
             toastError('Erro ao iniciar instância')
         } else {
+            routeSendMessageBackend.request({
+                contato_id: contact!.id,
+                mensagem: text
+            })
+            
             routeSendMessage.request({
                 number: contact!.celular,
                 textMessage: {
@@ -80,8 +80,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
                     <GoBackIcon onClick={handleCloseSideMenu} src={goBackIcon.src} />
                     <h3>{contact!.nome}</h3>
                 </div>
-                <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
-                {isOpen && <OptionGroup />}
             </MailSendHeader>
             <MailSendChatBox>             
                     {isLoading === false ? messages.map((mensagem) => {

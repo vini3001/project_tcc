@@ -4,10 +4,10 @@ import { styled } from "@stitches/react";
 export const MailSendContainer = styled('div', {
     display: 'flex',
     position: 'relative',
-    flexDirection: 'row',
-    padding: '10px',
+    flexDirection: 'column',
     width: '30vw',
-    height: 'fit-content'
+    height: 'fit-content',
+    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
 })
 
 export const MailSendContent = styled('div', {
@@ -19,14 +19,13 @@ export const MailSendContent = styled('div', {
     flexDirection: 'column',
     //padding: '10px',
     border: '2px solid rgba(0, 0, 0, 0.1)',
-    borderRadius: '10px',
-    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 })
 
 export const MailSendChatSideContent = styled('div', {
     display: 'flex',
-    right: '100px',  
-    top: '50px',
+    right: '30px',  
+    top: '0',
+    marginTop: '80px',
     position: 'absolute',   
     overflowX: 'hidden',
     maxHeight: '100vh',

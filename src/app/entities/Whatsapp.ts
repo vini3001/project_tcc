@@ -1,29 +1,29 @@
 export interface Instance {
     instance: {
-        instanceName: String,
-        state: String
+        instanceName: string,
+        state: string
     }
 }
 
 export interface SendMessageResponse {
 		key: {
-			remoteJid: String,
+			remoteJid: string,
 			fromMe: Boolean,
-			id: String
+			id: string
 		},
-		pushName: String,
+		pushName: string,
 		message: {
 			extendedTextMessage: {
-				text: String
+				text: string
 			}
 		}
-    messageType: String,
+    messageType: string,
 }
 
 export interface SendMessagePayload {
-        number: String,
+        number: string,
         textMessage: {
-          text: String
+          text: string
         },
         options?: {
           delay: 1200,

@@ -10,38 +10,59 @@ import OptionGroup from "./optionGroup";
 import { useEffect, useState } from "react";
 import { routeConnectInstance, routeGetMessages, routeListParticipants, routeSendMessage } from "@/backend/whatsapp";
 import { toastError } from "@/utils/toastify";
-import { Contact } from "@/app/entities/Contact";
 import { useQuery } from "react-query";
 import { Loading } from "@/app/components/Loading";
-import { GetGroupsResponse } from "@/app/entities/Whatsapp";
+import { Tag } from "@/app/entities/Tag";
+import { routeListContacts } from "@/backend/contact";
+import { Contact } from "@/app/entities/Contact";
+import { routeSendMessageBackend } from "@/backend/message";
 
 interface MailSendSideChatProps {
-    group: GetGroupsResponse | undefined
+    tag: Tag | undefined
     close: () => void
 }
 
-export default function MailSendSideChat({group, close}: MailSendSideChatProps) {
+export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
     const [isOpen, setIsOpen] = useState(false)
-    const [messages, setMessages] = useState<String[]>([])
+    const [messages, setMessages] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [participantsId, setParticipantsId] = useState<String[]>([])
+    const [participants, setParticipants] = useState<Contact[]>([])
     const [text, setText] = useState<string>('')
-    const [status, setStatus] = useState<String>('')
+    const [status, setStatus] = useState<string>('')
 
-    const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
+    useQuery({queryKey: 'connectInstance', queryFn: () => {
         routeConnectInstance.request({})
         .then((response) => {setStatus(response.data!.instance.state)})
+    }, 
+    enabled: status !== 'open'
+   })
 
-        routeListParticipants.param = {groupJid: group?.id}
-        routeListParticipants.request({})
+    useQuery({queryKey: 'listContacts', queryFn: () => {
+        routeListContacts.request({})
         .then((response) => {
-            let participantsList: String[] = []
-            response.data?.map((item) => {
-                participantsList.push(item.participant.id.substring(0, 13))
+            let participantsList: Contact[] = []
+            participantsList = response.data!.filter((item) => {
+                item.tag === tag?.tag
             })
-            setParticipantsId(participantsList)            
+
+            setParticipants(participantsList)            
         }) 
     }})
+  /*
+    const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
+        routeGetMessages.request({})
+        .then((response) => {
+            let messagesList: String[] = []
+            response.data?.map((item) => {
+                if (item.messageType === 'extendedTextMessage' && item.key.remoteJid.substring(0, 13) === '55' + contact!.celular) {
+                   messagesList.push(item.message.extendedTextMessage.text)
+                }
+            })
+            setIsLoading(false)
+            setMessages(messagesList) 
+        }) 
+       }
+    })*/
 
     function handleCloseSideMenu() {
         close()
@@ -55,23 +76,41 @@ export default function MailSendSideChat({group, close}: MailSendSideChatProps) 
         setText(event.target.value);
       };
 
-    function handleSendMessage() {
+      async function handleSendMessage() {
         if (status !== 'open') {
-            toastError('Erro ao iniciar instância')
-        } else {
-            participantsId.map((id) => {
-                routeSendMessage.request({
-                    number: id,
-                    textMessage: {
-                        text
-                    }
-                })
-                setIsLoading(true)
-            })
+            toastError('Erro ao iniciar instância');
+            return;
         }
-        
-
-        refetch()
+    
+        setIsLoading(true);
+    
+        try {
+            const sendMessagePromises = participants.map(async (item) => {
+                try {
+                    await routeSendMessageBackend.request({
+                        contato_id: item.id,
+                        mensagem: text
+                    });
+    
+                    await routeSendMessage.request({
+                        number: item.celular,
+                        textMessage: { text }
+                    });
+                } catch (error) {
+                    console.error(`Erro ao enviar mensagem para ${item.celular}:`, error);
+                    toastError(`Erro ao enviar mensagem para ${item.celular}`);
+                }
+            });
+    
+            await Promise.all(sendMessagePromises);
+            
+            console.log('Mensagens enviadas com sucesso!');
+        } catch (error) {
+            console.error('Erro geral ao enviar mensagens:', error);
+            toastError('Erro ao enviar mensagens');
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -79,7 +118,7 @@ export default function MailSendSideChat({group, close}: MailSendSideChatProps) 
             <MailSendHeader>
                 <div className="flex flex-row items-center">
                     <GoBackIcon onClick={handleCloseSideMenu} src={goBackIcon.src} />
-                    <h3>{group!.subject}</h3>
+                    <h3>{tag!.tag}</h3>
                 </div>
                 <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
                 {isOpen && <OptionGroup />}
