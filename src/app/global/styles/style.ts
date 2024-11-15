@@ -45,7 +45,7 @@ export const HeaderText = styled('h2', {
 
 export const InputLabel = styled('a', {
     all: 'unset',
-    color: 'white',
+    color: 'black',
     marginLeft: '5px'
 })
 
@@ -60,6 +60,7 @@ export const InputButton = styled('button', {
 
 export const InputCustom = styled('input', {
     width: '100%',
+    border: '2px solid rgba(0, 0, 0, 0.1)', 
     borderBottom: '2px solid rgba(0, 0, 0, 0.2)',
     borderRadius: '10px',
     padding: '5px',
@@ -116,7 +117,7 @@ export const RegisterBox = styled('div', {
     width: '100%',
     backdropFilter: 'blur(2px)',
     inset: '0',
-    zIndex: '1'
+    zIndex: '20'
 })
 
 export const RegisterForm = styled('form', {
@@ -127,8 +128,10 @@ export const RegisterForm = styled('form', {
     justifyContent: 'center',
     justifyItems: 'center',
     padding: '25px',
+    border: '2px solid rgba(0, 0, 0, 0.1)',
     borderRadius: '10px',
-    backgroundColor: '#231f20',
+    backgroundColor: '#fdfdfd',
+    boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 
     animation: `${scaleUp} 700ms`,
 

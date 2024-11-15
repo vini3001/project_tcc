@@ -3,27 +3,27 @@ import { RegisterButton } from "@/app/global/styles/style";
 import { ConnectionsContainer, ConnectionsHeader } from "./styles";
 import { useState } from "react";
 import { PaginatedItems } from "./components/connectionsPagination";
-import ConnectionModalCreate from "./components/modalCreateConnection";
+import { QrCode } from "./components/QRCode";
 
 
 export default function Connections() {
-    const [isOpenCreate, setIsOpenCreate] = useState(false)
+    const [isOpenConnect, setIsOpenConnect] = useState(false)
     
-    function handleOpenModalCreate(){
-        setIsOpenCreate(!isOpenCreate)
+    function handleOpenModalConnect(){
+        setIsOpenConnect(!isOpenConnect)
     }
 
     return (
         <ConnectionsContainer>
             <ConnectionsHeader>
                 <h2>Conexões</h2>
-                <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
+                <RegisterButton onClick={handleOpenModalConnect}>+</RegisterButton>
             </ConnectionsHeader>
 
             <PaginatedItems itemsPerPage={9}/>
 
-            {isOpenCreate && (
-                <ConnectionModalCreate closeModal={handleOpenModalCreate} />
+            {isOpenConnect && (
+                <QrCode closeModal={handleOpenModalConnect} />
             )}
 
         </ConnectionsContainer>

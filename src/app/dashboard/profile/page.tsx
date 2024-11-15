@@ -7,12 +7,16 @@ import userIcon from '@/app/assets/svg/icons/user.svg'
 import { useForm } from "react-hook-form";
 import { User } from "@/app/entities/User";
 import { InputButton } from "@/app/global/styles/style";
+import { routeEditUser } from "@/backend/user";
+import { toastSuccess } from "@/utils/toastify";
 
 export default function PerfilPage() {
     const [photo, setPhoto] = useState("");
 
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
-    function onSubmit(data: User) {}
+    function onSubmit(data: User) {
+        routeEditUser.request(data).then(() => {toastSuccess('Usuário editado com sucesso!')})
+    }
 
     const handlePhotoChange = (event: any) => {
         const file = event.target.files[0];

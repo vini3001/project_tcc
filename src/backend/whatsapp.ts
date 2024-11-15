@@ -3,26 +3,26 @@ import { GetGroupParticipants, GetGroupsResponse, Instance, SendMessagePayload, 
 
 
 export const routeConnectInstance = new RouteWhatsapp<{}, Instance>({
-    path: '/instance/connect/Lucass',
+    path: '/instance/connect/tcc',
     method: 'GET'
 })
 
 export const routeSendMessage = new RouteWhatsapp<SendMessagePayload, {}>({
-    path: '/message/sendText/Lucass',
+    path: '/message/sendText/tcc',
     method: 'POST'
 })
 
 export const routeGetMessages = new RouteWhatsapp<{}, SendMessageResponse[]>({
-    path: '/chat/findMessages/Lucass',
+    path: '/chat/findMessages/tcc',
     method: 'POST'
 })
 
 export const routeListGroups = new RouteWhatsapp<{}, GetGroupsResponse[]>({
-    path: '/group/fetchAllGroups/Lucass?getParticipants=false',
+    path: '/group/fetchAllGroups/tcc?getParticipants=false',
     method: 'GET'
 })
 
 export const routeListParticipants = new RouteWhatsapp<{},GetGroupParticipants[]>({
-    path: '/group/participants/Lucass',
+    path: '/group/participants/tcc',
     method: 'GET',
 })

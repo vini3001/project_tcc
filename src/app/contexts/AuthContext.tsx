@@ -7,6 +7,7 @@ import { api } from "@/backend/baseURL"
 import storage from "@/utils/localStorage"
 import { useEffectOnce } from "@/utils"
 import { routeLogin, routeRegister } from "@/backend/auth"
+import { useQuery } from "react-query"
 
 export type SignOutOptions = {
     redirectToLogin: boolean
@@ -123,10 +124,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setToken(newToken)  
         setUserId(convertedId)
-        setReady(true)
       }
       loadCacheData()
-    }, [])
+    }, [token, userId])
 
       //useEffect(() => {
       //     setToken('d4f5e6a7b8c9d0e1f2a3b4c5d6e7f8a9')

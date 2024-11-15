@@ -6,6 +6,8 @@ import { CustomLabelPaginate } from '@/app/global/styles/style'
 import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
 import { ConnectionModal } from './modalEditConnection';
+import { useAuth } from '@/app/contexts/AuthContext';
+import { useQuery } from 'react-query';
 
 // Example items, to simulate fetching from another resources.
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -69,6 +71,23 @@ export default function Items({currentItems}: ItemsProps) {
 export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
   const [changeColor, setChangeColor] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const {userId, token} = useAuth()
+
+  const {data} = useQuery({
+    queryKey: 'connectionsList',
+    queryFn: async () => {
+        setIsLoading(true)
+
+        const result = await routeListClient.request({}).then((clients) => {return clients.data})
+        if(result !== undefined) {
+          setIsLoading(false)
+          return result
+        }
+    },
+    enabled: token != '' && userId != 0,
+    refetchOnWindowFocus:false
+  })
 
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);

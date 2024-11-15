@@ -44,7 +44,8 @@ export class Route<Req = {id?: string}, Res = {}> {
             })
 
             api.interceptors.response.use((response: any)=>response, (error:any)=>{
-                if(error?.response?.status === 401 || error?.response?.status === 500 || error?.response?.status === 400){
+
+                if(error){
                     router.push('/')
                 }
             })

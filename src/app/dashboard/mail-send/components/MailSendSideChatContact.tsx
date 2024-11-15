@@ -20,14 +20,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
     const [messages, setMessages] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [text, setText] = useState<string>('')
-    const [status, setStatus] = useState<String>('')
-
-    useQuery({queryKey: 'connectInstance', queryFn: () => {
-        routeConnectInstance.request({})
-        .then((response) => {setStatus(response.data!.instance.state)})
-    }, 
-    enabled: status !== 'open'
-   })
     
     const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
         routeGetMessages.request({})
@@ -53,9 +45,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
       };
 
     function handleSendMessage() {
-        if (status !== 'open') {
-            toastError('Erro ao iniciar instância')
-        } else {
             routeSendMessageBackend.request({
                 contato_id: contact!.id,
                 mensagem: text
@@ -70,7 +59,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
             setIsLoading(true)
 
             refetch()
-        }
     }
 
     return (

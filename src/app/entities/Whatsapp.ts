@@ -1,8 +1,7 @@
 export interface Instance {
-    instance: {
-        instanceName: string,
-        state: string
-    }
+    pairingCode: string,
+    code: string,
+    base64: string
 }
 
 export interface SendMessageResponse {

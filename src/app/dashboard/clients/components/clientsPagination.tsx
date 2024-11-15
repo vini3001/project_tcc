@@ -62,8 +62,6 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
   const [isLoading, setIsLoading] = useState(false)
   const {userId, token} = useAuth()
 
-  useQueryClient()
-
   const {data} = useQuery({
     queryKey: 'clientList',
     queryFn: async () => {

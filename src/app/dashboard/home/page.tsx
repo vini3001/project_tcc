@@ -15,6 +15,7 @@ export default function Home() {
     const [referenceNumber, setReference] = useState(0)
     const { register, handleSubmit, formState: { errors } } = useForm<numberProps>();
     function onSubmit(data: numberProps) {}
+    
     const sampleData = [
         { x: 1, y: 2, label: '1'},
         { x: 2, y: 3, label: '2'},
