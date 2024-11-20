@@ -1,4 +1,4 @@
-import { MailSendChatBox, MailSendChatMessage, MailSendChatSend, MailSendChatSideContent, MailSendHeader } from "../style";
+import { MailSendChatBox, MailSendChatMessage, MailSendChatSend, MailSendChatSideContent, MailSendHeader, ThreeDots } from "../style";
 import { GoBackIcon } from "@/app/global/styles/style";
 import goBackIcon from '../../../assets/svg/goBack.svg'
 import sendIcon from '../../../assets/svg/icons8-avião-de-papel-32.png'
@@ -10,6 +10,8 @@ import { Contact } from "@/app/entities/Contact";
 import { useQuery } from "react-query";
 import { Loading } from "@/app/components/Loading";
 import { routeSendMessageBackend } from "@/backend/message";
+import threeDots from '../../../assets/svg/icons/threeDots.svg'
+import AddTag from "./addTag";
 
 interface MailSendSideChatProps {
     contact: Contact | undefined
@@ -19,6 +21,7 @@ interface MailSendSideChatProps {
 export default function MailSendSideChat({contact, close}: MailSendSideChatProps) {
     const [messages, setMessages] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
     const [text, setText] = useState<string>('')
     
     const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
@@ -61,13 +64,18 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
             refetch()
     }
 
+    function handleOpenModal() {
+        setIsOpen(!isOpen)
+    }
+
     return (
         <MailSendChatSideContent className="bg-gray-300">
             <MailSendHeader>
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center grow">
                     <GoBackIcon onClick={handleCloseSideMenu} src={goBackIcon.src} />
                     <h3>{contact!.nome}</h3>
                 </div>
+                <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
             </MailSendHeader>
             <MailSendChatBox>             
                     {isLoading === false ? messages.map((mensagem) => {

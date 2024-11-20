@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { Loading } from "@/app/components/Loading";
+import { toastError } from "@/utils/toastify";
 
 export interface QrCode  {
     closeModal: () => void
@@ -12,25 +13,28 @@ export interface QrCode  {
 
 export function QrCode({closeModal}: QrCode) {
     const [code64, setCode64] = useState<string>('')
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     function handleCloseModal() {
         closeModal()
     }
 
     useQuery({queryKey: 'connectInstance', queryFn: () => {
-        setIsLoading(false)
+        setIsLoading(true)
         routeConnectInstance.request({})
         .then((response) => {
             setCode64(response.data!.base64)
             setIsLoading(true)
+        }).catch(() => {
+            toastError('Erro ao conectar instância!')
+            closeModal()
         })
     }
    })
 
     return (
         <RegisterBox>
-            {isLoading ? 
+            {!isLoading ? 
             <RegisterForm >
                 <CloseButton onClick={handleCloseModal} src={closeButton.src} />
                 <div>

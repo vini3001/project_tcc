@@ -7,26 +7,33 @@ import MailSendSideChatGroup from "./components/MailSendSideChatGroup";
 import { Contact } from "@/app/entities/Contact";
 import { routeListContacts } from "@/backend/contact";
 import { toastError } from "@/utils/toastify";
-import threeDots from '../../assets/svg/icons/threeDots.svg'
 import { routeListTags } from "@/backend/tag";
 import { Tag } from "@/app/entities/Tag";
+import AddTag, { ListTags } from "./components/addTag";
+import { useQueries, useQuery } from "react-query";
 
 export default function MailSend() {
     const [isOpenContactModel, setIsOpenContactModel] = useState(false)
     const [isOpenGroupModel, setIsOpenGroupModel] = useState(false)
+    const [isOpenTags, setIsOpenTags] = useState(false)
+    const [isOpenListTags, setIsOpenListTags] = useState(false)
     const [selectedContact, setSelectedContact] = useState<Contact>()
     const [selectedTag, setSelectedTag] = useState<Tag>()
     const [contacts, setContacts] = useState<Contact[]>([])
     const [tags, setTags] = useState<Tag[]>([])
 
-    useEffect(() => {
-        routeListContacts.request({})
-        .then((response) => {response.data !== undefined && setContacts(response.data)})
-        .catch((err) => {throw toastError('Falha ao listar contatos!')})
+    useQueries([
+        {queryKey: 'listContacts', queryFn: () => {
+            routeListContacts.request({})
+            .then((response) => {response.data !== undefined && setContacts(response.data)})
+            .catch((err) => {throw toastError('Falha ao listar contatos!')})
+        }},
 
-        routeListTags.request({})
-        .then((response) => {response.data !== undefined && setTags(response.data) })
-    },[])
+        {queryKey: 'listTags', queryFn: () => {
+            routeListTags.request({})
+            .then((response) => {response.data !== undefined && setTags(response.data) })
+        }}
+    ])
 
     function handleOpenGroupDetails(tag: Tag) {
         setSelectedTag(tag)
@@ -37,37 +44,48 @@ export default function MailSend() {
         setSelectedContact(contact)
         setIsOpenContactModel(!isOpenContactModel)
     }
+
+    function handleOpenTags(contact: Contact) {
+        // @ts-ignore
+        event.preventDefault();
+
+        setSelectedContact(contact)
+        setIsOpenTags(!isOpenTags)
+    }
     return (
         <section className="flex flex-col gap-5">
             <div className="flex flex-row">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
                 <div className="bg-gray-300 p-[10px] rounded-t-lg">
-                    <ThreeDots src={threeDots.src} />
                 </div>
                 <MailSendContent>
                     {contacts.map((item) => {
                         return (
                             <>
-                            <div id="contactCard" key={item.nome} className="p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
+                            <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} key={item.nome} className="p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
                             <h5>{item.nome}</h5>
-                            <a>{item.celular}</a>
+                            <a>{item.celular} / {item.tag}</a>
                             </div>
                             <hr className="m-0" />
                             </>
                         )
                     })}
                 </MailSendContent>
+                {isOpenTags && 
+                        <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
+                    }
                 <div className="bg-gray-300 p-[10px] rounded-b-lg" />
                 </MailSendContainer>
+                {isOpenListTags &&
+                    <ListTags contact={selectedContact} closeModal={() => {setIsOpenListTags(!isOpenListTags)}}/>
+                }
                 {isOpenContactModel && 
                     <MailSendSideChatContact contact={selectedContact} close={() => {setIsOpenContactModel(false)}}/>
                 }
             </div>
             <div className="flex flex-row">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
-                <div className="bg-gray-300 p-[10px] rounded-t-lg">
-                    <ThreeDots src={threeDots.src} />
-                </div>
+                <div className="bg-gray-300 p-[10px] rounded-t-lg" />
                 <MailSendContent>
                     {tags.map((item) => {
                         return (

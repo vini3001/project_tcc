@@ -7,7 +7,7 @@ export const routeListContacts = new Route<{}, Contact[]>({
     method: 'GET'
 })
 
-export const routeEditContact = new Route<{}, Contact>({
+export const routeEditContact = new Route<Contact, Contact>({
     path: '/contatos',
     method: 'PUT'
 })

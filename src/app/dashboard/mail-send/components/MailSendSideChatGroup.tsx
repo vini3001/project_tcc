@@ -6,7 +6,7 @@ import sendIcon from '../../../assets/svg/icons8-avião-de-papel-32.png'
 import Image from "next/image";
 import threeDots from '../../../assets/svg/icons/threeDots.svg'
 import { ThreeDots } from "../style";
-import OptionGroup from "./optionGroup";
+import OptionGroup from "./addTag";
 import { useEffect, useState } from "react";
 import { routeConnectInstance, routeGetMessages, routeListParticipants, routeSendMessage } from "@/backend/whatsapp";
 import { toastError } from "@/utils/toastify";
@@ -108,7 +108,6 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
                     <h3>{tag!.tag}</h3>
                 </div>
                 <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
-                {isOpen && <OptionGroup />}
             </MailSendHeader>
             <MailSendChatBox>             
                     {isLoading === false ? messages.map((mensagem) => {

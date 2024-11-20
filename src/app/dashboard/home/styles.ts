@@ -10,6 +10,18 @@ const scaleUp = keyframes({
     }
 })
 
+export const InfoContainer = styled('section',   {
+    width: 'fit-content',
+    borderRadius: '5px',
+    border: '2px solid rgba(0, 0, 0, 0.1)',
+    animation: `${scaleUp} 700ms`,
+
+    '&:hover': {
+        cursor: 'pointer',
+        boxShadow: '0 4px 10px 4px rgb(0 0 0 / 0.1), 0 10px 6px -20px rgb(0 0 0 / 0.1)',
+    } 
+})
+
 export const HomeContainer = styled('section', {
     width: '100%',
     maxHeight: '77vh',

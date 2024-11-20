@@ -16,8 +16,6 @@ export default function ModalUser({closeModal, userIdInput}: UserProps) {
     const {userId} = useAuth()
     const searchParams = useSearchParams()
 
-    console.log(userId)
-
     const clientId = parseInt(searchParams.get('id') as string)
 
     async function onSubmit(data: User) {

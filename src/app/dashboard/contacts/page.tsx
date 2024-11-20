@@ -18,7 +18,6 @@ export default function Contacts() {
         <ContactContainer>
             <ContactHeader>
                 <h2>Contatos</h2>
-                <RegisterButton onClick={handleOpenModalCreate}>+</RegisterButton>
             </ContactHeader>
             <PaginatedItems itemsPerPage={9}/>
             {isOpenCreate && <ContactModal closeModal={handleOpenModalCreate} />}

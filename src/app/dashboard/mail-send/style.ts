@@ -23,13 +23,13 @@ export const MailSendContent = styled('div', {
 
 export const MailSendChatSideContent = styled('div', {
     display: 'flex',
-    right: '30px',  
+    left: '50%',  
     top: '0',
     marginTop: '80px',
     position: 'absolute',   
     overflowX: 'hidden',
     maxHeight: '100vh',
-    width: '45%',
+    width: '40%',
     flexDirection: 'column',
     //padding: '10px',
     //border: '2px solid rgba(0, 0, 0, 0.1)',
@@ -43,7 +43,7 @@ export const MailSendHeader = styled('div', {
     padding: '10px',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyItems: 'center',
+    //justifyItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
 

@@ -1,7 +1,7 @@
 'use client'
 
-import Dashboardheader from "./components/DashboardHeader"
-import { Suspense, useState } from "react"
+import Dashboardheader from "./components/dashboardHeader"
+import { Suspense, useEffect, useState } from "react"
 import SideMenu from "./components/DashboardSideMenu"
 import { Loading } from "../components/Loading"
 

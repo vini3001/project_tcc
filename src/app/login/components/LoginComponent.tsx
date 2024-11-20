@@ -40,12 +40,12 @@ export default function LoginComponent() {
                         <IconForm src={vortexIcon.src} />
                     </div>
                     <div className="flex flex-col w-full justify-center items-start gap-y-2">
-                        <InputLabel>Usuário</InputLabel>
+                        <InputLabel className="text-white">Usuário</InputLabel>
                         <InputCustom type="text" {...register("email")}/>
                     </div>
                 
                     <div className="flex flex-col w-full justify-center items-start gap-y-2">
-                        <InputLabel>Senha</InputLabel>
+                        <InputLabel className="text-white">Senha</InputLabel>
                         <InputCustom className="grow" type="password" {...register("password")}/>
                     </div>                            
 
