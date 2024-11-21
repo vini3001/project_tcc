@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { routeEditContact } from "@/backend/contact";
 
-interface ClientProps {
+interface ContactProps {
     closeModal: () => void
-    clientId: number | undefined
+    contact: Contact | undefined
 }
 
-export default function ContactModal({closeModal, clientId}: ClientProps){
+export default function ContactModal({closeModal, contact}: ContactProps){
     const { register, handleSubmit, formState: { errors } } = useForm<Contact>();
     function onSubmit(data: Contact) {routeEditContact.request(data)}
 
@@ -23,7 +23,7 @@ export default function ContactModal({closeModal, clientId}: ClientProps){
                             <div className="flex flex-col md:flex-row gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Nome</InputLabel>
-                                    <InputCustom type="text" {...register("nome")}/>
+                                    <InputCustom value={contact!.nome} type="text" {...register("nome")}/>
                                 </div>
 
                                 {errors.nome && <span>This field is required</span>}
@@ -34,16 +34,19 @@ export default function ContactModal({closeModal, clientId}: ClientProps){
                             <div className="flex flex-col gap-2">
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Email</InputLabel>
-                                    <InputCustom type="email" {...register("email")}/>
+                                    <InputCustom value={contact!.email}  type="email" {...register("email")}/>
                                 </div>
 
                                 {errors.email && <span>This field is required</span>}
 
                                 <div className="flex flex-col justify-between items-start">
                                     <InputLabel>Celular</InputLabel>
-                                    <InputCustom type="tel" {...register("celular")}/>
+                                    <InputCustom value={contact!.celular}  type="tel" {...register("celular")}/>
                                 </div>  
-
+                                <InputCustom value={contact!.id_cliente}  type="number" {...register("id_cliente")} hidden={true}/>    
+                                <InputCustom value={contact!.id}  type="number" {...register("id")} hidden={true}/>    
+                                <InputCustom value={contact!.data_registro}  type="date" {...register("data_registro")} hidden={true}/>    
+                                <InputCustom value={contact!.tag}  type="date" {...register("data_registro")} hidden={true}/>  
                                 {errors.celular && <span>This field is required</span>}   
                             </div>
 

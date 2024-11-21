@@ -36,8 +36,8 @@ export default function Home() {
             <h3>Informações Gerais</h3>
           </HeaderDashboard>
           <div className="flex flex-col items-start p-[10px]">
-            <h5>Quantidade Total de Contatos: {dashInfo?.qtdContatos}</h5>
-            <h5>Quantidade Total de Mensagens: {dashInfo?.qtdMensagens}</h5>
+            <h5>Total de Contatos: {dashInfo?.qtdContatos}</h5>
+            <h5>Total de Mensagens: {dashInfo?.qtdMensagens}</h5>
           </div>
           </InfoContainer>
 

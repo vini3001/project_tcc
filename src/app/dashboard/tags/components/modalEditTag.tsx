@@ -7,10 +7,10 @@ import { routeEditTag } from "@/backend/tag";
 
 interface TagProps {
     closeModal: () => void,
-    tagId: number | undefined
+    tag: Tag | undefined
 }
 
-export function TagModal({closeModal, tagId}: TagProps) {
+export function TagModal({closeModal, tag}: TagProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<Tag>();
     function onSubmit(data: Tag) {
         routeEditTag.request(data)
@@ -24,10 +24,10 @@ export function TagModal({closeModal, tagId}: TagProps) {
         <RegisterBox className="h-fit md:h-auto">
             <RegisterForm className="w-[80vw] gap-y-2 md:w-[30%]" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col md:flex-row gap-2">
-                        <InputCustom type="number" value={tagId} {...register("id")} hidden></InputCustom>
+                        <InputCustom type="number" value={tag!.id} {...register("id")} hidden></InputCustom>
                         <div className="flex flex-col w-full justify-between items-start">
                             <InputLabel>Nome</InputLabel>
-                            <InputCustom type="text" {...register("tag")}/>
+                            <InputCustom type="text" value={tag!.tag} {...register("tag")}/>
                         </div>
 
                         {errors.tag && <span>This field is required</span>}

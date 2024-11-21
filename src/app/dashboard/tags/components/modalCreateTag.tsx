@@ -3,7 +3,7 @@ import { CloseButton, RegisterBox, RegisterForm } from "@/app/global/styles/styl
 import { InputButton, InputCustom, InputLabel } from "@/app/global/styles/style";
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { Tag } from "@/app/entities/Tag";
-import { TagsBox } from "../style";
+import { TagsBox, TagsHeader } from "../style";
 import { routeCreateTag } from "@/backend/tag";
 import { toastSuccess } from "@/utils/toastify";
 

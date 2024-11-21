@@ -9,21 +9,31 @@ import Link from "next/link";
 import CustomButton from "../components/buttons";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { routeDeleteClient } from "@/backend/client";
+import { routeDeleteClient, routeGetClient } from "@/backend/client";
+import { useQuery } from "react-query";
+import { Client } from "@/app/entities/Client";
 
 export default function ClientDetails() {
         const [isOpenEdit, setIsOpenEdit] = useState(false)
+        const [client, setClient] = useState<Client>()
         const searchParams = useSearchParams()
 
-        const clientId = searchParams.get('id') as string
+        const clientId = parseInt(searchParams.get('id') !== null ? searchParams.get('id') as string : '0')
+
+        useQuery({queryKey: 'getClient', queryFn: () => {
+                routeGetClient.request({id: clientId}).then((item) => {
+                        setClient(item.data)
+                })
+        },
+        enabled: clientId !== 0
+        })
  
         function handleOpenModalEdit() {
                 setIsOpenEdit(!isOpenEdit)
         }
 
-        async function handleDeleteClient(id: string) {
-                const clientId = parseInt(id)
-                const request = await routeDeleteClient.request({id: clientId})
+        async function handleDeleteClient(id: number) {
+                await routeDeleteClient.request({id})
         }
 
         return (
@@ -40,39 +50,27 @@ export default function ClientDetails() {
                 <DetailsContainer className="flex flex-col md:grid md:grid-cols-3 md:grid-rows-3">
                         <DetailsContent>
                                 <h6>Nome Completo</h6>
-                                <a>Vinícius Donizeti dos Santos Ataliba</a>
+                                <a>{client!.nome}</a>
                         </DetailsContent>
                         <DetailsContent>
                                 <h6>CPF</h6>
-                                <a>47258424865</a>
+                                <a>{client!.cep}</a>
                         </DetailsContent>
                         <DetailsContent>
                                 <h6>Telefone</h6>
-                                <a>16994270955</a>
+                                <a>{client!.telefone}</a>
                         </DetailsContent>
                         <DetailsContent>
                                 <h6>Email</h6>
-                                <a>donizetevinicius250@gmail.com</a>
+                                <a>{client!.email}</a>
                         </DetailsContent>
                         <DetailsContent>
                                 <h6>Endereço</h6>
-                                <a>Rua Alberto salgueiro, 567 - Jardim Paulista / Ribeirão Preto - SP</a>
+                                <a>{client!.logradouro}</a>
                         </DetailsContent>
                         <DetailsContent>
                                 <h6>CEP</h6>
-                                <a>14090052</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Quantidade de usuários</h6>
-                                <a>20</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Quantidade de disparos feitos</h6>
-                                <a>10</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Quantidade de contatos</h6>
-                                <a>3</a>
+                                <a>{client!.cep}</a>
                         </DetailsContent>
                         <div className="flex flex-row w-full col-span-2 gap-2">
                                 <CustomButton onClick={handleOpenModalEdit} color="#007bff">

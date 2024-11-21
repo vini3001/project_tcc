@@ -2,9 +2,10 @@ import { styled } from "@stitches/react";
 
 export const TagsBox = styled('section', {
     display: 'flex',
+    flexDirection: 'column',
     position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'start',
+    justifyContent: 'start',
     width: '100%'
 })
 
@@ -17,10 +18,9 @@ export const TagsContainer = styled('section', {
 })
 
 export const TagsHeader = styled('div', {
-    display: 'flex',
+    display: 'grid',
     width: '100%',
     marginBottom: '20px',
-    justifyContent: 'space-between',
 
     'h2': {
         fontWeight: 400

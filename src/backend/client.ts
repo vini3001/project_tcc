@@ -11,6 +11,11 @@ export const routeListClient = new Route<{}, Client[]>({
     method: 'GET'
 })
 
+export const routeGetClient = new Route<{id: number}, Client>({
+    path: '/clientes',
+    method: 'GET'
+})
+
 export const routeCreateClient = new Route<Client, {}>({
     path: '/clientes',
     method: 'POST'

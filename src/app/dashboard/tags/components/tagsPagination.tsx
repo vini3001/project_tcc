@@ -22,10 +22,10 @@ interface PaginatedItems {
 
 export default function Items({currentItems}: ItemsProps) {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  const [tagId, setTagId] = useState<number | undefined>(0)
+  const [tag, setTag] = useState<Tag | undefined>()
 
-    function handleOpenModalEdit(tagId?: number) {
-        setTagId(tagId)
+    function handleOpenModalEdit(tag?: Tag) {
+        setTag(tag)
         setIsOpenEdit(!isOpenEdit)
     }
 
@@ -46,7 +46,7 @@ export default function Items({currentItems}: ItemsProps) {
                     <tr key={item.id}>
                         <td>{item.tag}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item.id)}}/>
+                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
                             <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
@@ -55,7 +55,7 @@ export default function Items({currentItems}: ItemsProps) {
           </Table>
         </TableContainer>
         {isOpenEdit && (
-            <TagModal closeModal={handleOpenModalEdit} tagId={tagId}/>
+            <TagModal closeModal={handleOpenModalEdit} tag={tag}/>
         )}
       </TagsContent>
     </>

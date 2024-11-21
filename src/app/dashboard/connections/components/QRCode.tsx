@@ -23,8 +23,14 @@ export function QrCode({closeModal}: QrCode) {
         setIsLoading(true)
         routeConnectInstance.request({})
         .then((response) => {
-            setCode64(response.data!.base64)
-            setIsLoading(true)
+
+            if(response.data!.base64 !== undefined) {
+                setCode64(response.data!.base64)
+                setIsLoading(false)
+            } else {
+                toastError('Instância já conectada!')
+                closeModal()
+            }
         }).catch(() => {
             toastError('Erro ao conectar instância!')
             closeModal()

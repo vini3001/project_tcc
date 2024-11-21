@@ -15,8 +15,9 @@ export default function Tags() {
     
     return (
         <TagsContainer>
-            <TagsHeader>
+            <TagsHeader className="grid-cols-2">
                 <h2>Tags</h2>
+                <h2 className="ml-6">Adicionar Tag</h2>
             </TagsHeader>
             <div className="flex flex-row w-full gap-5">
                 <PaginatedItems itemsPerPage={9}/>

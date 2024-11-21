@@ -22,10 +22,10 @@ interface PaginatedItems {
 
 export default function Items({currentItems}: ItemsProps) {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  const [clientId, setClientId] = useState<number | undefined>(0)
+  const [contact, setContact] = useState<Contact | undefined>()
 
-    function handleOpenModalEdit(clientId?: number) {
-        setClientId(clientId)
+    function handleOpenModalEdit(client?: Contact) {
+        setContact(client)
         setIsOpenEdit(!isOpenEdit)
     }
 
@@ -52,7 +52,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>{item.data_registro}</td>
                         <td>{item.celular}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item.id)}}/>
+                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
                             <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
@@ -61,7 +61,7 @@ export default function Items({currentItems}: ItemsProps) {
           </Table>
         </TableContainer>
         {isOpenEdit && (
-            <ContactModal closeModal={handleOpenModalEdit} clientId={clientId}/>
+            <ContactModal closeModal={handleOpenModalEdit} contact={contact}/>
         )}
       </ContactContent>
     </>
