@@ -11,6 +11,7 @@ import { User } from '@/app/entities/User';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '@/app/contexts/AuthContext';
 import { Loading } from '@/app/components/Loading';
+import { useSearchParams } from 'next/navigation';
 
 interface ItemsProps {
   currentItems: User[];
@@ -18,14 +19,15 @@ interface ItemsProps {
 
 interface PaginatedItems {
   itemsPerPage: number
+  clientId: number
 }
 
 export default function Items({currentItems}: ItemsProps) {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  const [userId, setUserId] = useState<number | undefined>(0)
+  const [user, setUser] = useState<User | undefined>()
 
-  function handleOpenModalEdit(userId?: number) {
-      setUserId(userId)
+  function handleOpenModalEdit(user?: User) {
+      setUser(user)
       setIsOpenEdit(!isOpenEdit)
   }
 
@@ -52,7 +54,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>{item.nivel}</td>
                         <td>{item.data_registro !== undefined && String(new Date(item.data_registro).toLocaleDateString())}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item.id)}}/>
+                            <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
                             <DeleteIcon src={trashIcon.src} />
                         </td>
                     </tr>
@@ -61,14 +63,14 @@ export default function Items({currentItems}: ItemsProps) {
           </Table>
         </TableContainer>
         {isOpenEdit && (
-            <UserModal closeModal={handleOpenModalEdit} userIdInput={userId}/>
+            <UserModal closeModal={handleOpenModalEdit} user={user}/>
         )}
       </ClientContainer>
     </>
   );
 }
 
-export function PaginatedItems({itemsPerPage}: PaginatedItems) {
+export function PaginatedItems({itemsPerPage, clientId}: PaginatedItems) {
   const [itemOffset, setItemOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const {userId} = useAuth()
@@ -79,7 +81,9 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
     queryKey: 'usersList',
     queryFn: async () => {
         setIsLoading(true)
-        const result = await routeListUser.request({}).then((users) => {return users.data})
+        const result = await routeListUser.request({}).then((users) => {
+          return users.data?.filter((data) => {data.id_cliente === clientId})
+        })
 
         if(result !== undefined) {
           setIsLoading(false)

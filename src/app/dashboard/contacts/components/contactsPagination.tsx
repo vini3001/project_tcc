@@ -6,11 +6,12 @@ import { CustomLabelPaginate } from '@/app/global/styles/style';
 import trashIcon from '../../../assets/svg/icons/trash.svg'
 import editIcon from '../../../assets/svg/icons/edit.svg'
 import ContactModal from './modalEditContact';
-import { routeListContacts } from '@/backend/contact';
+import { routeDeleteContact, routeListContacts } from '@/backend/contact';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth } from '@/app/contexts/AuthContext';
 import { Loading } from '@/app/components/Loading';
 import { Contact } from '@/app/entities/Contact';
+import { toastSuccess } from '@/utils/toastify';
 
 interface ItemsProps {
   currentItems: Contact[];
@@ -24,9 +25,17 @@ export default function Items({currentItems}: ItemsProps) {
   const [isOpenEdit, setIsOpenEdit] = useState(false)
   const [contact, setContact] = useState<Contact | undefined>()
 
-    function handleOpenModalEdit(client?: Contact) {
-        setContact(client)
+    function handleOpenModalEdit(contact?: Contact) {
+        setContact(contact)
         setIsOpenEdit(!isOpenEdit)
+    }
+
+    async function handleDeleteContact(contact?: Contact) {
+       await routeDeleteContact.request({id: contact!.id}).then((data) => {
+        toastSuccess('contato deletado com sucesso!')
+        setInterval(() => {}, 1000)
+        location.reload()
+       })
     }
 
   return (
@@ -49,11 +58,11 @@ export default function Items({currentItems}: ItemsProps) {
                     <tr key={item.id}>
                         <td>{item.nome}</td>
                         <td>{item.email}</td>
-                        <td>{item.data_registro}</td>
                         <td>{item.celular}</td>
+                        <td>{item.data_registro}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
                             <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
-                            <DeleteIcon src={trashIcon.src} />
+                            <DeleteIcon src={trashIcon.src} onClick={() => {handleDeleteContact(item)}}/>
                         </td>
                     </tr>
             ))}

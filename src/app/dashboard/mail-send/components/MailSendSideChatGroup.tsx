@@ -34,7 +34,7 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
         .then((response) => {
             let participantsList: Contact[] = []
             participantsList = response.data!.filter((item) => {
-                item.tag === tag?.tag
+                item.tags[0] === tag?.tag[0]
             })
 
             setParticipants(participantsList)            
@@ -78,7 +78,7 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
                         contato_id: item.id,
                         mensagem: text
                     });
-    
+                    console.log('entrou')
                     await routeSendMessage.request({
                         number: item.celular,
                         textMessage: { text }

@@ -4,14 +4,12 @@ import goBackIcon from '../../../assets/svg/goBack.svg'
 import sendIcon from '../../../assets/svg/icons8-avião-de-papel-32.png'
 import Image from "next/image";
 import { useState } from "react";
-import { routeConnectInstance, routeGetMessages, routeSendMessage } from "@/backend/whatsapp";
-import { toastError } from "@/utils/toastify";
+import { routeGetMessages, routeSendMessage } from "@/backend/whatsapp";
 import { Contact } from "@/app/entities/Contact";
 import { useQuery } from "react-query";
 import { Loading } from "@/app/components/Loading";
 import { routeSendMessageBackend } from "@/backend/message";
 import threeDots from '../../../assets/svg/icons/threeDots.svg'
-import AddTag from "./addTag";
 
 interface MailSendSideChatProps {
     contact: Contact | undefined
@@ -33,8 +31,8 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
                    messagesList.push(item.message.extendedTextMessage.text)
                 }
             })
-            setIsLoading(false)
             setMessages(messagesList) 
+            setIsLoading(false)
         }) 
     }
 })
@@ -61,7 +59,7 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
             })
             setIsLoading(true)
 
-            refetch()
+            setTimeout(() => {refetch()}, 2000)
     }
 
     function handleOpenModal() {
@@ -78,7 +76,7 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
                 <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
             </MailSendHeader>
             <MailSendChatBox>             
-                    {isLoading === false ? messages.map((mensagem) => {
+                    {!isLoading ? messages.map((mensagem) => {
                         return (
                             <MailSendChatMessage key={Math.random()}>
                                {mensagem}

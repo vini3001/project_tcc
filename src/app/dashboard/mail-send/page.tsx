@@ -38,14 +38,18 @@ export default function MailSend() {
     function handleOpenGroupDetails(tag: Tag) {
         setSelectedTag(tag)
         setIsOpenGroupModel(!isOpenGroupModel)
+        setIsOpenContactModel(false)
     }
 
     function handleOpenContactDetails(contact: Contact) {
         setSelectedContact(contact)
         setIsOpenContactModel(!isOpenContactModel)
+        setIsOpenGroupModel(false)
     }
 
     function handleOpenTags(contact: Contact) {
+        // @ts-ignore
+        event.stopPropagation();
         // @ts-ignore
         event.preventDefault();
 
@@ -54,36 +58,36 @@ export default function MailSend() {
     }
     return (
         <section className="flex flex-col gap-5">
-            <div className="flex flex-row">
+            <div className="flex flex-row relative">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
                 <div className="bg-gray-300 p-[10px] rounded-t-lg">
                 </div>
                 <MailSendContent>
                     {contacts.map((item) => {
                         return (
-                            <>
-                            <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} key={item.nome} className="p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
+                            <div key={item.nome}>
+                            <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} className="relative p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
                             <h5>{item.nome}</h5>
-                            <a>{item.celular} / {item.tag}</a>
+                            <a>{item.celular} - { item.tags.length !== 0 && item.tags[0]}</a>
+                            {isOpenTags && selectedContact === item && 
+                                <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
+                            }
                             </div>
                             <hr className="m-0" />
-                            </>
+                            </div>
                         )
                     })}
                 </MailSendContent>
-                {isOpenTags && 
-                        <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
-                    }
                 <div className="bg-gray-300 p-[10px] rounded-b-lg" />
                 </MailSendContainer>
-                {isOpenListTags &&
-                    <ListTags contact={selectedContact} closeModal={() => {setIsOpenListTags(!isOpenListTags)}}/>
-                }
                 {isOpenContactModel && 
                     <MailSendSideChatContact contact={selectedContact} close={() => {setIsOpenContactModel(false)}}/>
                 }
             </div>
-            <div className="flex flex-row">
+            {isOpenListTags &&
+                    <ListTags contact={selectedContact} closeModal={() => {setIsOpenListTags(!isOpenListTags)}}/>
+                }
+            <div className="flex flex-row relative">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
                 <div className="bg-gray-300 p-[10px] rounded-t-lg" />
                 <MailSendContent>

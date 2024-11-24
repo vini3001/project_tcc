@@ -22,6 +22,16 @@ export const ModalGroupContainer = styled('div', {
     width: 'fit-content'
 })
 
+export const CloseButtonTag = styled('img', {
+    width: '25px',
+    height: '25px',
+    cursor: 'pointer',
+    position: 'relative',
+    top: '0',
+    right: '0',
+    margin: '10px'
+})
+
 export const TagGroupForm = styled('div', {
     display: 'flex',
     position: 'relative',
@@ -49,15 +59,18 @@ export const AddTagButton = styled('button', {
 
 export const ModalGroupContent = styled('div', {
     display: 'flex',
+    position: 'relative',
     padding: '10px',
+    backgroundColor: 'White',
     justifyContent: 'stretch',
     gap: '10px',
     alignItems: 'center',
     flexDirection: 'row',
     cursor: 'pointer',
+    zIndex: '10',
 
     '&:hover': {
-        backgroundColor: 'rgba(128, 128, 128, 0.2)'
+        backgroundColor: 'rgba(128, 128, 128)'
     }
 })
 

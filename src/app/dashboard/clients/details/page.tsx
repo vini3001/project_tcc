@@ -12,17 +12,21 @@ import { useSearchParams } from "next/navigation";
 import { routeDeleteClient, routeGetClient } from "@/backend/client";
 import { useQuery } from "react-query";
 import { Client } from "@/app/entities/Client";
+import { Loading } from "@/app/components/Loading";
 
 export default function ClientDetails() {
         const [isOpenEdit, setIsOpenEdit] = useState(false)
         const [client, setClient] = useState<Client>()
+        const [isLoading, setIsLoading] = useState<boolean>(true)
         const searchParams = useSearchParams()
 
         const clientId = parseInt(searchParams.get('id') !== null ? searchParams.get('id') as string : '0')
 
         useQuery({queryKey: 'getClient', queryFn: () => {
+                setIsLoading(true)
                 routeGetClient.request({id: clientId}).then((item) => {
                         setClient(item.data)
+                        setIsLoading(false)
                 })
         },
         enabled: clientId !== 0
@@ -47,49 +51,51 @@ export default function ClientDetails() {
                         </DetailsHeader>
                 </div>
                  
+                {!isLoading ? 
                 <DetailsContainer className="flex flex-col md:grid md:grid-cols-3 md:grid-rows-3">
-                        <DetailsContent>
-                                <h6>Nome Completo</h6>
-                                <a>{client!.nome}</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>CPF</h6>
-                                <a>{client!.cep}</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Telefone</h6>
-                                <a>{client!.telefone}</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Email</h6>
-                                <a>{client!.email}</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>Endereço</h6>
-                                <a>{client!.logradouro}</a>
-                        </DetailsContent>
-                        <DetailsContent>
-                                <h6>CEP</h6>
-                                <a>{client!.cep}</a>
-                        </DetailsContent>
-                        <div className="flex flex-row w-full col-span-2 gap-2">
-                                <CustomButton onClick={handleOpenModalEdit} color="#007bff">
-                                        Editar
+                <DetailsContent>
+                        <h6>Nome Completo</h6>
+                        <a>{client!.nome}</a>
+                </DetailsContent>
+                <DetailsContent>
+                        <h6>CPF</h6>
+                        <a>{client!.cep}</a>
+                </DetailsContent>
+                <DetailsContent>
+                        <h6>Telefone</h6>
+                        <a>{client!.telefone}</a>
+                </DetailsContent>
+                <DetailsContent>
+                        <h6>Email</h6>
+                        <a>{client!.email}</a>
+                </DetailsContent>
+                <DetailsContent>
+                        <h6>Endereço</h6>
+                        <a>{client!.logradouro}</a>
+                </DetailsContent>
+                <DetailsContent>
+                        <h6>CEP</h6>
+                        <a>{client!.cep}</a>
+                </DetailsContent>
+                <div className="flex flex-row w-full col-span-2 gap-2">
+                        <CustomButton onClick={handleOpenModalEdit} color="#007bff">
+                                Editar
+                        </CustomButton>
+                        <CustomButton onClick={() => {handleDeleteClient(clientId)}} color="red">
+                                Deletar
+                        </CustomButton>
+                        <Link href={"/dashboard/clients/users?id=" + clientId}>
+                                <CustomButton color="#163780">
+                                        Usuários
                                 </CustomButton>
-                                <CustomButton onClick={() => {handleDeleteClient(clientId)}} color="red">
-                                        Deletar
-                                </CustomButton>
-                                <Link href={"/dashboard/clients/users?id=" + clientId}>
-                                        <CustomButton color="#163780">
-                                                Usuários
-                                        </CustomButton>
-                                </Link>
-                        </div>
+                        </Link>
+                </div>
 
-                        {isOpenEdit && (
-                                <ClientModal closeModal={handleOpenModalEdit} />
-                        )}
-                </DetailsContainer>
+                {isOpenEdit && (
+                        <ClientModal closeModal={handleOpenModalEdit} />
+                )}
+                </DetailsContainer> : <Loading isLoading={true}/>
+        }
                 </ClientContainer>
         )
 }

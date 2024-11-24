@@ -1,5 +1,5 @@
-import { CloseButton, HeaderText, RegisterBox, RegisterButton, RegisterForm } from "@/app/global/styles/style";
-import { ModalGroupContainer, ModalGroupContent, ModalGroupSurrounding, TagGroupForm } from "./style";
+import { HeaderText, RegisterBox, RegisterButton, RegisterForm } from "@/app/global/styles/style";
+import { CloseButtonTag, ModalGroupContainer, ModalGroupContent, ModalGroupSurrounding, TagGroupForm } from "./style";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { routeListTags } from "@/backend/tag";
@@ -8,7 +8,7 @@ import { Loading } from "@/app/components/Loading";
 import { Contact } from "@/app/entities/Contact";
 import { routeEditContact } from "@/backend/contact";
 import { Tag } from "@/app/entities/Tag";
-import { toastError } from "@/utils/toastify";
+import { toastError, toastSuccess } from "@/utils/toastify";
 
 interface addTagProps {
     openModal: () => void
@@ -58,15 +58,19 @@ export function ListTags({closeModal, contact}: tagsProps) {
     refetchOnWindowFocus:false
     })
 
-    function handleAddToTag(nomeTag: string) {
+    function handleAddToTag(idTag: number) {
         routeEditContact.request({
             id: contact!.id,
             id_cliente: contact!.id_cliente,
             nome: contact!.nome,
-            tag: nomeTag,
+            tags: [idTag],
             celular: contact!.celular,
             email: contact!.email,
             data_registro: contact!.data_registro
+        }).then(() => {
+            toastSuccess('Tag adicionada com sucesso!')
+        }).catch(() => {
+            toastError('Erro ao salvar tag!')
         })
     }
 
@@ -77,22 +81,24 @@ export function ListTags({closeModal, contact}: tagsProps) {
      return (
         <RegisterBox>
             {!isLoading ? 
-            <TagGroupForm className="max-h-[50vh] overflow-auto">
-            {tags!.map((item) => {
-                return (
-                    <>
-                       <CloseButton onClick={handleCloseModal} src={closeButton.src} />
-                        <div>
-                            <HeaderText>{item.tag}</HeaderText>
-                        </div>
-                        <div className="w-full items-center">
-                            <RegisterButton className="w-fit" onClick={() => {handleAddToTag(item.tag)} }>+</RegisterButton>
-                        </div>
-                        <hr />
-                    </>
-                )
-            })}
-            </TagGroupForm>
+            <div className="flex flex-col relative items-end">
+                <CloseButtonTag className="relative" onClick={handleCloseModal} src={closeButton.src} />
+                <TagGroupForm className="max-h-[50vh] overflow-auto">
+                {tags!.map((item) => {
+                    return (
+                        <>
+                            <div>
+                                <HeaderText>{item.tag}</HeaderText>
+                            </div>
+                            <div className="w-full items-center">
+                                <RegisterButton className="w-fit" onClick={() => {handleAddToTag(item.id)} }>+</RegisterButton>
+                            </div>
+                            <hr />
+                        </>
+                    )
+                })}
+                </TagGroupForm>
+            </div>
             : <Loading isLoading={true} />}
         </RegisterBox>
      )

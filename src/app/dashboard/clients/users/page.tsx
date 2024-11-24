@@ -8,13 +8,10 @@ import UserModalCreate from './components/modalCreateUser'
 import goBackIcon from '../../../assets/svg/goBack.svg'
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { routeListUser } from "@/backend/user";
-import { User } from "@/app/entities/User";
 
 export default function UserPage() {
     const [isOpenCreate, setIsOpenCreate] = useState(false)
     const [clientId, setClientId] = useState(0)
-    const [users, setUsers] = useState<User>()
 
     const searchParams = useSearchParams()
 
@@ -38,7 +35,7 @@ export default function UserPage() {
                 </UserHeader>
             </div>
 
-            <PaginatedItems itemsPerPage={9}/>
+            <PaginatedItems itemsPerPage={9} clientId={clientId}/>
 
             {isOpenCreate && (
                 <UserModalCreate closeModal={handleOpenModalCreate} />
