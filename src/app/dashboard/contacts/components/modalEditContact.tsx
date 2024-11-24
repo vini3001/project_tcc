@@ -1,5 +1,5 @@
 import { InputButton, InputCustom, InputLabel, CloseButton, RegisterBox, RegisterForm } from "@/app/global/styles/style";
-import { Contact } from "@/app/entities/Contact";
+import { Contact, ContactRequest } from "@/app/entities/Contact";
 import { useForm } from "react-hook-form";
 import closeButton from '../../../assets/svg/closeButton.svg'
 import { routeEditContact } from "@/backend/contact";
@@ -11,16 +11,16 @@ interface ContactProps {
 }
 
 export default function ContactModal({closeModal, contact}: ContactProps){
-    const { register, handleSubmit, formState: { errors } } = useForm<Contact>();
-    function onSubmit(data: Contact) {
+    const { register, handleSubmit, formState: { errors } } = useForm<ContactRequest>();
+    function onSubmit(data: ContactRequest) {
         routeEditContact.request(data).then(() => {
             toastSuccess('Contato editado com sucesso!')
-            setInterval(() => {}, 1000)
-            location.reload()
+            setInterval(() => {location.reload()}, 2000)
+            
         }).catch(() => {
             toastError('Falha ao editar contato!')
-            setInterval(() => {}, 1000)
-            location.reload()
+            setInterval(() => {location.reload()}, 2000)
+            
         })
     }
 

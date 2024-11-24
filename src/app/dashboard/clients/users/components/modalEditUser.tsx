@@ -22,12 +22,10 @@ export default function ModalUser({closeModal, user}: UserProps) {
     async function onSubmit(data: User) {
         await routeEditUser.request(data).then(() => {
             toastSuccess('Usuário editado com sucesso!')
-            setInterval(() => {}, 1000)
-            location.reload()
+            setInterval(() => {location.reload()}, 2000)
         }).catch(() => {
             toastError('Falha ao editar usuário!')
-            setInterval(() => {}, 1000)
-            location.reload()
+            setInterval(() => {location.reload()}, 2000)
         })
     }
 

@@ -55,24 +55,12 @@ export const Table = styled('table', {
     },
 })
 
-export const EditIcon = styled('img', {
-    width: '23px',
-    height: '23px',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    
-    '&:hover': {
-        backgroundColor: 'rgba(128, 128, 128, 0.2)'
-    }
-})
-
-export const DeleteIcon = styled('img', {
-    width: '23px',
-    height: '23px',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    
-    '&:hover': {
-        backgroundColor: 'rgba(128, 128, 128, 0.2)'
-    }
+export const QrCodeButton = styled('button', {
+    backgroundColor: '#28a745',
+    height: 'fit-content',
+    padding: '8px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    borderRadius: '10px',
+    color: 'white'
 })

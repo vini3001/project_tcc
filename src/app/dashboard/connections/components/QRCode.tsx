@@ -25,7 +25,6 @@ export function QrCode({closeModal}: QrCode) {
     }
 
     useQuery({queryKey: 'connectInstance', queryFn: () => {
-        setIsLoading(true)
         routeConnectInstance.request({})
         .then(async (response) => {
 
@@ -41,7 +40,7 @@ export function QrCode({closeModal}: QrCode) {
             toastError('Erro ao conectar instância!')
             closeModal()
         })
-    }, refetchInterval: 6000
+    }, refetchInterval: 10000
    })
 
     return (

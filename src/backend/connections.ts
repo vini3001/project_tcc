@@ -1,7 +1,7 @@
-import { Connection } from "@/app/entities/Connection";
+import { Connection, ConnectionResponse } from "@/app/entities/Connection";
 import { Route } from ".";
 
-export const routeListConnections = new Route<Connection, Connection[]>({
+export const routeListConnections = new Route<Connection, ConnectionResponse>({
     path: '/instancias?nome_instance=tcc',
     method: 'GET'
 })

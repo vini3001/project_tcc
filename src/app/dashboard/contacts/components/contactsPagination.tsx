@@ -33,8 +33,7 @@ export default function Items({currentItems}: ItemsProps) {
     async function handleDeleteContact(contact?: Contact) {
        await routeDeleteContact.request({id: contact!.id}).then((data) => {
         toastSuccess('contato deletado com sucesso!')
-        setInterval(() => {}, 1000)
-        location.reload()
+        setInterval(() => {location.reload()}, 3000)
        })
     }
 
@@ -59,7 +58,7 @@ export default function Items({currentItems}: ItemsProps) {
                         <td>{item.nome}</td>
                         <td>{item.email}</td>
                         <td>{item.celular}</td>
-                        <td>{item.data_registro}</td>
+                        <td>{item.data_registro !== undefined && String(new Date(item.data_registro).toLocaleDateString())}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
                             <EditIcon src={editIcon.src} onClick={() => {handleOpenModalEdit(item)}}/>
                             <DeleteIcon src={trashIcon.src} onClick={() => {handleDeleteContact(item)}}/>

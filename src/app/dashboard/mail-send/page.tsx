@@ -11,6 +11,7 @@ import { routeListTags } from "@/backend/tag";
 import { Tag } from "@/app/entities/Tag";
 import AddTag, { ListTags } from "./components/addTag";
 import { useQueries, useQuery } from "react-query";
+import { HeaderText } from "@/app/global/styles/style";
 
 export default function MailSend() {
     const [isOpenContactModel, setIsOpenContactModel] = useState(false)
@@ -58,47 +59,53 @@ export default function MailSend() {
     }
     return (
         <section className="flex flex-col gap-5">
-            <div className="flex flex-row relative">
-                <MailSendContainer className="max-h-[50vh] overflow-auto">
-                <div className="bg-gray-300 p-[10px] rounded-t-lg">
+            <div className="flex flex-col">
+                <HeaderText>Conversas</HeaderText>
+                <div className="flex flex-row relative">
+                    <MailSendContainer className="max-h-[50vh] overflow-auto">
+                    <div className="bg-gray-300 p-[10px] rounded-t-lg">
+                    </div>
+                    <MailSendContent>
+                        {contacts.map((item) => {
+                            return (
+                                <div key={item.id}>
+                                <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} className="relative p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
+                                <h5>{item.nome}</h5>
+                                <a>{item.celular} - { item.tags.length !== 0 && item.tags[0]}</a>
+                                {isOpenTags && selectedContact === item && 
+                                    <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
+                                }
+                                </div>
+                                <hr className="m-0" />
+                                </div>
+                            )
+                        })}
+                    </MailSendContent>
+                    <div className="bg-gray-300 p-[10px] rounded-b-lg" />
+                    </MailSendContainer>
+                    {isOpenContactModel && 
+                        <MailSendSideChatContact contact={selectedContact} close={() => {setIsOpenContactModel(false)}}/>
+                    }
                 </div>
-                <MailSendContent>
-                    {contacts.map((item) => {
-                        return (
-                            <div key={item.nome}>
-                            <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} className="relative p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
-                            <h5>{item.nome}</h5>
-                            <a>{item.celular} - { item.tags.length !== 0 && item.tags[0]}</a>
-                            {isOpenTags && selectedContact === item && 
-                                <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
-                            }
-                            </div>
-                            <hr className="m-0" />
-                            </div>
-                        )
-                    })}
-                </MailSendContent>
-                <div className="bg-gray-300 p-[10px] rounded-b-lg" />
-                </MailSendContainer>
-                {isOpenContactModel && 
-                    <MailSendSideChatContact contact={selectedContact} close={() => {setIsOpenContactModel(false)}}/>
-                }
             </div>
             {isOpenListTags &&
                     <ListTags contact={selectedContact} closeModal={() => {setIsOpenListTags(!isOpenListTags)}}/>
                 }
-            <div className="flex flex-row relative">
+            
+            <div className="flex flex-col relative">
+            <HeaderText>Tags</HeaderText>
+            <div className="flex flex-row">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
                 <div className="bg-gray-300 p-[10px] rounded-t-lg" />
                 <MailSendContent>
                     {tags.map((item) => {
                         return (
-                            <>
-                            <div id="contactCard" key={item.id} className="p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenGroupDetails(item)}}>
+                            <div key={item.id} onClick={() =>{handleOpenGroupDetails(item)}}>
+                            <div id="contactCard"  className="p-3 cursor-pointer hover:bg-gray-50" >
                             <h5>{item.tag}</h5>
                             </div>
                             <hr className="m-0" />
-                            </>
+                            </div>
                         )
                     })}
                 </MailSendContent>
@@ -107,6 +114,7 @@ export default function MailSend() {
                 {isOpenGroupModel && 
                     <MailSendSideChatGroup tag={selectedTag} close={() => {setIsOpenGroupModel(false)}}/>
                 }
+            </div>
             </div>
         </section>
     )

@@ -33,6 +33,7 @@ export const MailSendChatSideContent = styled('div', {
     flexDirection: 'column',
     //padding: '10px',
     //border: '2px solid rgba(0, 0, 0, 0.1)',
+    zIndex: '25',
     borderRadius: '10px',
     boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 })

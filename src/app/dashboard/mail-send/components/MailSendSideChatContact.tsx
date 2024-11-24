@@ -73,7 +73,6 @@ export default function MailSendSideChat({contact, close}: MailSendSideChatProps
                     <GoBackIcon onClick={handleCloseSideMenu} src={goBackIcon.src} />
                     <h3>{contact!.nome}</h3>
                 </div>
-                <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
             </MailSendHeader>
             <MailSendChatBox>             
                     {!isLoading ? messages.map((mensagem) => {

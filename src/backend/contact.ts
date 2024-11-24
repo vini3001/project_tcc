@@ -12,6 +12,6 @@ export const routeEditContact = new Route<ContactRequest, Contact>({
 })
 
 export const routeDeleteContact = new Route<{id: number}, {}>({
-    path: '/contatos/delete',
+    path: '/contatos',
     method: 'DELETE'
 })

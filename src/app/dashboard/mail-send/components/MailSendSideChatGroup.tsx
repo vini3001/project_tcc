@@ -34,8 +34,9 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
         .then((response) => {
             let participantsList: Contact[] = []
             participantsList = response.data!.filter((item) => {
-                item.tags[0] === tag?.tag[0]
+                return item.tags[0] === tag?.tag
             })
+            console.log(participantsList)
 
             setParticipants(participantsList)            
         }) 
@@ -101,13 +102,12 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
     }
 
     return (
-        <MailSendChatSideContent className="bg-gray-300">
+        <MailSendChatSideContent className="bg-gray-300 -top-4">
             <MailSendHeader>
                 <div className="flex flex-row items-center">
                     <GoBackIcon onClick={handleCloseSideMenu} src={goBackIcon.src} />
                     <h3>{tag!.tag}</h3>
                 </div>
-                <ThreeDots onClick={handleOpenModal} src={threeDots.src} />
             </MailSendHeader>
             <MailSendChatBox>             
                     {isLoading === false ? messages.map((mensagem) => {
