@@ -82,7 +82,8 @@ export function PaginatedItems({itemsPerPage, clientId}: PaginatedItems) {
     queryFn: async () => {
         setIsLoading(true)
         const result = await routeListUser.request({}).then((users) => {
-          return users.data?.filter((data) => {data.id_cliente === clientId})
+          return users.data?.filter((data) => {
+            return data.id_cliente === clientId})
         })
 
         if(result !== undefined) {
