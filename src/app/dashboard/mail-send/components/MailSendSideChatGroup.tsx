@@ -12,10 +12,10 @@ import { routeConnectInstance, routeGetMessages, routeListParticipants, routeSen
 import { toastError } from "@/utils/toastify";
 import { useQuery } from "react-query";
 import { Loading } from "@/app/components/Loading";
-import { Tag } from "@/app/entities/Tag";
+import { Tag, TagResponse } from "@/app/entities/Tag";
 import { routeListContacts } from "@/backend/contact";
 import { Contact } from "@/app/entities/Contact";
-import { routeSendMessageBackend } from "@/backend/message";
+import { routeGetMessagesByTag, routeSendMessageBackend } from "@/backend/message";
 
 interface MailSendSideChatProps {
     tag: Tag | undefined
@@ -41,21 +41,23 @@ export default function MailSendSideChat({tag, close}: MailSendSideChatProps) {
             setParticipants(participantsList)            
         }) 
     }})
-  /*
+
     const {refetch} = useQuery({queryKey: 'listMessages', queryFn: () => {
-        routeGetMessages.request({})
+        routeGetMessagesByTag.request({id: tag!.id})
         .then((response) => {
-            let messagesList: String[] = []
-            response.data?.map((item) => {
-                if (item.messageType === 'extendedTextMessage' && item.key.remoteJid.substring(0, 13) === '55' + contact!.celular) {
-                   messagesList.push(item.message.extendedTextMessage.text)
-                }
-            })
+            let messagesList: string[] = []
+            
+            if(response.data !== undefined){
+                messagesList = response.data.map((item) => {
+                    return item.mensagem
+                })
+            }
+
             setIsLoading(false)
             setMessages(messagesList) 
         }) 
        }
-    })*/
+    })
 
     function handleCloseSideMenu() {
         close()
