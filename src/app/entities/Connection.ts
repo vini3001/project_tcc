@@ -8,6 +8,7 @@ export type ConnectionResponse = {
     data: {
         id: number,
         instance: string,
+        data_reg: Date,
         token: string
     }[]
 }

@@ -21,6 +21,7 @@ export default function Items({currentItems}: ItemsProps) {
   const [isOpenConnect, setIsOpenConnect] = useState(false)
 
     function handleOpenModalQRCode() {
+      console.log('teste')
       setIsOpenConnect(!isOpenConnect)
     }
 
@@ -31,7 +32,7 @@ export default function Items({currentItems}: ItemsProps) {
             <thead>
                 <tr>
                     <th>INSTÂNCIA</th>
-                    <th>STATUS</th>
+                    <th>TOKEN</th>
                     <th>ÚLTIMA ATUALIZAÇÃO</th>
                     <th style={{borderRight: 'none'}}>AÇÃO</th>
                 </tr>
@@ -42,9 +43,9 @@ export default function Items({currentItems}: ItemsProps) {
                     <tr>
                         <td>{item.instance}</td>
                         <td>{item.token}</td>
-                        <td>Ativa</td>
+                        <td>{item.data_reg !== undefined && String(new Date(item.data_reg).toLocaleDateString())}</td>
                         <td style={{display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'center'}}>
-                              <QrCodeButton onClick={() => {handleOpenModalQRCode}}>Qr Code</QrCodeButton>
+                              <QrCodeButton onClick={handleOpenModalQRCode}>Qr Code</QrCodeButton>
                         </td>
                     </tr>
                 </tbody>
@@ -72,7 +73,11 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
         const result = await routeListConnections.request({
           instance: 'tcc',
           token: '4br3rn8ghtbw9ymkt8ucl'
-        }).then((clients) => {return clients.data})
+        }).then((clients) => {
+          return clients.data!.data.filter((data) => {
+            return data.instance === 'tcc'
+          })
+        })
         if(result !== undefined) {
           setIsLoading(false)
           return result
@@ -81,16 +86,15 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
     enabled: token != '' && userId != 0,
     refetchOnWindowFocus:false
   })
-  data !== undefined && console.log(data.data)
 
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = data !== undefined ? data!.data.slice(itemOffset, endOffset) : [];
-  const pageCount = data !== undefined ? Math.ceil(data!.data.length / itemsPerPage) : 0;
+  const currentItems = data !== undefined ? data!.slice(itemOffset, endOffset) : [];
+  const pageCount = data !== undefined ? Math.ceil(data!.length / itemsPerPage) : 0;
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: { selected: number; }) => {
-    const newOffset = data !== undefined ? (event.selected * itemsPerPage) % data!.data.length : 0;
+    const newOffset = data !== undefined ? (event.selected * itemsPerPage) % data!.length : 0;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );

@@ -2,7 +2,7 @@ import { Connection, ConnectionResponse } from "@/app/entities/Connection";
 import { Route } from ".";
 
 export const routeListConnections = new Route<Connection, ConnectionResponse>({
-    path: '/instancias?nome_instance=tcc',
+    path: '/instancias',
     method: 'GET'
 })
 
