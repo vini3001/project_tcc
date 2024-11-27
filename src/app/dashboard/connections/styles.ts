@@ -56,6 +56,7 @@ export const Table = styled('table', {
 })
 
 export const QrCodeButton = styled('button', {
+    width: '60%',
     backgroundColor: '#28a745',
     height: 'fit-content',
     padding: '8px',
