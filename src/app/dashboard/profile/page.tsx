@@ -19,16 +19,12 @@ export default function PerfilPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {userId} = useAuth()
 
-    useEffect(() => {
-        async function getUser() {
+    useQuery({queryKey: 'getUser', queryFn: async () => {
             await routeGetUser.request({id: userId as number}).then((item) => {
                 setUser(item.data)
                 setIsLoading(false)
                })
-        }
-
-        getUser()
-    }, [userId])
+    }})
 
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
     function onSubmit(data: User) {
