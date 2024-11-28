@@ -24,5 +24,5 @@ export const routeDeleteUser = new Route<{id: number}, {}>({
 
 export const routeEditUser = new Route<User, {}>({
     path: '/usuarios',
-    method: 'PUT'
+    method: 'PATCH'
 })

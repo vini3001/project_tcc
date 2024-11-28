@@ -12,6 +12,7 @@ import { Tag } from "@/app/entities/Tag";
 import AddTag, { ListTags } from "./components/addTag";
 import { useQueries, useQuery } from "react-query";
 import { HeaderText } from "@/app/global/styles/style";
+import { Loading } from "@/app/components/Loading";
 
 export default function MailSend() {
     const [isOpenContactModel, setIsOpenContactModel] = useState(false)
@@ -22,17 +23,27 @@ export default function MailSend() {
     const [selectedTag, setSelectedTag] = useState<Tag>()
     const [contacts, setContacts] = useState<Contact[]>([])
     const [tags, setTags] = useState<Tag[]>([])
+    const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(true)
+    const [isLoadingTags, setIsLoadingTags] = useState<boolean>(true)
 
     useQueries([
         {queryKey: 'listContacts', queryFn: () => {
             routeListContacts.request({})
-            .then((response) => {response.data !== undefined && setContacts(response.data)})
+            .then((response) => {if(response.data !== undefined) {
+                setContacts(response.data)
+                setIsLoadingContacts(false)
+            } })
             .catch((err) => {throw toastError('Falha ao listar contatos!')})
         }},
 
         {queryKey: 'listTags', queryFn: () => {
             routeListTags.request({})
-            .then((response) => {response.data !== undefined && setTags(response.data) })
+            .then((response) => {
+                if(response.data !== undefined) {
+                    setTags(response.data)
+                    setIsLoadingTags(false)
+                } })
+            .catch((err) => {throw toastError('Falha ao listar contatos!')})
         }}
     ])
 
@@ -65,22 +76,23 @@ export default function MailSend() {
                     <MailSendContainer className="max-h-[50vh] overflow-auto">
                     <div className="bg-gray-300 p-[10px] rounded-t-lg">
                     </div>
+                    {!isLoadingContacts ? 
                     <MailSendContent>
-                        {contacts.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} className="relative p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
-                                <h5>{item.nome}</h5>
-                                <a>{item.celular} - { item.tags.length !== 0 && item.tags[0]}</a>
-                                {isOpenTags && selectedContact === item && 
-                                    <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
-                                }
-                                </div>
-                                <hr className="m-0" />
-                                </div>
-                            )
-                        })}
-                    </MailSendContent>
+                    {contacts.map((item) => {
+                        return (
+                            <div key={item.id}>
+                            <div id="contactCard" onContextMenu={() => {handleOpenTags(item)}} className="relative p-3 cursor-pointer hover:bg-gray-50" onClick={() =>{handleOpenContactDetails(item)}}>
+                            <h5>{item.nome}</h5>
+                            <a>{item.celular} - { item.tags.length !== 0 && item.tags[0]}</a>
+                            {isOpenTags && selectedContact === item && 
+                                <AddTag openModal={() => {setIsOpenListTags(!isOpenListTags)}} />
+                            }
+                            </div>
+                            <hr className="m-0" />
+                            </div>
+                        )
+                    })}
+                    </MailSendContent> : <Loading isLoading={true} />}
                     <div className="bg-gray-300 p-[10px] rounded-b-lg" />
                     </MailSendContainer>
                     {isOpenContactModel && 
@@ -97,18 +109,19 @@ export default function MailSend() {
             <div className="flex flex-row">
                 <MailSendContainer className="max-h-[50vh] overflow-auto">
                 <div className="bg-gray-300 p-[10px] rounded-t-lg" />
+                {!isLoadingTags ?
                 <MailSendContent>
-                    {tags.map((item) => {
-                        return (
-                            <div key={item.id} onClick={() =>{handleOpenGroupDetails(item)}}>
-                            <div id="contactCard"  className="p-3 cursor-pointer hover:bg-gray-50" >
-                            <h5>{item.tag}</h5>
-                            </div>
-                            <hr className="m-0" />
-                            </div>
-                        )
-                    })}
-                </MailSendContent>
+                {tags.map((item) => {
+                    return (
+                        <div key={item.id} onClick={() =>{handleOpenGroupDetails(item)}}>
+                        <div id="contactCard"  className="p-3 cursor-pointer hover:bg-gray-50" >
+                        <h5>{item.tag}</h5>
+                        </div>
+                        <hr className="m-0" />
+                        </div>
+                    )
+                })}
+                </MailSendContent> : <Loading isLoading={true} />}
                 <div className="bg-gray-300 p-[10px] rounded-b-lg" />
                 </MailSendContainer>
                 {isOpenGroupModel && 

@@ -60,10 +60,10 @@ export default function PerfilPage() {
 
                 <div>
                     <h4>Senha</h4>
-                    <input {...register('password')} defaultValue={user!.password !== undefined ? user!.password : ''}/>
+                    <input {...register('password')} />
                 </div>
 
-                <input  />
+                <input {...register('id')} value={userId} hidden/>
                 <InputButton type="submit">Editar</InputButton>
             </ProfileContent>
         </ProfileContainer> 

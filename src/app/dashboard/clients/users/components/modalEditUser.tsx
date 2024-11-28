@@ -63,7 +63,7 @@ export default function ModalUser({closeModal, user}: UserProps) {
 
                                 <div className="flex flex-col w-full justify-between items-start">
                                     <InputLabel>Senha</InputLabel>
-                                    <InputCustom type="text" {...register("password")} defaultValue={user!.password}/>
+                                    <InputCustom type="text" {...register("password")} />
                                 </div>  
                             </div>
 

@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { routeListConnections } from '@/backend/connections';
 import { ConnectionResponse } from '@/app/entities/Connection';
 import { QrCode } from './QRCode';
+import { Loading } from '@/app/components/Loading';
 
 interface ItemsProps {
   currentItems: ConnectionResponse['data'];
@@ -103,8 +104,7 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
 
   return (
     <>
-      <Items currentItems={currentItems} />
-      <CustomLabelPaginate
+      {!isLoading ? <><Items currentItems={currentItems} /><CustomLabelPaginate
         activeClassName='bg-[#2a71be] text-white'
         className='mt-2'
         breakLabel="..."
@@ -114,8 +114,7 @@ export function PaginatedItems({itemsPerPage}: PaginatedItems) {
         onPageChange={handlePageClick}
         pageCount={pageCount}
         previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
+        renderOnZeroPageCount={null} /></> : <Loading isLoading={true} />}
     </>
   );
 }

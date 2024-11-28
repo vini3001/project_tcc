@@ -7,29 +7,33 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { routeGetDashboardInfo } from "@/backend/dashboard";
 import { DashboardInfo } from "@/app/entities/Dashboard";
+import { Loading } from "@/app/components/Loading";
 
 export default function Home() {
   const [dashInfo, setDashInfo] = useState<DashboardInfo>()
-  const [isLoading, setIsLoading] = useState<boolean>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   
-    const {data} = useQuery({
+    useQuery({
       queryKey: 'dashboardInfo',
       queryFn: async () => {
           setIsLoading(true)
   
-          const result = await routeGetDashboardInfo.request({}).then((response) => {
-            setDashInfo(response.data)
+          const response = await routeGetDashboardInfo.request({}).then((response) => {
+            // @ts-ignore
+            if(response.data !== undefined && response.data!.tagsComContagem.length !== 0) {
+              setDashInfo(response.data)
+              setIsLoading(false)
+            }
           })
-          if(result !== undefined) {
-            setIsLoading(false)
-            return result
-          }
+
+          return response
       },
       refetchOnWindowFocus:false
     })
 
     return (
-        <div>
+        <div className="h-full">
+          {!isLoading ? 
           <div className="flex flex-col gap-3">
           <InfoContainer className="flex flex-col overflow-hidden">
           <HeaderDashboard>
@@ -112,7 +116,7 @@ export default function Home() {
                 </VictorySharedEvents>
             </svg>
           </HomeContainer>
-            </div>
+            </div> : <Loading isLoading={true} />}
         </div>    
     )
 }
